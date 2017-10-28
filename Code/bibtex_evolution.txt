@@ -1,0 +1,278 @@
+RED
+
+Test code.
+import bibtex
+import unittest
+
+class TestBibtexExtract(unittest.TestCase):
+    def setUp(self):
+        self.simple_entry = "@Book{key,\n\
+        author={Smith, John},\n\
+        title={A very silly book},\n\
+        publisher = {Silly Publisher},\n\
+        year={1987}\n\
+        }"
+    def test_init(self):
+        entry = bibtex.entry_type(self.simple_entry)
+        self.assertEqual(entry,'Book')
+if __name__ == '__main__':
+    unittest.main()
+
+GREEN
+def entry_type(entry):
+    pos_at = entry.find('@')
+    pos_first_bracket = entry.find('{')
+    return(entry[pos_at:pos_first_bracket])
+
+Fails.
+ self.assertEqual(entry,'Book')
+ AssertionError: '@Book' != 'Book'
+
+So need get the correct substring.
+
+def entry_type(entry):
+    pos_at = entry.find('@')
+    pos_first_bracket = entry.find('{')
+    return(entry[pos_at+1:pos_first_bracket])
+
+
+RED
+ We'll add another test for good measure.
+
+class TestBibtexExtract(unittest.TestCase):
+    def setUp(self):
+        self.bibtex_entry_1 = "@Book{key1,\n\
+        author={Smith, John},\n\
+        title={A very silly book},\n\
+        publisher = {Silly Publisher},\n\
+        year={1987}\n\
+        }"
+        self.bibtex_entry_2 = "@Article{key2,\n\
+        author={Smith, John},\n\
+        title={A very silly book},\n\
+        publisher = {Silly Publisher},\n\
+        year={1987}\n\
+        }"
+    def test_entry_type(self):
+        entry_1 = bibtex.entry_type(self.bibtex_entry_1)
+        self.assertEqual(entry_1,'Book')
+        entry_2 = bibtex.entry_type(self.bibtex_entry_2)
+        self.assertEqual(entry_2,'Article')
+
+We are still not at red. We need to find a test that fails.
+From a bibtex entry we need to get the key.
+
+    def test_get_key(self):
+        entry_1 = bibtex.get_key(self.bibtex_entry_1)
+        self.assertEqual(entry_1,'key1')
+        entry_2 = bibtex.get_key(self.bibtex_entry_2)
+        self.assertEqual(entry_2,'key2')
+
+Now we have a test that fails.
+
+GREEN
+So we better write the function.
+
+def get_key(entry):
+    pos_first_bracket = entry.find('{')
+    #We know that the key is after the '{' until the ','
+    pos_first_comma = entry.find(',')
+    return(entry[pos_first_bracket+1:pos_first_comma])
+
+RED
+ We want to extract each entry. An entry is 
+   fieldname = {stuff}
+Remember that we are assuming that our entries are correctly
+formatted. Something else takes case of that. I want a routine that
+ returns a list of tuples (fieldname,stuff)
+
+
+    def test_get_entries(self):
+        list_1 = bibtex.get_entries(self.bibtex_entry_1)
+        list_1_correct = [('author','Smith, John'),
+                          ('title','A very silly book'),
+                          ('publisher','Silly Publisher'),
+                          ('year',1987)]
+        self.assertEqual(list_1,list_1_correct)
+        list_2 = bibtex.get_entries(self.bibtex_entry_2)
+        list_2_correct = [('author','Smith, John'),
+                          ('title','Another very silly article'),
+                          ('publisher','Silly Publisher'),
+                          ('year','1988')]
+        self.assertEqual(list_2,list_2_correct)
+
+
+
+Of course the test fails.
+
+
+GREEN
+Well the code looks something like
+def get_entries(entry):
+    position = entry.find(',')
+    #We are interested every thing after '@Article{key,'
+    entry = entry[position:]
+    return_list = []
+    at_end_of_entry = False
+    while(not at_end_of_entry):
+        #If there is only a closing '}'  and no '{' then we are at the
+        #end of the entry.
+        if entry.find('{') == -1:
+            at_end_of_entry = True
+        else:
+            #We consume the string use parition to get every thing before and
+            #after the '='. The stuff before is the field name.
+            (field_name, _ , entry) = entry.partition('=')
+            (stuff,entry) = find_stuff(entry)
+            return_list.append(field_name.strip(),stuff)
+    return(return_list)
+
+def find_stuff(entry):
+    pass
+
+The tests fail, obviously. We also have to write the find_stuff
+function. Which means we have to write some tests to decide what the
+function should do.
+
+
+
+Find the { {{{ }}} } pair. We balance the brackets and extract the
+stuff in the middle and return the rest of the entry. Write the tests.
+
+RED
+    def test_find_stuff(self):
+        entry_1 = '{ stuff1 } the rest of the stuff'
+        (stuff1,rest_entry) = bibtex.find_stuff(entry_1)
+        self.assertEqual(stuff1,'stuff1')
+        self.assertEqual(rest_entry,' the rest of the stuff')
+        entry_2 = '{ stuff{more stuff}} the rest of the stuff'
+        (stuff2,rest_of_entry_2) = bibtex.find_stuff(entry_2)
+        self.assertEqual(stuff2,'stuff{more stuff}')
+        self.assertEqual(rest_of_entry_2,' the rest of the stuff')
+
+GREEN 
+ It took a while for me to get the string indexing right. But, I had
+ the tests.
+def find_stuff(entry):
+    start_pos = entry.find('{')+1
+    position = start_pos
+    #The goal is to find the a mathcing '}' in the string.
+    #But we need to keep track of the bracket level.
+    #We assume that the string does have a closing '}' and the
+    #brackets match. No error checking is done. I assume that
+    #the entry is well formed.
+    bracket_level = 1
+    while(bracket_level != 0):
+        print("position = ",position)
+        print("entry = ",entry[position])
+        if entry[position] == '{':
+            bracket_level = bracket_level + 1
+        if entry[position] == '}':
+            bracket_level = bracket_level - 1
+        position = position + 1
+    stuff = entry[start_pos:position-1]
+    rest = entry[position:]
+    return (stuff.strip(),rest)
+    
+
+We are still in condition red. Lots of failures now. For example:
+
+======================================================================
+FAIL: test_get_entries (__main__.TestBibtexExtract)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/var/folders/Ga/Ga5q0tQzEbSDc7-PDs0xgU+++TM/-Tmp-/Python3.25158RJX.py", line 37, in test_get_entries
+    self.assertEqual(list_1,list_1_correct)
+AssertionError: Lists differ: [(',\n        author', 'Smith,... != [('author', 'Smith, John'), ('...
+
+First differing element 0:
+(',\n        author', 'Smith, John')
+('author', 'Smith, John')
+
+- [(',\n        author', 'Smith, John'),
+?    -----------
+
++ [('author', 'Smith, John'),
+-  (',\n        title', 'A very silly book'),
+?    -----------
+
++  ('title', 'A very silly book'),
+-  (',\n        publisher', 'Silly Publisher'),
+?    -----------
+
++  ('publisher', 'Silly Publisher'),
+-  (',\n        year', '1987')]
++  ('year', 1987)]
+
+----------------------------------------------------------------------
+
+So it looks like a problem with striping out the newlines.
+
+Looking at the manual for strip we have the possibility.
+
+string.strip(s[, chars]) 
+
+Return a copy of the string with leading and trailing characters
+ removed. If chars is omitted or None, whitespace characters are
+ removed. If given and not None, chars must be a string; the
+ characters in the string will be stripped from the both ends of the
+ string this method is called on.
+
+So time to modify the code.
+
+Turn all the s.strip into s.strip('\n ')
+
+But we still fail the tests.
+
+Look more closely at the test cases and we see for example
+(',\n        author', 'Smith, John')
+is not equal to 
+('author', 'Smith, John')
+
+So there is come problem  the logic. We are not processing the ',' in
+the entry list properly. One way to try and fix it is to strip the ','
+as well. Hey, don't think if it is a good idea, just test!
+
+Well our first test still fails.
+======================================================================
+FAIL: test_get_entries (__main__.TestBibtexExtract)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_bibtex.py", line 35, in test_get_entries
+    self.assertEqual(list_1,list_1_correct)
+AssertionError: [('author', 'Smith, John'),
+                 ('title', 'A very silly book'), 
+                ('publisher', 'Silly Publisher'), 
+                ('year', '1987')] !=
+ [('author', 'Smith, John'), 
+  ('title', 'A very silly book'), 
+  ('publisher', 'Silly Publisher'), 
+ ('year', 1987)]
+
+Mmm, well I got the test wrong. I forgot to enclose 1987 in quotes to
+make it a test.
+
+    def test_get_entries(self):
+        list_1 = bibtex.get_entries(self.bibtex_entry_1)
+        list_1_correct = [('author','Smith, John'),
+                          ('title','A very silly book'),
+                          ('publisher','Silly Publisher'),
+                          ('year','1987')]
+        self.assertEqual(list_1,list_1_correct)
+        list_2 = bibtex.get_entries(self.bibtex_entry_2)
+        list_2_correct = [('author','Smith, John'),
+                          ('title','Another very silly article'),
+                          ('publisher','Silly Publisher'),
+                          ('year','1988')]
+        self.assertEqual(list_2,list_2_correct)
+
+
+Now all tests pass.
+
+
+To make this stuff a bit more python like you would construct a
+dictionary out of these tuples. Look up dictionaries in the manual.
+
+
+
+ 

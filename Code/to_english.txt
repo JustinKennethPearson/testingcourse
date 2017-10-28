@@ -1,0 +1,546 @@
+-------
+def toEnglish(n):
+    """ Converts a number between 0 and 999 to English """
+pass
+------- 
+ self.assertEqual(toEnglish.toEnglish(0),'zero')
+
+=====================================================================
+FAIL: test_simple (__main__.TesttoEnglish)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_toEnglish.py", line 7, in test_simple
+    self.assertEqual(toEnglish.toEnglish(0),'zero')
+AssertionError: None != 'zero'
+
+----------------------------------------------------------------------
+Ran 1 test in 0.017s
+
+FAILED (failures=1)
+
+def toEnglish(n):
+    """ Converts a number between 0 and 999 to English """
+    return('zero')
+
+All tests passed.
+
+Add the test
+   self.assertEqual(toEnglish.toEnglish(1),'one')
+
+======================================================================
+FAIL: test_simple (__main__.TesttoEnglish)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_toEnglish.py", line 8, in test_simple
+    self.assertEqual(toEnglish.toEnglish(1),'one')
+AssertionError: 'zero' != 'one'
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+FAILED (failures=1)
+
+Code becomes
+
+def toEnglish(n):
+    """ Converts a number between 0 and 999 to English """
+    if   n==0:
+        return('zero')
+    elif n==1:
+        return('one')
+
+All tests passed.
+
+Add the test
+        self.assertEqual(toEnglish.toEnglish(2),'two')
+
+=====================================================================
+FAIL: test_simple (__main__.TesttoEnglish)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_toEnglish.py", line 9, in test_simple
+    self.assertEqual(toEnglish.toEnglish(2),'three')
+AssertionError: None != 'three'
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+So code becomes
+
+
+def toEnglish(n):
+    """ Converts a number between 0 and 999 to English """
+    if   n==0:
+        return('zero')
+    elif n==1:
+        return('one')
+    elif n==2:
+        return('two')
+
+and so on
+
+        self.assertEqual(toEnglish.toEnglish(3),'three')
+        self.assertEqual(toEnglish.toEnglish(4),'four')
+        self.assertEqual(toEnglish.toEnglish(5),'five')
+        self.assertEqual(toEnglish.toEnglish(6),'six')
+        self.assertEqual(toEnglish.toEnglish(7),'seven')
+        self.assertEqual(toEnglish.toEnglish(8),'eight')
+        self.assertEqual(toEnglish.toEnglish(9),'nine')
+        self.assertEqual(toEnglish.toEnglish(10),'ten')
+        self.assertEqual(toEnglish.toEnglish(11),'eleven')
+
+Makes the code become
+
+
+def toEnglish(n):
+    """ Converts a number between 0 and 999 to English """
+    if   n==0:
+        return('zero')
+    elif n==1:
+        return('one')
+    elif n==2:
+        return('two')
+    elif n==3:
+        return('three')
+    elif n==4:
+        return('four')
+    elif n==5:
+        return('five')
+    elif n==6:
+        return('six')
+    elif n==7:
+        return('seven')
+    elif n==8:
+        return('eight')
+    elif n==9:
+        return('nine')
+    elif n==10:
+        return('ten')
+    elif n==11:
+        return('eleven')
+
+Why don't we refactor? Use a list instead of  a bunch of if elif.
+
+def toEnglish(n):
+    """ Converts a number between 0 and 999 to English """
+    numbers = ['zero','one','two','three','four','five','six',
+               'seven','eight','nine','ten','eleven']
+    return(numbers[n])
+
+
+All tests passed.
+
+        self.assertEqual(toEnglish.toEnglish(12),'twelve')	
+        self.assertEqual(toEnglish.toEnglish(13),'thirteen')	
+        self.assertEqual(toEnglish.toEnglish(14),'fourteen')
+        self.assertEqual(toEnglish.toEnglish(15),'fifteen')
+        self.assertEqual(toEnglish.toEnglish(16),'sixteen')
+        self.assertEqual(toEnglish.toEnglish(17),'seventeen')
+        self.assertEqual(toEnglish.toEnglish(18),'eighteen')
+        self.assertEqual(toEnglish.toEnglish(19),'nineteen')
+        self.assertEqual(toEnglish.toEnglish(20),'twenty')
+        self.assertEqual(toEnglish.toEnglish(21),'twenty one')
+
+Makes the code become
+def toEnglish(n):
+    """ Converts a number between 0 and 999 to English """
+    numbers = ['zero','one','two','three','four','five','six',
+               'seven','eight','nine','ten','eleven','twelve',
+               'thirteen','fourteen','fifteen','sixteen',
+               'seventeen','eighteen','nineteen','twenty','twenty one']
+    return(numbers[n])
+
+Time to refactor 'twenty one' is 'twenty' + ' ' + 'one'
+
+def toEnglish(n):
+    """ Converts a number between 0 and 999 to English """
+    numbers = ['zero','one','two','three','four','five','six',
+               'seven','eight','nine','ten','eleven','twelve',
+               'thirteen','fourteen','fifteen','sixteen',
+               'seventeen','eighteen','nineteen','twenty','twenty one']
+    if n in range(0,20):
+        return(numbers[n])
+    else:
+        return('twenty' + ' ' + numbers[n-20])
+    
+
+======================================================================
+FAIL: test_simple (__main__.TesttoEnglish)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_toEnglish.py", line 27, in test_simple
+    self.assertEqual(toEnglish.toEnglish(20),'twenty')
+AssertionError: 'twenty zero' != 'twenty'
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+FAILED (failures=1)
+
+
+Ooops range(0,20) produces 0,1,...,19
+
+So new version.
+
+def toEnglish(n):
+    """ Converts a number between 0 and 999 to English """
+    numbers = ['zero','one','two','three','four','five','six',
+               'seven','eight','nine','ten','eleven','twelve',
+               'thirteen','fourteen','fifteen','sixteen',
+               'seventeen','eighteen','nineteen','twenty','twenty one']
+    if n in range(0,21):
+        return(numbers[n])
+    else:
+        return('twenty' + ' ' + numbers[n-20])
+*******You are here **************
+Yet more tests. We don't need them all.
+        self.assertEqual(toEnglish.toEnglish(22),'twenty two')
+        self.assertEqual(toEnglish.toEnglish(23),'twenty three')
+        self.assertEqual(toEnglish.toEnglish(29),'twenty nine')
+
+All tests passed.
+
+Add
+
+       self.assertEqual(toEnglish.toEnglish(30),'thirty')
+
+======================================================================
+FAIL: test_simple (__main__.TesttoEnglish)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_toEnglish.py", line 32, in test_simple
+    self.assertEqual(toEnglish.toEnglish(30),'thirty')
+AssertionError: 'twenty ten' != 'thirty'
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+
+======================================================================
+FAIL: test_simple (__main__.TesttoEnglish)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_toEnglish.py", line 32, in test_simple
+    self.assertEqual(toEnglish.toEnglish(30),'thirty')
+AssertionError: 'thirty zero' != 'thirty'
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+FAILED (failures=1)
+
+Mmm. I forgot to treat 30 as a special case.
+
+def toEnglish(n):
+    """ Converts a number between 0 and 999 to English """
+    numbers = ['zero','one','two','three','four','five','six',
+               'seven','eight','nine','ten','eleven','twelve',
+               'thirteen','fourteen','fifteen','sixteen',
+               'seventeen','eighteen','nineteen','twenty','twenty one']
+    if n in range(0,21):
+        return(numbers[n])
+    elif n in range(21,30):
+        return('twenty' + ' ' + numbers[n-20])
+    elif n == 30 :
+        return('thirty')
+    elif n in range(31,40):
+        return('thirty' + ' ' + numbers[n-30])
+
+
+        self.assertEqual(toEnglish.toEnglish(32),'thirty two')
+        self.assertEqual(toEnglish.toEnglish(39),'thirty nine')
+
+All is going well.
+
+        self.assertEqual(toEnglish.toEnglish(40),'forty')
+        self.assertEqual(toEnglish.toEnglish(41),'forty one')
+        self.assertEqual(toEnglish.toEnglish(49),'forty nine')
+
+Makes it fail and forces us to write the code:
+
+
+def toEnglish(n):
+    """ Converts a number between 0 and 999 to English """
+    numbers = ['zero','one','two','three','four','five','six',
+               'seven','eight','nine','ten','eleven','twelve',
+               'thirteen','fourteen','fifteen','sixteen',
+               'seventeen','eighteen','nineteen','twenty','twenty one']
+    if n in range(0,21):
+        return(numbers[n])
+    elif n in range(21,30):
+        return('twenty' + ' ' + numbers[n-20])
+    elif n == 30 :
+        return('thirty')
+    elif n in range(31,40):
+        return('thirty' + ' ' + numbers[n-30])
+    elif n == 40:
+        return('forty')
+    elif n in range(41,50):
+        return('forty' + ' ' + numbers[n-40])
+
+We can refactor. We can work out the number of 10s and use another
+list.
+
+def toEnglish(n):
+    """ Converts a number between 0 and 999 to English """
+    numbers = ['zero','one','two','three','four','five','six',
+               'seven','eight','nine','ten','eleven','twelve',
+               'thirteen','fourteen','fifteen','sixteen',
+               'seventeen','eighteen','nineteen']
+    tens = ['twenty','thirty','forty','fifty','sixty',
+            'seventy','eighty','ninety']
+    numberOfTens  = n // 10
+    numberOfUnits = n % 10
+#We always treat the numbers 0-19 as special numbers.
+    if n in range(0,20):
+        return(numbers[n])
+    return_string = tens[numberOfTens]
+    if numberOfUnits > 0 :
+        return_string = return_string + ' ' + numbers[numberOfUnits]
+    return(return_string)
+    
+======================================================================
+FAIL: test_simple (__main__.TesttoEnglish)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_toEnglish.py", line 27, in test_simple
+    self.assertEqual(toEnglish.toEnglish(20),'twenty')
+AssertionError: 'forty' != 'twenty'
+
+----------------------------------------------------------------------
+Ran 1 test in 0.001s
+
+FAILED (failures=1)
+
+Ooops problem with tens I think.
+def toEnglish(n):
+    """ Converts a number between 0 and 999 to English """
+    numbers = ['zero','one','two','three','four','five','six',
+               'seven','eight','nine','ten','eleven','twelve',
+               'thirteen','fourteen','fifteen','sixteen',
+               'seventeen','eighteen','nineteen']
+    tens = ['','','twenty','thirty','forty','fifty','sixty',
+            'seventy','eighty','ninety']
+    numberOfTens  = n // 10
+    numberOfUnits = n % 10
+#We always treat the numbers 0-19 as special numbers.
+    if n in range(0,20):
+        return(numbers[n])
+    return_string = tens[numberOfTens]
+    if numberOfUnits > 0 :
+        return_string = return_string + ' ' + numbers[numberOfUnits]
+    return(return_string)
+    
+
+All is well up to 99.
+
+
+Add the test 
+         self.assertEqual(toEnglish.toEnglish(100),'one hundred')
+fails.
+
+So we rewrite the code with the minimal effort to pass the test (it was late in the day)
+
+
+def toEnglish(n):
+    """ Converts a number between 0 and 999 to English """
+    numbers = ['zero','one','two','three','four','five','six',
+               'seven','eight','nine','ten','eleven','twelve',
+               'thirteen','fourteen','fifteen','sixteen',
+               'seventeen','eighteen','nineteen']
+    tens = ['','','twenty','thirty','forty','fifty','sixty',
+            'seventy','eighty','ninety']
+    numberOfTens  = n // 10
+    numberOfUnits = n % 10
+#We always treat the numbers 0-19 as special numbers.
+    if n in range(0,20):
+        return(numbers[n])
+    elif numberOfTens in range(1,10):
+        return_string = tens[numberOfTens]
+        if numberOfUnits > 0 :
+            return_string = return_string + ' ' + numbers[numberOfUnits]
+        return(return_string)
+    return('one hundred')
+
+Now lets add test test
+        self.assertEqual(toEnglish.toEnglish(100),'one hundred')
+        self.assertEqual(toEnglish.toEnglish(200),'two hundred')
+
+def toEnglish(n):
+    """ Converts a number between 0 and 999 to English """
+    numbers = ['zero','one','two','three','four','five','six',
+               'seven','eight','nine','ten','eleven','twelve',
+               'thirteen','fourteen','fifteen','sixteen',
+               'seventeen','eighteen','nineteen']
+    tens = ['','','twenty','thirty','forty','fifty','sixty',
+            'seventy','eighty','ninety']
+    numberOfHundreds = n // 100
+    numberOfTens  = n // 10
+    numberOfUnits = n % 10
+#We always treat the numbers 0-19 as special numbers.
+    return_string = ''
+    if n in range(0,20):
+        return(numbers[n])
+    elif numberOfHundreds in range(1,10):
+        return_string = return_string + numbers[numberOfHundreds] + ' hundred'
+    elif numberOfTens in range(1,10):
+        return_string = return_string + tens[numberOfTens]
+        if numberOfUnits > 0 :
+            return_string = return_string + ' ' + numbers[numberOfUnits]
+    return(return_string)
+
+Next 
+        self.assertEqual(toEnglish.toEnglish(201),'two hundred and one')
+
+Of course the test fails. Next to implement
+Part of the problem is our numberOfTens calculation assumes that n is
+two digits and we got our logic wrong with the elif stuff. But we can
+do some refactoring and use toEnglish our selves
+
+ "k*100 + w" = toEnglish(k) + "hundred and " + toEnglish(w)
+
+
+New attempt
+def toEnglish(n):
+    """ Converts a number between 0 and 999 to English """
+    numbers = ['zero','one','two','three','four','five','six',
+               'seven','eight','nine','ten','eleven','twelve',
+               'thirteen','fourteen','fifteen','sixteen',
+               'seventeen','eighteen','nineteen']
+    tens = ['','','twenty','thirty','forty','fifty','sixty',
+            'seventy','eighty','ninety']
+    numberOfHundreds = n // 100
+    numberOfTens  = n // 10
+    numberOfUnits = n % 10
+#We always treat the numbers 0-19 as special numbers.
+    return_string = ''
+    if n in range(0,20):
+        return(numbers[n])
+    elif numberOfHundreds in range(1,10):
+        return_string = return_string + numbers[numberOfHundreds] + ' hundred'
+        n = n - numberOfHundreds*100
+        return_string = return_string + ' and ' + toEnglish(n)
+        return(return_string)
+    elif numberOfTens in range(1,10):
+        return_string = return_string + tens[numberOfTens]
+        if numberOfUnits > 0 :
+            return_string = return_string + ' ' + numbers[numberOfUnits]
+            return(return_string)
+
+
+
+Three errors. Lets fix them. First 'one hundred and zero' should just
+be 'one hundred'
+
+
+FFF
+======================================================================
+FAIL: test_hundreds (__main__.TesttoEnglish)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<stdin>", line 56, in test_hundreds
+AssertionError: 'one hundred and zero' != 'one hundred'
+
+======================================================================
+FAIL: test_simple (__main__.TesttoEnglish)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<stdin>", line 27, in test_simple
+AssertionError: None != 'twenty'
+
+======================================================================
+FAIL: test_tens (__main__.TesttoEnglish)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<stdin>", line 33, in test_tens
+AssertionError: None != 'thirty'
+
+New code.
+
+def toEnglish(n):
+    """ Converts a number between 0 and 999 to English """
+    numbers = ['zero','one','two','three','four','five','six',
+               'seven','eight','nine','ten','eleven','twelve',
+               'thirteen','fourteen','fifteen','sixteen',
+               'seventeen','eighteen','nineteen']
+    tens = ['','','twenty','thirty','forty','fifty','sixty',
+            'seventy','eighty','ninety']
+    numberOfHundreds = n // 100
+    numberOfTens  = n // 10
+    numberOfUnits = n % 10
+#We always treat the numbers 0-19 as special numbers.
+    return_string = ''
+    if n in range(0,20):
+        return(numbers[n])
+    elif numberOfHundreds in range(1,10):
+        return_string = return_string + numbers[numberOfHundreds] + ' hundred'
+        n = n - numberOfHundreds*100
+        if n>0:
+            return_string = return_string + ' and ' + toEnglish(n)
+        return(return_string)
+    elif numberOfTens in range(1,10):
+        return_string = return_string + tens[numberOfTens]
+        if numberOfUnits > 0 :
+            return_string = return_string + ' ' + numbers[numberOfUnits]
+            return(return_string)
+
+Now two tests have failed. It means that I've got some of the if then
+else logic wrong. An easy problem in Python. Good job we've got tests
+to see if we've messed things up.
+
+
+
+.FF
+======================================================================
+FAIL: test_simple (__main__.TesttoEnglish)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<stdin>", line 27, in test_simple
+AssertionError: None != 'twenty'
+
+======================================================================
+FAIL: test_tens (__main__.TesttoEnglish)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<stdin>", line 33, in test_tens
+AssertionError: None != 'thirty'
+
+----------------------------------------------------------------------
+
+Final code that passes all the tests
+
+def toEnglish(n):
+    """ Converts a number between 0 and 999 to English """
+    numbers = ['zero','one','two','three','four','five','six',
+               'seven','eight','nine','ten','eleven','twelve',
+               'thirteen','fourteen','fifteen','sixteen',
+               'seventeen','eighteen','nineteen']
+    tens = ['','','twenty','thirty','forty','fifty','sixty',
+            'seventy','eighty','ninety']
+    numberOfHundreds = n // 100
+    numberOfTens  = n // 10
+    numberOfUnits = n % 10
+#We always treat the numbers 0-19 as special numbers.
+    return_string = ''
+    if n in range(0,20):
+        return(numbers[n])
+    if numberOfHundreds in range(1,10):
+        return_string = return_string + numbers[numberOfHundreds] + ' hundred'
+        n = n - numberOfHundreds*100
+        if n>0:
+            return_string = return_string + ' and ' + toEnglish(n)
+        return(return_string)
+    if numberOfTens in range(1,10):
+        return_string = return_string + tens[numberOfTens]
+        if numberOfUnits > 0 :
+            return_string = return_string + ' ' + numbers[numberOfUnits]
+        return(return_string)
+
+The code could be improved. The logic it not quite crystal clear. We
+have multiple return points and it not clear that the function will
+always return something for a number 0-999. Exercise refactor and
+retest.
+
+
+
+    

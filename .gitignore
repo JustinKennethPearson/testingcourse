@@ -2,3 +2,7 @@
 *.aux
 *~
 *.pyc
+*.nav
+*.toc
+*.snm
+*.out

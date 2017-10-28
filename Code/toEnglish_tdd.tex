@@ -1,0 +1,652 @@
+\documentclass{paper}
+\usepackage{hyperref}
+\usepackage{color}
+\usepackage{listings}
+\lstset{language=Python,
+        stringstyle=\ttfamily,
+        escapeinside={*@}{@*}}
+
+
+\title{TDD of  {\tt toEnglish}}
+\author{Justin Pearson}
+
+\begin{document}
+
+\maketitle
+\section{Introduction}
+This is not an original idea. I found the idea on the web in an
+article\footnote{\url{http://www.codeproject.com/KB/architecture/TestFirstDevelopment.aspx}}
+written by Colin Angus Mackay.
+
+The idea is to write a function that given a number between 0 and 999
+inclusive returns a string spelling out the number in English. For
+example {\tt toEnglish(43)} should produce the string {\tt 'forty
+  three'}. We are going to develop the function in Python. If you are
+not familiar with Python, then  pretend it is pseudo code.
+
+\section{Unit Testing in Python}
+For full documentation see the manual, but here is enough to get us
+started. The code and the test code should be in two different
+files. Python, if treated properly, treats files are modules. So your
+{\tt test\_to\_English.py} file should import the module containing
+your code. We will put the code in a file {\tt toEnglish.py}. To make
+life easier put them in the same directory, otherwise tell Python
+about file paths.
+\begin{lstlisting}
+import toEnglish
+import unittest
+
+class TesttoEnglish(unittest.TestCase):
+    def test_simple(self):
+        self.assertEqual(toEnglish.toEnglish(0),'zero')
+if __name__ == '__main__':
+    unittest.main()
+\end{lstlisting}
+Two things: we define a class that inherits from the {\tt unittest}
+class; and each method name starts with {\tt test}.   The tests are
+run by the last two lines. If you execute at the command line {\tt
+  python   test\_to\_English.py}, then the test will be run. Again read
+the manual to find out more.
+
+\section{Test Driven Development of {\tt toEnglish}}
+Remember the TDD mantra:
+\begin{description}
+\item[Red] Write tests that fail.
+\item[Green] Make the tests pass in the most simple way possible.
+\item[Refactor]  Is there any duplicated logic in your code that can
+  be expressed in more clear and concise way? If so then rewrite. Note
+  that sometimes you might have to refactor interfaces. 
+\end{description}
+
+\subsection{Red}
+The first test:
+\begin{lstlisting}
+   self.assertEqual(toEnglish.toEnglish(0),'zero')
+\end{lstlisting}
+We don't yet have a {\tt toEnglish.py} file. We will write the minimal
+to get us going.
+\begin{lstlisting}
+  -------
+def toEnglish(n):
+    """ Converts a number between 0 and 999 to English """
+pass
+------- 
+\end{lstlisting}
+This test will fail:
+\begin{verbatim}
+=====================================================================
+FAIL: test_simple (__main__.TesttoEnglish)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_toEnglish.py", line 7, in test_simple
+    self.assertEqual(toEnglish.toEnglish(0),'zero')
+AssertionError: None != 'zero'
+
+----------------------------------------------------------------------
+Ran 1 test in 0.017s
+
+FAILED (failures=1)
+\end{verbatim}
+
+\subsection{Green}
+So rewrite the code to pass the test. If we are being religious about
+this, then we only write the minimal code for it to pass.
+
+\begin{lstlisting}
+  def toEnglish(n):
+    """ Converts a number between 0 and 999 to English """
+
+    return('return zero')
+\end{lstlisting}
+Nothing to refactor. 
+\subsection{Red}
+Lets write some more tests to make it fail.
+\begin{lstlisting}
+     self.assertEqual(toEnglish.toEnglish(1),'one')
+\end{lstlisting}
+The code will not pass the test:
+\begin{verbatim}
+    self.assertEqual(toEnglish.toEnglish(1),'one')
+AssertionError: 'zero' != 'one'
+\end{verbatim}
+\subsection{Green}
+\begin{lstlisting}
+  def toEnglish(n):
+    """ Converts a number between 0 and 999 to English """
+    if   n==0:
+        return('zero')
+    elif n==1:
+        return('one')
+\end{lstlisting}
+Now the code will pass the tests. We might be tempted to make bigger
+steps, but while we are still trying to understand the problem, we only
+take the smallest steps.
+\subsection{Red}
+\begin{lstlisting}
+          self.assertEqual(toEnglish.toEnglish(2),'two')
+\end{lstlisting}
+Fails.
+\begin{verbatim}
+  File "test_toEnglish.py", line 9, in test_simple
+    self.assertEqual(toEnglish.toEnglish(2),'two')
+AssertionError: None != 'two'
+\end{verbatim}
+\subsection{Green}
+\begin{lstlisting}
+def toEnglish(n):
+    """ Converts a number between 0 and 999 to English """
+    if   n==0:
+        return('zero')
+    elif n==1:
+        return('one')
+    elif n==2:
+        return('two')
+\end{lstlisting}
+\subsection{Red}
+We are on a roll. For the moment we know what happens we add the tests
+and extend the {\tt if} statement.
+\begin{lstlisting}
+    self.assertEqual(toEnglish.toEnglish(3),'three')
+    self.assertEqual(toEnglish.toEnglish(4),'four')
+    self.assertEqual(toEnglish.toEnglish(5),'five')
+    self.assertEqual(toEnglish.toEnglish(6),'six')
+    self.assertEqual(toEnglish.toEnglish(7),'seven')
+    self.assertEqual(toEnglish.toEnglish(8),'eight')
+    self.assertEqual(toEnglish.toEnglish(9),'nine')
+    self.assertEqual(toEnglish.toEnglish(10),'ten')
+    self.assertEqual(toEnglish.toEnglish(11),'eleven')
+\end{lstlisting}
+\subsection{Green}
+\begin{lstlisting}
+  def toEnglish(n):
+    """ Converts a number between 0 and 999 to English """
+    if   n==0:
+        return('zero')
+    elif n==1:
+        return('one')
+    elif n==2:
+        return('two')
+    elif n==3:
+        return('three')
+    elif n==4:
+        return('four')
+    elif n==5:
+        return('five')
+    elif n==6:
+        return('six')
+    elif n==7:
+        return('seven')
+    elif n==8:
+        return('eight')
+    elif n==9:
+        return('nine')
+    elif n==10:
+        return('ten')
+    elif n==11:
+        return('eleven')
+\end{lstlisting}
+The {\tt elif} is a Python construct for {\tt else if}.
+
+\subsection{Refactor}
+Why don't we refactor? Use a list instead of  a bunch of {\tt if} and
+ {\tt  elif} statements. 
+\begin{lstlisting}
+  def toEnglish(n):
+    """ Converts a number between 0 and 999 to English """
+    numbers = ['zero','one','two','three','four','five','six',
+               'seven','eight','nine','ten','eleven']
+    return(numbers[n])
+\end{lstlisting}
+Before we proceed we check that all the tests are passed, and they
+are.
+\subsection{Red}
+Again we are taking slightly bigger steps, but we know what is going
+on.
+\begin{lstlisting}
+        self.assertEqual(toEnglish.toEnglish(12),'twelve')	
+        self.assertEqual(toEnglish.toEnglish(13),'thirteen')	
+        self.assertEqual(toEnglish.toEnglish(14),'fourteen')
+        self.assertEqual(toEnglish.toEnglish(15),'fifteen')
+        self.assertEqual(toEnglish.toEnglish(16),'sixteen')
+        self.assertEqual(toEnglish.toEnglish(17),'seventeen')
+        self.assertEqual(toEnglish.toEnglish(18),'eighteen')
+        self.assertEqual(toEnglish.toEnglish(19),'nineteen')
+        self.assertEqual(toEnglish.toEnglish(20),'twenty')
+        self.assertEqual(toEnglish.toEnglish(21),'twenty one')
+\end{lstlisting}
+\subsection{Green}
+\begin{lstlisting}
+  def toEnglish(n):
+    """ Converts a number between 0 and 999 to English """
+    numbers = ['zero','one','two','three','four','five','six',
+               'seven','eight','nine','ten','eleven','twelve',
+               'thirteen','fourteen','fifteen','sixteen',
+               'seventeen','eighteen','nineteen','twenty','twenty one']
+    return(numbers[n])
+\end{lstlisting}
+\subsection{Refactor}
+Time to refactor {\tt 'twenty one'} 
+ is {\tt 'twenty' + ' ' + 'one'}. This gives us the  following code:
+ \begin{lstlisting}
+   def toEnglish(n):
+    """ Converts a number between 0 and 999 to English """
+    numbers = ['zero','one','two','three','four','five','six',
+               'seven','eight','nine','ten','eleven','twelve',
+               'thirteen','fourteen','fifteen','sixteen',
+               'seventeen','eighteen','nineteen','twenty','twenty one']
+    if n in range(0,20):
+        return(numbers[n])
+    else:
+        return('twenty' + ' ' + numbers[n-20])
+ \end{lstlisting}
+Do not forget to rerun all your tests when you refactor. Well when we
+do, we get the error
+\begin{verbatim}
+  File "test_toEnglish.py", line 27, in test_simple
+    self.assertEqual(toEnglish.toEnglish(20),'twenty')
+AssertionError: 'twenty zero' != 'twenty'
+\end{verbatim}
+
+Studying the code gives us an error. I had assumed that {\tt
+  range(0,20)} produced all the numbers up to and including twenty. It
+only goes up to 19. It is in the manual, but I found out by
+testing. So this gives us a new version
+\begin{lstlisting}
+  def toEnglish(n):
+    """ Converts a number between 0 and 999 to English """
+    numbers = ['zero','one','two','three','four','five','six',
+               'seven','eight','nine','ten','eleven','twelve',
+               'thirteen','fourteen','fifteen','sixteen',
+               'seventeen','eighteen','nineteen','twenty','twenty one']
+    if n in range(0,21):
+        return(numbers[n])
+    else:
+        return('twenty' + ' ' + numbers[n-20])
+\end{lstlisting}
+Rerun the tests and every thing is well.
+
+\subsection{Red}
+Well now that we have a feel for our problem we can start generating
+the test cases in larger steps.
+\begin{lstlisting}
+        self.assertEqual(toEnglish.toEnglish(22),'twenty two')
+        self.assertEqual(toEnglish.toEnglish(23),'twenty three')
+        self.assertEqual(toEnglish.toEnglish(29),'twenty nine')
+\end{lstlisting}
+Well we still are not at our red state because all our tests are
+passed.
+\begin{lstlisting}
+       self.assertEqual(toEnglish.toEnglish(30),'thirty')
+\end{lstlisting}
+Now we fail.
+\begin{verbatim}
+  File "test_toEnglish.py", line 32, in test_simple
+    self.assertEqual(toEnglish.toEnglish(30),'thirty')
+AssertionError: 'twenty ten' != 'thirty'
+\end{verbatim}
+\subsection{Green}
+So thirty should  treated as a special case.
+\begin{lstlisting}
+  def toEnglish(n):
+    """ Converts a number between 0 and 999 to English """
+    numbers = ['zero','one','two','three','four','five','six',
+               'seven','eight','nine','ten','eleven','twelve',
+               'thirteen','fourteen','fifteen','sixteen',
+               'seventeen','eighteen','nineteen']
+    if n in range(0,21):
+        return(numbers[n])
+    elif n in range(21,30):
+        return('twenty' + ' ' + numbers[n-20])
+    elif n == 30 :
+        return('thirty')
+    elif n in range(31,40):
+        return('thirty' + ' ' + numbers[n-30])
+\end{lstlisting}
+\subsection{Red}
+All is still going well tests are passing. 
+\begin{lstlisting}
+        self.assertEqual(toEnglish.toEnglish(32),'thirty two')
+        self.assertEqual(toEnglish.toEnglish(39),'thirty nine')
+\end{lstlisting}
+Our goal is to find tests that fail. Don't develop any code until you
+can find a test that fails.
+\begin{lstlisting}
+        self.assertEqual(toEnglish.toEnglish(40),'forty')
+        self.assertEqual(toEnglish.toEnglish(41),'forty one')
+        self.assertEqual(toEnglish.toEnglish(49),'forty nine')
+\end{lstlisting}
+\subsection{Green}
+\begin{lstlisting}
+  def toEnglish(n):
+    """ Converts a number between 0 and 999 to English """
+    numbers = ['zero','one','two','three','four','five','six',
+               'seven','eight','nine','ten','eleven','twelve',
+               'thirteen','fourteen','fifteen','sixteen',
+               'seventeen','eighteen','nineteen','twenty','twenty one']
+    if n in range(0,21):
+        return(numbers[n])
+    elif n in range(21,30):
+        return('twenty' + ' ' + numbers[n-20])
+    elif n == 30 :
+        return('thirty')
+    elif n in range(31,40):
+        return('thirty' + ' ' + numbers[n-30])
+    elif n == 40:
+        return('forty')
+    elif n in range(41,50):
+        return('forty' + ' ' + numbers[n-40])
+\end{lstlisting}
+\subsection{Refactor}
+Now time to refactor. Looking at the code we can use a similar trick
+with a list instead of all those {\tt if} statements.
+\begin{lstlisting}
+  def toEnglish(n):
+    """ Converts a number between 0 and 999 to English """
+    numbers = ['zero','one','two','three','four','five','six',
+               'seven','eight','nine','ten','eleven','twelve',
+               'thirteen','fourteen','fifteen','sixteen',
+               'seventeen','eighteen','nineteen']
+    tens = ['twenty','thirty','forty','fifty','sixty',
+            'seventy','eighty','ninety']
+    numberOfTens  = n // 10
+    numberOfUnits = n % 10
+#We always treat the numbers 0-19 as special numbers.
+    if n in range(0,20):
+        return(numbers[n])
+    return_string = tens[numberOfTens]
+    if numberOfUnits > 0 :
+        return_string = return_string + ' ' + numbers[numberOfUnits]
+    return(return_string)
+\end{lstlisting}
+Run the tests we have to see if we didn't mess anything up.
+\begin{verbatim}
+  File "test_toEnglish.py", line 27, in test_simple
+    self.assertEqual(toEnglish.toEnglish(20),'twenty')
+AssertionError: 'forty' != 'twenty'
+\end{verbatim}
+Problem with the {\tt tens} list. I got the indexing wrong. One way to
+fix it is to add two dummy values at the head of the list.
+\begin{lstlisting}
+  def toEnglish(n):
+    """ Converts a number between 0 and 999 to English """
+    numbers = ['zero','one','two','three','four','five','six',
+               'seven','eight','nine','ten','eleven','twelve',
+               'thirteen','fourteen','fifteen','sixteen',
+               'seventeen','eighteen','nineteen']
+    tens = ['','','twenty','thirty','forty','fifty','sixty',
+            'seventy','eighty','ninety']
+    numberOfTens  = n // 10
+    numberOfUnits = n % 10
+#We always treat the numbers 0-19 as special numbers.
+    if n in range(0,20):
+        return(numbers[n])
+    return_string = tens[numberOfTens]
+    if numberOfUnits > 0 :
+        return_string = return_string + ' ' + numbers[numberOfUnits]
+    return(return_string)
+\end{lstlisting}
+Now run the tests and all is well.
+\subsection{Red}
+When adding more tests we don't need to add one for every value between
+zero and ninety nine, but we need to check border cases. We are still
+looking for test that make our code fail so we can write some code.
+\begin{lstlisting}
+        self.assertEqual(toEnglish.toEnglish(100),'one hundred')
+\end{lstlisting}
+\subsection{Green}
+So we rewrite the code with the minimal effort to pass the test (it
+was late in the day).
+\begin{lstlisting}
+  def toEnglish(n):
+    """ Converts a number between 0 and 999 to English """
+    numbers = ['zero','one','two','three','four','five','six',
+               'seven','eight','nine','ten','eleven','twelve',
+               'thirteen','fourteen','fifteen','sixteen',
+               'seventeen','eighteen','nineteen']
+    tens = ['','','twenty','thirty','forty','fifty','sixty',
+            'seventy','eighty','ninety']
+    numberOfTens  = n // 10
+    numberOfUnits = n % 10
+#We always treat the numbers 0-19 as special numbers.
+    if n in range(0,20):
+        return(numbers[n])
+    elif numberOfTens in range(1,10):
+        return_string = tens[numberOfTens]
+        if numberOfUnits > 0 :
+            return_string = return_string + ' ' + numbers[numberOfUnits]
+        return(return_string)
+    return('one hundred')
+\end{lstlisting}
+\subsection{Red}
+If we add the test
+\begin{lstlisting}
+       self.assertEqual(toEnglish.toEnglish(200),'two hundred')
+\end{lstlisting}
+then the code will fail and we will have to rewrite something.
+\begin{lstlisting}
+  def toEnglish(n):
+    """ Converts a number between 0 and 999 to English """
+    numbers = ['zero','one','two','three','four','five','six',
+               'seven','eight','nine','ten','eleven','twelve',
+               'thirteen','fourteen','fifteen','sixteen',
+               'seventeen','eighteen','nineteen']
+    tens = ['','','twenty','thirty','forty','fifty','sixty',
+            'seventy','eighty','ninety']
+    numberOfHundreds = n // 100
+    numberOfTens  = n // 10
+    numberOfUnits = n % 10
+#We always treat the numbers 0-19 as special numbers.
+    return_string = ''
+    if n in range(0,20):
+        return(numbers[n])
+    elif numberOfHundreds in range(1,10):
+        return_string = return_string +\
+                        numbers[numberOfHundreds] + ' hundred'
+    elif numberOfTens in range(1,10):
+        return_string = return_string + tens[numberOfTens]
+        if numberOfUnits > 0 :
+            return_string = return_string + ' ' + numbers[numberOfUnits]
+    return(return_string)
+\end{lstlisting}
+\subsection{Red}
+We add the test
+\begin{lstlisting}
+   self.assertEqual(toEnglish.toEnglish(201),'two hundred and one')
+\end{lstlisting}
+Of course the test fails. 
+\subsection{Green/Refactor}
+Part of the problem is our numberOfTens calculation assumes that n is
+two digits and we got our logic wrong with the elif stuff. But we can
+do some refactoring and use toEnglish ourselves using the fact that:
+\begin{lstlisting}
+ 'k*100 + w' = toEnglish(k) + 'hundred and ' + toEnglish(w)  
+\end{lstlisting}
+
+We are cheating a bit by doing the refactoring in one step, but by
+doing all these tests we have a deeper understanding of the problem.
+
+So this gives us a new attempt:
+\begin{lstlisting}
+def toEnglish(n):
+    """ Converts a number between 0 and 999 to English """
+    numbers = ['zero','one','two','three','four','five','six',
+               'seven','eight','nine','ten','eleven','twelve',
+               'thirteen','fourteen','fifteen','sixteen',
+               'seventeen','eighteen','nineteen']
+    tens = ['','','twenty','thirty','forty','fifty','sixty',
+            'seventy','eighty','ninety']
+    numberOfHundreds = n // 100
+    numberOfTens  = n // 10
+    numberOfUnits = n % 10
+#We always treat the numbers 0-19 as special numbers.
+    return_string = ''
+    if n in range(0,20):
+        return(numbers[n])
+    elif numberOfHundreds in range(1,10):
+        return_string = return_string +\
+                        numbers[numberOfHundreds] + ' hundred'
+        n = n - numberOfHundreds*100
+        return_string = return_string + ' and ' + toEnglish(n)
+        return(return_string)
+    elif numberOfTens in range(1,10):
+        return_string = return_string + tens[numberOfTens]
+        if numberOfUnits > 0 :
+            return_string = return_string + ' ' + numbers[numberOfUnits]
+            return(return_string)
+  \end{lstlisting}
+Lets run the tests.
+\begin{verbatim}
+
+AssertionError: 'one hundred and zero' != 'one hundred'
+
+
+AssertionError: None != 'twenty'
+
+AssertionError: None != 'thirty'
+\end{verbatim}
+We seem to have messed up something with the numbers less than one
+hundred, but lets just fix the problems one at a time. We'll fix the
+{\tt 'one hundred and zero'} problem.
+\begin{lstlisting}
+  def toEnglish(n):
+    """ Converts a number between 0 and 999 to English """
+    numbers = ['zero','one','two','three','four','five','six',
+               'seven','eight','nine','ten','eleven','twelve',
+               'thirteen','fourteen','fifteen','sixteen',
+               'seventeen','eighteen','nineteen']
+    tens = ['','','twenty','thirty','forty','fifty','sixty',
+            'seventy','eighty','ninety']
+    numberOfHundreds = n // 100
+    numberOfTens  = n // 10
+    numberOfUnits = n % 10
+#We always treat the numbers 0-19 as special numbers.
+    return_string = ''
+    if n in range(0,20):
+        return(numbers[n])
+    elif numberOfHundreds in range(1,10):
+        return_string = return_string +\
+                        numbers[numberOfHundreds] + ' hundred'
+        n = n - numberOfHundreds*100
+        if n>0:
+            return_string = return_string + ' and ' + toEnglish(n)
+        return(return_string)
+    elif numberOfTens in range(1,10):
+        return_string = return_string + tens[numberOfTens]
+        if numberOfUnits > 0 :
+            return_string = return_string + ' ' + numbers[numberOfUnits]
+            return(return_string)
+\end{lstlisting}
+But we still get the problems with 
+\begin{verbatim}
+AssertionError: None != 'twenty'
+
+AssertionError: None != 'thirty'
+\end{verbatim}
+It means that I've got some of the if then else logic wrong; an easy
+problem in Python. Good job we have got tests to see if we have messed
+things up.
+
+So finally some code that passes all the tests
+\begin{lstlisting}
+  def toEnglish(n):
+    """ Converts a number between 0 and 999 to English """
+    numbers = ['zero','one','two','three','four','five','six',
+               'seven','eight','nine','ten','eleven','twelve',
+               'thirteen','fourteen','fifteen','sixteen',
+               'seventeen','eighteen','nineteen']
+    tens = ['','','twenty','thirty','forty','fifty','sixty',
+            'seventy','eighty','ninety']
+    numberOfHundreds = n // 100
+    numberOfTens  = n // 10
+    numberOfUnits = n % 10
+#We always treat the numbers 0-19 as special numbers.
+    return_string = ''
+    if n in range(0,20):
+        return(numbers[n])
+    if numberOfHundreds in range(1,10):
+        return_string = return_string +\
+                         numbers[numberOfHundreds] + ' hundred'
+        n = n - numberOfHundreds*100
+        if n>0:
+            return_string = return_string + ' and ' + toEnglish(n)
+        return(return_string)
+    if numberOfTens in range(1,10):
+        return_string = return_string + tens[numberOfTens]
+        if numberOfUnits > 0 :
+            return_string = return_string + ' ' + numbers[numberOfUnits]
+        return(return_string)
+\end{lstlisting}
+The code could be improved. The logic it not quite crystal clear. We
+have multiple return points and it not clear that the function will
+always return something for a number 0-999. Exercise refactor and
+retest.
+
+\section{All our test cases}
+\begin{lstlisting}
+import toEnglish
+import unittest
+
+class TesttoEnglish(unittest.TestCase):
+
+    def test_simple(self):
+        self.assertEqual(toEnglish.toEnglish(0),'zero')
+        self.assertEqual(toEnglish.toEnglish(1),'one')
+        self.assertEqual(toEnglish.toEnglish(2),'two')
+        self.assertEqual(toEnglish.toEnglish(3),'three')
+        self.assertEqual(toEnglish.toEnglish(4),'four')
+        self.assertEqual(toEnglish.toEnglish(5),'five')
+        self.assertEqual(toEnglish.toEnglish(6),'six')
+        self.assertEqual(toEnglish.toEnglish(7),'seven')
+        self.assertEqual(toEnglish.toEnglish(8),'eight')
+        self.assertEqual(toEnglish.toEnglish(9),'nine')
+        self.assertEqual(toEnglish.toEnglish(10),'ten')
+        self.assertEqual(toEnglish.toEnglish(11),'eleven')
+        self.assertEqual(toEnglish.toEnglish(12),'twelve')
+        self.assertEqual(toEnglish.toEnglish(13),'thirteen')
+        self.assertEqual(toEnglish.toEnglish(14),'fourteen')
+        self.assertEqual(toEnglish.toEnglish(15),'fifteen')
+        self.assertEqual(toEnglish.toEnglish(16),'sixteen')
+        self.assertEqual(toEnglish.toEnglish(17),'seventeen')
+        self.assertEqual(toEnglish.toEnglish(18),'eighteen')
+        self.assertEqual(toEnglish.toEnglish(19),'nineteen')
+        self.assertEqual(toEnglish.toEnglish(20),'twenty')
+    def test_tens(self):
+        self.assertEqual(toEnglish.toEnglish(21),'twenty one')
+        self.assertEqual(toEnglish.toEnglish(22),'twenty two')
+        self.assertEqual(toEnglish.toEnglish(23),'twenty three')
+        self.assertEqual(toEnglish.toEnglish(29),'twenty nine')
+        self.assertEqual(toEnglish.toEnglish(30),'thirty')
+        self.assertEqual(toEnglish.toEnglish(31),'thirty one')
+        self.assertEqual(toEnglish.toEnglish(32),'thirty two')
+        self.assertEqual(toEnglish.toEnglish(39),'thirty nine')
+        self.assertEqual(toEnglish.toEnglish(40),'forty')
+        self.assertEqual(toEnglish.toEnglish(41),'forty one')
+        self.assertEqual(toEnglish.toEnglish(49),'forty nine')
+        self.assertEqual(toEnglish.toEnglish(50),'fifty')
+        self.assertEqual(toEnglish.toEnglish(51),'fifty one')
+        self.assertEqual(toEnglish.toEnglish(59),'fifty nine')
+        self.assertEqual(toEnglish.toEnglish(60),'sixty')
+        self.assertEqual(toEnglish.toEnglish(61),'sixty one')
+        self.assertEqual(toEnglish.toEnglish(69),'sixty nine')
+        self.assertEqual(toEnglish.toEnglish(70),'seventy')
+        self.assertEqual(toEnglish.toEnglish(71),'seventy one')
+        self.assertEqual(toEnglish.toEnglish(79),'seventy nine')
+        self.assertEqual(toEnglish.toEnglish(80),'eighty')
+        self.assertEqual(toEnglish.toEnglish(81),'eighty one')
+        self.assertEqual(toEnglish.toEnglish(85),'eighty five')
+        self.assertEqual(toEnglish.toEnglish(90),'ninety')
+        self.assertEqual(toEnglish.toEnglish(91),'ninety one')
+        self.assertEqual(toEnglish.toEnglish(99),'ninety nine')
+    def test_hundreds(self):
+        self.assertEqual(toEnglish.toEnglish(100),'one hundred')
+        self.assertEqual(toEnglish.toEnglish(200),'two hundred')
+        self.assertEqual(toEnglish.toEnglish(201),'two hundred and one')
+        
+      
+
+if __name__ == '__main__':
+    unittest.main()
+
+
+\end{lstlisting}
+\end{document}
