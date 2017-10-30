@@ -5,6 +5,7 @@
 \usepackage{listings}
 \title{Software Testing  Lecture 1}
 \author{Justin Pearson}
+\date{2017}
 \setbeamertemplate{footline}[page number]
 \setbeamertemplate{navigation symbols}{}
 \begin{document}
@@ -70,8 +71,8 @@ NASA's Mars lander, September 1999, crashed due to a units
    } 
 \end{lstlisting}
 In fact it was an integration problem. The software module was for
-Ariane 4 and people forgot that Ariane 5 had higher initial
-acceleration.  
+Ariane 4 and people forgot that Ariane 5 had a higher initial
+acceleration and a different mass.  
 \end{frame}
 \begin{frame}{Therac-25}
   \begin{itemize}
@@ -134,7 +135,7 @@ instead of
   \frametitle{Software Failures}
   \begin{itemize}
   \item These are just some of more spectacular examples. There is
-    lots and lot of bad software out there. Anything we can do to
+    a lot of bad software out there. Anything we can do to
     improve the quality of software is a good thing. 
   \item  Formal methods are hard to implement, but
     software testing with some discipline can become part of any
@@ -177,11 +178,20 @@ bugs. Anything you do to reduce the number of bugs is a good thing.
 \end{frame}
 \begin{frame}
   \frametitle{What is a Test?}
-  
-A test is simply some inputs and some expected outputs.
+
+  \begin{itemize}
+  \item A test is simply some inputs and some expected outputs.
+  \end{itemize}
+  This simple description hides a lot of complexity.
+  \begin{itemize}
+  \item How do I run a test? How do I give inputs to a real-time system or a
+    GUI?
+  \item How do I know what my code is supposed to do, so that I can work out
+    what the expected outputs are?
+  \end{itemize}
 \end{frame}
 \begin{frame}
-  \frametitle{Types of Testing}
+  \frametitle{Aspects of Testing}
   \begin{enumerate}
   \item Test Design
   \item Test Automation
@@ -266,7 +276,7 @@ some planning.
   \end{itemize}
 \end{frame}
 \begin{frame}
-  \frametitle{Important Terminology}
+  \frametitle{Important Terminology and concepts}
 
   \begin{itemize}
   \item {\bf Validation:} The proess of evaluation software at the end
@@ -278,7 +288,7 @@ some planning.
   
 \end{frame}
 \begin{frame}
-  \frametitle{Important Terminology}
+  \frametitle{Important Terminology and concepts}
   \begin{itemize}
   \item  {\bf Software Fault:} A static defect in the software
   \item {\bf Software Error:} An incorrect internal state that is the
@@ -293,7 +303,7 @@ so it is testable.
 \begin{frame}[fragile]
   \frametitle{Pop Quiz}
   How many times does this loop execute?
-\begin{lstlisting}
+ \textcolor{blue}{errors}\begin{lstlisting}
   for(i=10; i<5; i++) {
      do_stuff(i);
   }
@@ -323,20 +333,18 @@ so it is testable.
   \end{itemize}
 \end{frame}
 \begin{frame}
-  \frametitle{Suggested Reading}
+  \frametitle{Fault/Error/Failure}
   \begin{itemize}
-  \item One of the testing gods is James Bach see his
-    website\footnote{\url{http://www.satisfice.com/}}
-  \item The book {\em Introduction to Software
-      Testing}\footnote{\url{http://cs.gmu.edu/~offutt/softwaretest/}}
-    by Ammann and Offutt. This is a bit theorectical. 
-  \item The book {\em Test-Driven Development by Example} by Kent Beck.
-    Who is one of the  fathers of unit testing, agile programming  and
-    extreme programming. 
-  \item {\em Practical software testing} by Ilene Burnstein. This is
-    really the recommened testing book for this course.
+  \item Fault/Error/Failure is an important tool for thinking about how to
+    test something (not just software).
+  \item I am trying to correct \textcolor{red}{faults} that cause
+    \textcolor{blue}{errors} that cause \textcolor{green}{failures}.
+  \item How do I design test cases that give  \textcolor{green}{failures} that
+    are caused by  \textcolor{blue}{errors} that are due to
+    \textcolor{red}{faults} in the code.
   \end{itemize}
 \end{frame}
+
 \begin{frame}
   \frametitle{Unit Testing}
   \begin{itemize}
@@ -351,6 +359,7 @@ so it is testable.
     documentation you'll always find something else to do if you leave
     until after you've written the code.  
   \end{itemize}
+  This will be covered in more detail in the next lecture.
 \end{frame}
 \begin{frame}
   \frametitle{The heart of Unit Testing}
@@ -536,4 +545,27 @@ tests pass.
     tests to delete.
   \end{itemize}
 \end{frame}
+\begin{frame}
+  \frametitle{Suggested Reading}
+  \begin{itemize}
+  \item One of the testing gods is James Bach see his
+    website\footnote{\url{http://www.satisfice.com/}}
+  \item The book {\em Introduction to Software
+      Testing}\footnote{\url{http://cs.gmu.edu/~offutt/softwaretest/}}
+    by Ammann and Offutt. This is a bit theorectical. 
+  \item The book {\em Test-Driven Development by Example} by Kent Beck.
+    Who is one of the  fathers of unit testing, agile programming  and
+    extreme programming. 
+    % \item {\em Practical software testing} by Ilene Burnstein. Avaibl
+    \item A classic ``The ART of software testing'' Glenford Meyers.  Online
+      at the university library. 
+  \end{itemize}
+\end{frame}
 \end{document}
+
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
