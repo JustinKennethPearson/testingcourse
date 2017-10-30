@@ -71,7 +71,7 @@ NASA's Mars lander, September 1999, crashed due to a units
    } 
 \end{lstlisting}
 In fact it was an integration problem. The software module was for
-Ariane 4 and people forgot that Ariane 5 had a higher initial
+Ariane 4 and the programers  forgot that the Ariane 5 had a higher initial
 acceleration and a different mass.  
 \end{frame}
 \begin{frame}{Therac-25}
@@ -126,7 +126,7 @@ instead of
 \begin{frame}
   \frametitle{Intel's {\tt fdiv} bug}
   \begin{itemize}
-  \item Simple programming error, not getting your loop termination
+  \item Simple programming error: not getting the loop termination
     condition correct.
   \item Later we'll see that this might of been avoided with testing.
   \end{itemize}
@@ -205,10 +205,10 @@ run tests when you check in code.
 \begin{frame}
   \frametitle{Test Design}
   \begin{itemize}
-  \item   Writing good tests is  hard. 
-  \item It requires knowledge of you  problem.
-  \item Knowledge of common errors.
-  \item Often test designer is a separate  position in a company.
+  \item  Writing good tests is  hard. 
+  \item It requires knowledge of you  problem, and 
+  \item knowledge of common errors.
+  \item Often a test designer is a separate  position in a company.
   \end{itemize}
 \end{frame}
 \begin{frame}
@@ -228,7 +228,7 @@ run tests when you check in code.
 \begin{frame}
   \frametitle{Test Automation}
   \begin{itemize}
-  \item Designing tests is hard.
+  \item Designing good tests is hard.
   \item If you don't make running the tests an automated process then
     people will never run them.
   \item There are many automated systems, but you can roll your own
@@ -249,7 +249,7 @@ run tests when you check in code.
       can. This will not only make your program easier to port to
       other GUIs it will make it easier to test.
     \end{itemize}
-  \item Don't forget to include test  automation  in your make files.
+  \item Don't forget to include test  automation in your compilation process.
   \item Consider integrating automated testing into your version
     management system.  
   \end{itemize}
@@ -262,7 +262,7 @@ some planning.
   \begin{itemize}
   \item Easy if testing is automated.
   \item Hard for some domains e.g. GUI.
-  \item Can be hard in distributed or real time environments.
+  \item Very hard in distributed or real time environments.
   \end{itemize}
 \end{frame}
 
@@ -276,7 +276,7 @@ some planning.
   \end{itemize}
 \end{frame}
 \begin{frame}
-  \frametitle{Important Terminology and concepts}
+  \frametitle{Important Terminology and Concepts}
 
   \begin{itemize}
   \item {\bf Validation:} The proess of evaluation software at the end
@@ -288,14 +288,14 @@ some planning.
   
 \end{frame}
 \begin{frame}
-  \frametitle{Important Terminology and concepts}
+  \frametitle{Important Terminology and Concepts}
   \begin{itemize}
   \item  {\bf Software Fault:} A static defect in the software
   \item {\bf Software Error:} An incorrect internal state that is the
     manifestation of some fault 
   \item {\bf  Software Failure:} External,
     incorrect behavior with respect to the requirements or other
-    description of the expected behavior
+    description of the expected behaviour.
   \end{itemize}
 Understanding the difference will help you fix faults. Write your code
 so it is testable.
@@ -398,7 +398,7 @@ Then we would assert that the following things are true:
   \frametitle{{\tt assertTrue}}
   \begin{itemize}
   \item Key idea in xUnit:
-  \item {\tt assertTrue}( executable code)
+  \item {\tt assertTrue}( executable code )
     \begin{itemize}
     \item  Runs the executable code which should evaluate to true.
     \end{itemize}
@@ -435,7 +435,7 @@ class TestCode(unittest.TestCase):
 \begin{frame}
   \frametitle{Important Unit Testing Concepts}
   \begin{itemize}
-  \item Setup. You might need to initialize some data structures.  \pause
+  \item Setup. You might need to initialise some data structures.  \pause
   \item The tests. Well you need to do tests. \pause
   \item Teardown. Always clean up after you. \pause
   \end{itemize}
@@ -462,8 +462,9 @@ Important idea.
     implemented. Write dummy functions {\em stubs} that simply return
     null values rather doing any real work. Means that you can get
     your code going.
-\item {\em Mock}  or {\em Fake} objects (people make a distinction but don't worry)
-  implement enough of an object to get the test going.
+  \item {\em Mock} or {\em Fake} objects (people make a distinction
+    but don't worry) implement enough of an object to get the test
+    going.
   \end{itemize}
 In fact in test driven development you write the test implement the
 mocks first and as you introduce more tests you add code to make the
@@ -507,7 +508,7 @@ tests pass.
         do_something(i);
       }
     \end{lstlisting}
- \item  Find a test case that makes {\tt M} be 0, 1 and some larger
+ \item  Find a test case that sets {\tt M} to be 0, 1 and some larger
    number. 
  \item Often {\tt M} will not be an input parameter. You might have to
    work out how the input parameters affect {\tt M}
