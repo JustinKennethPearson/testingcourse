@@ -5,7 +5,7 @@
 #Destination of my slide directory.
 SLIDESDIR=~/Harpo/public_html/Teaching/Testing/Slides
 #List of the pdfs you want to create.
-PDFS= lecture1.pdf  intro_to_course.pdf
+PDFS= lecture1.pdf  intro_to_course.pdf lecture2.pdf
 #Latex command to use
 LATEX=pdflatex 
 
