@@ -10,31 +10,31 @@
 \title{Introduction to Python and its unit testing framework}
 \begin{document}
 \maketitle
-\section*{Lab Instructions}
-There is nothing to hand in with this lab. You will be orally marked
-by the lab assistant. You will show code that have produced,
-and the lab assistants will ask you questions about the code. The lab
-can be done in pairs, but both members of the group are required to
-understand the code that you have written.  You will have 4 occasions
-when the lab can be marked (and only 4):
-\begin{itemize}
-\item During  the lab.
-\item On Friday 15th of November  by the lab assistant in his office. Times should be scheduled by email in advance with the assistant.
-\item By appointment with the lab assistant during the~week~16/12~--~21/12.
-\item A yet to be announced time during the re-exam period in the
-  middle of Aug. 2012.
-\end{itemize}
+\section*{Instructions}
+These are self evaluation exercises. If you know no python then work through
+these exercises and it will prepare yourself for the lab.
+%There is nothing to hand in with this lab. You will be orally marked
+%by the lab assistant. You will show code that have produced,
+%and the lab assistants will ask you questions about the code. The lab
+%can be done in pairs, but both members of the group are required to
+%understand the code that you have written.  You will have 4 occasions
+%when the lab can be marked (and only 4):
+%\begin{itemize}
+%\item During  the lab.
+%\item On Friday 15th of November  by the lab assistant in his office. Times should be scheduled by email in advance with the assistant.
+%\item By appointment with the lab assistant during the~week~16/12~--~21/12.
+%\item A yet to be announced time during the re-exam period in the
+%  middle of Aug. 2012.
+%\end{itemize}
 \section*{Lab Goals}
-There are two goals in this lab: The first goal is to
-get a little experience programming Python, and the second goal is to learn how to
-use Python's unit testing framework. This lab should be easy and is
-designed as preparation for the next lab. If you get stuck you
-should look at the Python tutorial at
-\url{http://docs.python.org/tutorial/} or at the extensive
-documentation at \url{http://docs.python.org/}. If you have had some
-experience with Python then this lab should be very easy. Hopefully if
-you have had no experience with Python, then this lab will help to get
-you started for the next lab.
+There are two goals in this lab: The first goal is to get a little experience
+programming Python, and the second goal is to learn how to use Python's unit
+testing framework. This lab should be easy and is designed as preparation for
+the next lab. If you get stuck you should look at the Python tutorial at
+\url{http://docs.python.org/tutorial/} or at the extensive documentation at
+\url{http://docs.python.org/}. If you have had some experience with Python
+then this lab should be very easy. Hopefully if you have had no experience
+with Python, then this lab will help to get you started for the next lab.
 \section*{Note on Python versions}
 Python is a changing language. Python 3.0 is in places very different
 from early versions of Python. For various reasons, older versions of
@@ -79,14 +79,13 @@ OK
 \end{verbatim}
 What happened here? We have defined a rather silly function that
 returns 0. We assert that the code also returns 0 using the {\tt
-  self.assertEqual} function in {\tt testcode.py}
-
-\section{Hand in}
-Python like C++ and Java uses {\tt ==} for comparison. So for example
-{1 == 2} is {\tt False} while {1 == 1} is {\tt True}. Rewrite the
-above test to use {\tt self.assertTrue}. Note that you need a version
-of Python greater than or equal to 2.4 to use {\tt assertTrue}. As mentioned, on the
-department Unix terminals you can use the command line:
+  self.assertEqual} function in {\tt testcode.py} 
+\section{Task}
+Python like C++ and Java uses {\tt ==} for comparison. So for example {1 == 2}
+is {\tt False} while {1 == 1} is {\tt True}. Rewrite the above test to use
+{\tt self.assertTrue}. Note that you need a version of Python greater than or
+equal to 2.4 to use {\tt assertTrue}. As mentioned, on the department Unix
+terminals you can use the command line:
 \begin{verbatim}
 hamberg> python2 testcode.py
 \end{verbatim}
@@ -121,7 +120,7 @@ with {\tt test}. Note again that indentation is important. From now on only
 the new test functions will be given. It is up to you to add them to
 {\tt testcode.py} and make sure that you have the correct indentation.
 
-\section{Hand In}
+\section{Task}
 Now write a new function {\tt triple} in {\tt code.py} and write a
 similar set of tests as seen above. You function {\tt triple} should triple
 its argument.
@@ -145,7 +144,7 @@ returns a string. This can be tested using the following test cases.
         self.assertEqual(code.if1(1),'positive')
         self.assertEqual(code.if1(-1),'negative')
 \end{lstlisting}
-\section{Hand In}
+\section{Task}
 Type the code in and run the tests to make sure that it all
 works. Python uses {\tt elif} as an abbreviation of {\tt else
   if}. Write a new version of {\tt if1} called {\tt if2} that uses
@@ -176,7 +175,7 @@ as witnessed by the test cases:
         self.assertEqual(code.loop1(19),19)
 \end{lstlisting}
 
-\section{Hand In}
+\section{Task}
 Write a function {\tt loop\_sum(x)} which sums the integers 1,2, up to
 {\tt x}. It should pass the test cases:
 \begin{lstlisting}
@@ -202,7 +201,7 @@ To concatenate strings you can use {\tt +}
 >>> 'hello ' + ' goodbye'
 'hello  goodbye'
 \end{verbatim}
-\section{Hand In}
+\section{Task}
 As you can see {\tt split} returns a list strings. Python has a built
 in {\tt join} method. You job is to write your own. It should pass the
 tests:
@@ -243,3 +242,8 @@ Python tutorials on the web.
 
 
 \end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "bibtex_lab"
+%%% End:
