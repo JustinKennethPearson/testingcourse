@@ -318,7 +318,7 @@ So thirty should  treated as a special case.
 \end{frame}
 \begin{frame}[fragile]
 \frametitle{Red}
-All is still going well tests are passing. 
+All is still going well; tests are passing. 
 \begin{lstlisting}
 assertEqual(toEnglish.toEnglish(32),'thirty two')
 assertEqual(toEnglish.toEnglish(39),'thirty nine')
@@ -352,7 +352,7 @@ assertEqual(toEnglish.toEnglish(49),'forty nine')
 \end{frame}
 \begin{frame}[fragile]
 \frametitle{Refactor}
-Now time to refactor. Looking at the code we can use a similar trick
+Now time to refactor. Looking at the code, we can use a similar trick
 with a list instead of all those {\tt if} statements.
 \begin{lstlisting}
   def toEnglish(n):
@@ -605,7 +605,7 @@ What do we want to do with the class. It is a two player class. We
 want to know the score of player 1 and the score of player 2.
 
 We assume that we are playing pub darts and start at 301. Games take
-to long otherwise and it takes time away from beer.
+too long otherwise, and it takes time away from beer.
 \begin{lstlisting}
    def test_score(self):
         game  = darts()
@@ -722,7 +722,7 @@ Now finally all the tests pass.
 \end{frame}
 \begin{frame}[fragile]
 \frametitle{Red}
-Darts is a two player game. First player 1 plays 3 shots then player
+Darts is a two player game. First player 1 plays three shots then player
 two plays three shots. We have to decide how the object behaves if
 players play out of turn. We'll throw exceptions. There are other ways
 of doing this, but {\em now} is the time to decide. Write the tests to
@@ -1073,7 +1073,7 @@ Modify {\tt init}.
         self.throws = 0
         self.current_round = 0
 \end{lstlisting}
-When we flip the current player we'll check if the score is -ve. If it
+When we flip the current player we'll check if the score is negative. If it
 is then we'll add the {\tt current\_round} score back to the score so the
 score should be reset to the score before the round.
   
@@ -1114,7 +1114,7 @@ AssertionError: -59 != 'WON'
 ----------------------------------------------------------------------
 \end{verbatim}
   
- I must of got the logic wrong for incrementing and decrementing the
+ I must have got the logic wrong for incrementing and decrementing the
 score. I got the current round logic wrong. Before when I flipped it didn't
 affect the rest of the code. Now I have to flip in the right place.
 I cheated I added print statements to see what was going wrong. Old
