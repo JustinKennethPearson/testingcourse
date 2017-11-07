@@ -1,4 +1,4 @@
-\documentclass{beamer}
+\documentclass[handout]{beamer}
 \usetheme{default}
 \usepackage{tikz}
 \usetikzlibrary{positioning}
@@ -16,7 +16,7 @@
 \newcommand\hcancel[2][red]{\setbox0=\hbox{$#2$}%
 \rlap{\raisebox{.45\ht0}{\textcolor{#1}{\rule{\wd0}{1pt}}}}#2} 
 
-\title{Software Testing, Coverage}
+\title{Software Testing\\ Lecture 3\\ Coverage}
 \author{Justin Pearson}
 \date{2017}
 \setbeamertemplate{footline}[page number]
@@ -35,6 +35,8 @@
   \item White Box Testing (clear box testing):  Test the internal
     structure of the software
   \end{itemize}
+  There is also grey box testing where you look find test cases that cover the
+  specification and cover some aspect of the code.  It is a grey area.  
 \end{frame}
 \begin{frame}{It is all about coverage}
   \begin{itemize}
@@ -43,8 +45,14 @@
     \begin{itemize}
     \item Execution paths
     \item Statements
+    \item Decision coverage
     \item $\ldots$
     \end{itemize}
+  \end{itemize}
+  Short version:
+  \begin{itemize}
+  \item  Complete coverage hard to define or impossible;
+  \item  So we have to find some approximation.
   \end{itemize}
 \end{frame}
 
@@ -78,13 +86,15 @@ Does this program halt?
   \item Can I write  a program that takes {\em any} program and
     decides if it halts?
   \end{itemize}
-Seems that is might be possible, but it is mathematically impossible.
+  Seems that is might be possible, but it is mathematically impossible.
+
+ 
 \end{frame}
 \begin{frame}{Turing's halting problem}
 Proof
   \begin{itemize}
   \item  Enumerate all programs. There are infinitely many, but still
-    a countable number.
+    a countable number\footnote{You can put them in an infinitely long list.}.
   \item Give each program a number. 
   \item The function
     \[
@@ -93,7 +103,8 @@ Proof
                0 & \text{otherwise}
                \end{cases}
     \]
-is not computable.
+is not computable. That is there no always halting program that implements
+$h$. 
   \end{itemize}
 \end{frame}
 \begin{frame}
@@ -115,9 +126,9 @@ is not computable.
 \item $g$ is a program it has a number, lets call it $\mathcal{G}$.
 \item What of $h(\mathcal{G},\mathcal{G})$? Two possibilities:
   \begin{itemize}
-  \item  $h(\mathcal{G},\mathcal{G}) = 1$ then $g$ halts on input $\mathcal{G}$, so $g(\mathcal{G})=0$ which
-    implies $h(\mathcal{G},\mathcal{G}) =  0$, hence Contradiction.
-  \item $h(\mathcal{G},\mathcal{G}) = 0$ then $g$ loops for ever on input $g$. Which implies
+  \item  $h(\mathcal{G},\mathcal{G}) = 1$ \pause then $g$ halts on input $\mathcal{G}$, so $g(\mathcal{G})=0$ which
+    implies $h(\mathcal{G},\mathcal{G}) =  0$, hence a contradiction. \pause
+  \item $h(\mathcal{G},\mathcal{G}) = 0$ \pause then $g$ loops for ever on input $g$. Which implies
     $h(\mathcal{G},\mathcal{G})$ is not equal to 0, hence contradiction.
   \end{itemize}
   \end{itemize}
@@ -125,7 +136,7 @@ Proof strategy is often referred to as a diagonal argument.
 \end{frame}
 \begin{frame}{Common Caveats}
   \begin{itemize}
-  \item Halting function should work on {\em all} programs.
+  \item Halting function should work on \textcolor{red}{\em all} programs.
   \item Finite memory, finite number of registers a computer is just a
     finite state machine.
   \item So it is possible to write a function that decides if all
@@ -157,7 +168,7 @@ Proof strategy is often referred to as a diagonal argument.
   \begin{itemize}
   \item Admit we can not decide properties on all programs.
   \item Do our best on most programs.
-  \item Or be content with approximations. 
+  \item Or be content with approximations such as: 
     \begin{itemize}
     \item Definitely yes
     \item Definitely no
@@ -168,12 +179,14 @@ Proof strategy is often referred to as a diagonal argument.
 \begin{frame}{White Box testing}
 Coverage criteria include:
   \begin{itemize}
-  \item Function coverage - Has each function (or subroutine) in the
+  \item Function coverage --- Has each function (or subroutine) in the
     program been called?
-  \item Statement coverage - Has each statement in the program been
+  \item Statement coverage --- Has each statement in the program been
     executed?  
-  \item Branch coverage - Has each branch of each control structure
-    (such as in {\tt if} and {\tt case} statements) been executed? 
+  \item Branch coverage --- Has each branch of each control structure
+    (such as in {\tt if} and {\tt case} statements) been executed?
+  \item Loop coverage --- Have we done a representative number of iterations
+    of all the loops. 
   \end{itemize}
 \end{frame}
 
@@ -209,7 +222,8 @@ Coverage criteria include:
       return(y);
    }
 \end{lstlisting}
-  \item The test case {\tt silly(1)} runs the loop once.
+  \item The test case {\tt silly(1)} runs the loop once. A while loop is a
+    branch with a goto statement. 
   \item But what about running the loop zero times, lots of times?
    \item Halting problem again, for all most all loop you can't
      decide how many times to run the loop.
@@ -681,7 +695,8 @@ Is there any difference between node and edge coverage?
     \end{column}
   \end{columns}
 \end{frame}
- \begin{frame}{Structural Coverage Example}
+
+\begin{frame}{Structural Coverage Example}
   \begin{columns}
     \begin{column}{0.2\textwidth}
       \begin{tikzpicture}
@@ -722,6 +737,7 @@ Is there any difference between node and edge coverage?
     \end{column}
   \end{columns}
 \end{frame}
+
 \begin{frame}{Loops}
 There is a lot of theory, most of it is unsatisfactory. 
   \begin{itemize}
@@ -731,7 +747,399 @@ There is a lot of theory, most of it is unsatisfactory.
     \item Try to get them to execute zero times, once and many times.
     \end{itemize}
   \end{itemize}
+\end{frame}
+  %%%%
+  \begin{frame}{Loops}
+  \begin{itemize}
+  \item If a graph contains a loop then it has an infinite number of
+    paths.
+  \item Thus you can not ask for complete path coverage. 
+  \item Attempts to “deal with” loops:
+    \begin{itemize}
+    \item 1970s : Execute cycles once  ([4, 5, 4] in previous example, informal)
+    \item 1980s : Execute each loop, exactly once (formalised)
+    \item 1990s : Execute loops 0 times, once, more than once (informal description)
+    \item 2000s : Prime paths
+\end{itemize}
+  \end{itemize}
   
+\end{frame}
+\begin{frame}{Simple and Prime Paths}
+  \begin{itemize}
+  \item A path is simple if no node appears more than once except
+    possible that the first and last node can be the same.
+  \item A prime path of a graph is a simple path that is not a
+    sub-path of any other simple path.
+  \end{itemize}
+  
+\end{frame}
+\begin{frame}{Simple Paths}
+\begin{columns}
+%%%First Column    
+\begin{column}{0.3\textwidth}    
+ \tikzstyle{cfgnode}=[circle,fill=gray!30]
+\begin{tikzpicture}%[node distance=1.5cm]
+  \node (entry) {};
+  \node[cfgnode,below of=entry] (a) {0};
+  \node[below of=a] (middlenode) {};
+  \node[cfgnode,left of=middlenode] (b) {1};
+  \node[cfgnode,right of=middlenode] (c) {2};
+  \node[cfgnode,below of=middlenode] (f) {3};
+  \node[below of=f] (exit) {};
+\draw[->] (entry) to (a);
+\draw[->] (f) to (exit);
+\draw[->] (f) to (a);
+\draw[->] (a) to (b);
+\draw[->] (a) to (c);
+\draw[->] (b) to (f);
+\draw[->] (c) to (f);
+\end{tikzpicture}
+\end{column}
+%%%%Second Column
+\begin{column}{0.6\textwidth}
+  \begin{itemize}
+  \item $[0]$,$[1]$,$[2]$,$[3]$
+  \item $[0,1]$,$[0,2]$,$[1,3]$,$[2,3]$,$[3,0]$
+  \item $[ 0,1,3]$, $[0,2,3]$, $[1,3,0]$, $[2,3,0]$,$[3,0,1]$
+  \item $[ 0, 1, 3, 0 ]$, $[ 0, 2, 3, 0]$, $[ 1, 3, 0, 1 ]$,
+$[ 2, 3, 0, 2 ]$, $[ 3, 0, 1, 3 ]$, $[ 3, 0, 2, 3 ]$, $[ 1, 3, 0, 2 ]$,
+$[ 2, 3, 0, 1 ]$.
+  \end{itemize}
+ 
+\end{column}
+\end{columns}
+  
+\end{frame}
+\begin{frame}{Prime Paths}
+Remove all simple paths that can be extended (either direction) to a longer simple path.
+\begin{columns}
+%%%First Column    
+\begin{column}{0.3\textwidth}    
+ \tikzstyle{cfgnode}=[circle,fill=gray!30]
+\begin{tikzpicture}%[node distance=1.5cm]
+  \node (entry) {};
+  \node[cfgnode,below of=entry] (a) {0};
+  \node[below of=a] (middlenode) {};
+  \node[cfgnode,left of=middlenode] (b) {1};
+  \node[cfgnode,right of=middlenode] (c) {2};
+  \node[cfgnode,below of=middlenode] (f) {3};
+  \node[below of=f] (exit) {};
+\draw[->] (entry) to (a);
+\draw[->] (f) to (exit);
+\draw[->] (f) to (a);
+\draw[->] (a) to (b);
+\draw[->] (a) to (c);
+\draw[->] (b) to (f);
+\draw[->] (c) to (f);
+\end{tikzpicture}
+\end{column}
+%%%%Second Column
+\begin{column}{0.6\textwidth}
+  \begin{itemize}
+  \item $\hcancel{[0]}$,$\hcancel{[1]}$,$\hcancel{[2]}$,$\hcancel{[3]}$
+  \item $\hcancel{[0,1]}$,$\hcancel{[0,2]}$,$\hcancel{[1,3]}$,$\hcancel{[2,3]}$,$\hcancel{[3,0]}$
+  \item $\hcancel{[ 0,1,3]}$, $\hcancel{[0,2,3]}$, $\hcancel{[1,3,0]}$, $\hcancel{[2,3,0]}$,$\hcancel{[3,0,1]}$
+  \item $[ 0, 1, 3, 0 ]$, $[ 0, 2, 3, 0]$, $[ 1, 3, 0, 1 ]$,
+$[ 2, 3, 0, 2 ]$, $[ 3, 0, 1, 3 ]$, $[ 3, 0, 2, 3 ]$, $[ 1, 3, 0, 2 ]$,
+$[ 2, 3, 0, 1 ]$.
+  \end{itemize}
+In this case the prime paths are all the longest simple paths. Not
+always the case. 
+\end{column}
+\end{columns}
+  
+\end{frame}
+\begin{frame}{Simple Paths}
+Enumerate all simple paths of length, 1,2,3, $\ldots$ then remove
+simple paths that can be extended. You will be left with the prime paths.
+\begin{columns}
+
+\begin{column}{0.5\textwidth}
+ \begin{tikzpicture}
+ \node (entry) at (1,3) {};
+ 
+% \tikzstyle{every node} = [circle,fill=gray!30]
+ \node[below of=entry,circle,fill=gray!30] (initialise) {$1$};
+ \node[left  of=initialise] () {$x=0$};
+ \node[below of=initialise,circle,fill=gray!30] (start) {$2$};
+ \node[below of=start] (placementnode) {};
+ \node[left of=placementnode, below of=placementnode,circle,fill=gray!30] (body)
+ {$3$}; 
+ \node[left of=body] () {body};
+ \node[left of=placementnode,node distance=4em] (anchorpoint) {i++};
+ \node[right of=placementnode, below of=placementnode,circle,fill=gray!30] (exit)
+{$4$};
+ \node[below of=exit] (exitnode) {};
+ 
+ \draw [->] (exit) to (exitnode);
+ \draw [->] (entry) to (initialise);
+ \draw [->] (initialise) to (start);
+ \draw [->] (start) --
+ node[color=black,fill=white,pos=0.5,below,sloped] {$\scriptsize i<x$}
+ (body);
+ \draw [->] (start) --
+ node[color=black,fill=white,pos=0.5,above,sloped] {$\scriptsize i\not<x$} (exit);
+ \draw [->] (start) to (exit);
+  \draw [->] (body) to[bend left] (start);
+\end{tikzpicture}
+\end{column}
+%%%Second Column
+\begin{column}{0.5\textwidth}
+  \begin{itemize}
+  \item $[1]$,$[2]$,$[3]$,$[4]$
+  \item $[1,2]$, $[2,3]$, $[2,4]$, $[3,2]$
+  \item $[1,2,3]$ , $[1,2,4]$, $[2,3,2]$
+  \item We have to be careful about the paths of length 4.
+    \begin{itemize}
+    \item $[1,2,3,2]$ is not a simple path. Repeats $2$ which is not
+      at the beginning or the end. 
+    \end{itemize}
+  \item In fact there are no simple paths of length 4 in this graph.
+  \end{itemize}
+\end{column}
+\end{columns}
+\end{frame}
+%%%%%%%%%%
+\begin{frame}{Prime Paths}
+Enumerate all simple paths of length, 1,2,3, $\ldots$ then remove
+simple paths that can be extended. You will be left with the prime paths.
+\begin{columns}
+
+\begin{column}{0.5\textwidth}
+ \begin{tikzpicture}
+ \node (entry) at (1,3) {};
+ 
+% \tikzstyle{every node} = [circle,fill=gray!30]
+ \node[below of=entry,circle,fill=gray!30] (initialise) {$1$};
+ \node[left  of=initialise] () {$x=0$};
+ \node[below of=initialise,circle,fill=gray!30] (start) {$2$};
+ \node[below of=start] (placementnode) {};
+ \node[left of=placementnode, below of=placementnode,circle,fill=gray!30] (body)
+ {$3$}; 
+ \node[left of=body] () {body};
+ \node[left of=placementnode,node distance=4em] (anchorpoint) {i++};
+ \node[right of=placementnode, below of=placementnode,circle,fill=gray!30] (exit)
+{$4$};
+ \node[below of=exit] (exitnode) {};
+ 
+ \draw [->] (exit) to (exitnode);
+ \draw [->] (entry) to (initialise);
+ \draw [->] (initialise) to (start);
+ \draw [->] (start) --
+ node[color=black,fill=white,pos=0.5,below,sloped] {$\scriptsize i<x$}
+ (body);
+ \draw [->] (start) --
+ node[color=black,fill=white,pos=0.5,above,sloped] {$\scriptsize i\not<x$} (exit);
+ \draw [->] (start) to (exit);
+  \draw [->] (body) to[bend left] (start);
+\end{tikzpicture}
+\end{column}
+%%%Second Column
+\begin{column}{0.5\textwidth}
+  \begin{itemize}
+  \item $\hcancel{[1]}$,$\hcancel{[2]}$,$\hcancel{[3]}$,$\hcancel{[4]}$
+  \item $\hcancel{[1,2]}$, $\hcancel{[2,3]}$, $\hcancel{[2,4]}$, $\hcancel{[3,2]}$
+  \item $[1,2,3]$ , $[1,2,4]$, $[2,3,2]$
+  \end{itemize}
+\end{column}
+\end{columns}
+\end{frame}
+
+%%%%%%%%%%
+\begin{frame}{Prime Paths to Test Paths}
+\begin{columns}
+
+\begin{column}{0.5\textwidth}
+ \begin{tikzpicture}
+ \node (entry) at (1,3) {};
+ 
+% \tikzstyle{every node} = [circle,fill=gray!30]
+ \node[below of=entry,circle,fill=gray!30] (initialise) {$1$};
+ \node[left  of=initialise] () {$x=0$};
+ \node[below of=initialise,circle,fill=gray!30] (start) {$2$};
+ \node[below of=start] (placementnode) {};
+ \node[left of=placementnode, below of=placementnode,circle,fill=gray!30] (body)
+ {$3$}; 
+ \node[left of=body] () {body};
+ \node[left of=placementnode,node distance=4em] (anchorpoint) {i++};
+ \node[right of=placementnode, below of=placementnode,circle,fill=gray!30] (exit)
+{$4$};
+ \node[below of=exit] (exitnode) {};
+ 
+ \draw [->] (exit) to (exitnode);
+ \draw [->] (entry) to (initialise);
+ \draw [->] (initialise) to (start);
+ \draw [->] (start) --
+ node[color=black,fill=white,pos=0.5,below,sloped] {$\scriptsize i<x$}
+ (body);
+ \draw [->] (start) --
+ node[color=black,fill=white,pos=0.5,above,sloped] {$\scriptsize i\not<x$} (exit);
+ \draw [->] (start) to (exit);
+  \draw [->] (body) to[bend left] (start);
+\end{tikzpicture}
+\end{column}
+%%%Second Column
+\begin{column}{0.5\textwidth}
+  \begin{itemize}
+  \item $[1,2,3] \rightarrow [1,2,3,4]$
+    \begin{itemize}
+    \item Execute loop once.
+    \end{itemize}
+  \item $[1,2,4] \rightarrow [1,2,4]$
+    \begin{itemize}
+    \item   Execute loop zero times.
+    \end{itemize}
+
+  \item $[2,3,2] \rightarrow [1,2,3,2,4]$
+    \begin{itemize}
+    \item Execute loop more than once.
+    \end{itemize}
+  \end{itemize}
+\end{column}
+\end{columns}
+\end{frame}
+\begin{frame}{Simple Paths}
+\begin{columns}
+ \begin{column}{0.35\textwidth}
+ \tikzstyle{cfgnode}=[circle,fill=gray!30]
+ \begin{tikzpicture}
+      \node[cfgnode] (g1) {1};
+      \node[cfgnode,below=0.5cm of g1] (loopinit) {2};
+      \node[cfgnode,below=0.5cm of loopinit] (loopbody) {3};
+      \draw[->] (loopinit) to (loopbody);
+      \node[cfgnode,below=0.5cm  of loopbody] (loopif) {4};
+      \node[cfgnode,below left=1cm of loopif] (loopbodyifstatement) {5};
+      \node[cfgnode,below=1cm of loopif] (loopbodyifelse) {6};
+      \node[cfgnode,below=0.5cm  of loopbodyifelse] (returnstatment) {7};
+      \draw[->] (g1) to (loopinit);
+%      \draw[->] (loopbody) to (loopif);
+      \path (loopbody) edge[->,above,pos=0.9]  (loopif);
+      \draw[->] (loopif) to  (loopbodyifstatement);
+      \draw[->] (loopif) to   (loopbodyifelse);
+      \draw[->] (loopbodyifstatement) to (loopbodyifelse);
+      \path (loopbodyifelse) edge[->,bend right=80,above]   (loopbody);
+      \path (loopbody) edge[->,bend left=120,below,pos=0.6] (returnstatment);
+\end{tikzpicture}
+\end{column}
+\begin{column}{0.65\textwidth}
+  \begin{itemize}
+  \item $[1]$, $[2]$, $[3]$,$[4]$,$[5]$,$[6]$,$[7]!$
+  \item $[1,2]$,$[2,3]$,$[3,4]$,$[3,7]$, $[4,5]$,$[4,6]$,$[5,6]$,
+    $[6,3]$,$[6,3]$
+  \item $[1,2,3]$, $[2,3,4]$, $[2,3,7]!$, $[3,4,5]$, $[3,4,6]$,
+    $[4,5,6]$, $[4,6,3]$, $[4,6,3]$, $[5,6,3]$, $[5,6,3]$, $[6,3,4]$
+  \item $[1,2,3,4]$, $[1,2,3,7]!$, $[2,3,4,5]$, $[2,3,4,6]$,
+    $[3,4,5,6]$, $[3,4,6,3]$, $[3,4,6,3]$ , $[4,5,6,3]$ ,$[6,3,4,5]$,
+    $[4,5,6,3]$, $[4,6,3,4]$, $[5,6,3,4]$
+  \item $[1,2,3,4,5]$, $[1,2,3,4,6]$, $[2,3,4,5,6]$,$[2,3,4,6,3]$,
+    $[3,4,5,6,3]$ , $[3,4,5,6,3]$,
+  \item $[1,2,3,4,5,6]$.
+  \end{itemize}
+\end{column}
+\end{columns}
+\end{frame}
+\begin{frame}{Prime Paths}
+\begin{columns}
+ \begin{column}{0.35\textwidth}
+ \tikzstyle{cfgnode}=[circle,fill=gray!30]
+ \begin{tikzpicture}
+      \node[cfgnode] (g1) {1};
+      \node[cfgnode,below=0.5cm of g1] (loopinit) {2};
+      \node[cfgnode,below=0.5cm of loopinit] (loopbody) {3};
+      \draw[->] (loopinit) to (loopbody);
+      \node[cfgnode,below=0.5cm  of loopbody] (loopif) {4};
+      \node[cfgnode,below left=1cm of loopif] (loopbodyifstatement) {5};
+      \node[cfgnode,below=1cm of loopif] (loopbodyifelse) {6};
+      \node[cfgnode,below=0.5cm  of loopbodyifelse] (returnstatment) {7};
+      \draw[->] (g1) to (loopinit);
+%      \draw[->] (loopbody) to (loopif);
+      \path (loopbody) edge[->,above,pos=0.9]  (loopif);
+      \draw[->] (loopif) to  (loopbodyifstatement);
+      \draw[->] (loopif) to   (loopbodyifelse);
+      \draw[->] (loopbodyifstatement) to (loopbodyifelse);
+      \path (loopbodyifelse) edge[->,bend right=80,above]   (loopbody);
+      \path (loopbody) edge[->,bend left=120,below,pos=0.6] (returnstatment);
+\end{tikzpicture}
+\end{column}
+\begin{column}{0.65\textwidth}
+  \begin{itemize}
+  \item $\hcancel{[1]}$, $\hcancel{[2]}$, $\hcancel{[3]}$,$\hcancel{[4]}$,$\hcancel{[5]}$,$\hcancel{[6]}$,$\hcancel{[7]!}$
+  \item $\hcancel{[1,2]}$,$\hcancel{[2,3]}$,$\hcancel{[3,4]}$,$\hcancel{[3,7]}$, $\hcancel{[4,5]}$,$\hcancel{[4,6]}$,$\hcancel{[5,6]}$,
+    $\hcancel{[6,3]}$,$\hcancel{[6,3]}$
+  \item $\hcancel{[1,2,3]}$, $\hcancel{[2,3,4]}$, $\hcancel{[2,3,7]!}$, $\hcancel{[3,4,5]}$, $\hcancel{[3,4,6]}$,
+    $\hcancel{[4,5,6]}$, $\hcancel{[4,6,3]}$, $\hcancel{[4,6,3]}$, $\hcancel{[5,6,3]}$, $\hcancel{[5,6,3]}$, $\hcancel{[6,3,4]}$
+ \item $\hcancel{[1,2,3,4]}$, $[1,2,3,7]!$, $\hcancel{[2,3,4,5]}$, $\hcancel{[2,3,4,6]}$,
+    $\hcancel{[3,4,5,6]}$,  $[3,4,6,3]$ , $\hcancel{[4,5,6,3]}$ ,$[6,3,4,5]$,
+  $[4,6,3,4]$, $[5,6,3,4]$
+  \item $\hcancel{[1,2,3,4,5]}$, $\hcancel{[1,2,3,4,6]}$,
+    $\hcancel{[2,3,4,5,6]}$, $[3,4,5,6,3]$, 
+  \item $[1,2,3,4,5,6]$.
+  \end{itemize}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Prime Paths}
+\begin{columns}
+ \begin{column}{0.35\textwidth}
+ \tikzstyle{cfgnode}=[circle,fill=gray!30]
+ \begin{tikzpicture}
+      \node[cfgnode] (g1) {1};
+      \node[cfgnode,below=0.5cm of g1] (loopinit) {2};
+      \node[cfgnode,below=0.5cm of loopinit] (loopbody) {3};
+      \draw[->] (loopinit) to (loopbody);
+      \node[cfgnode,below=0.5cm  of loopbody] (loopif) {4};
+      \node[cfgnode,below left=1cm of loopif] (loopbodyifstatement) {5};
+      \node[cfgnode,below=1cm of loopif] (loopbodyifelse) {6};
+      \node[cfgnode,below=0.5cm  of loopbodyifelse] (returnstatment) {7};
+      \draw[->] (g1) to (loopinit);
+%      \draw[->] (loopbody) to (loopif);
+      \path (loopbody) edge[->,above,pos=0.9]  (loopif);
+      \draw[->] (loopif) to  (loopbodyifstatement);
+      \draw[->] (loopif) to   (loopbodyifelse);
+      \draw[->] (loopbodyifstatement) to (loopbodyifelse);
+      \path (loopbodyifelse) edge[->,bend right=80,above]   (loopbody);
+      \path (loopbody) edge[->,bend left=120,below,pos=0.6] (returnstatment);
+\end{tikzpicture}
+\end{column}
+\begin{column}{0.65\textwidth}
+  \begin{itemize}
+  \item $[1,2,3,7]! \rightarrow  [1,2,3,7]$
+    \begin{itemize}
+    \item  Do the loop zero times.
+    \end{itemize}
+  \item $[3,4,6,3] \rightarrow   [1,2,3,4,6,3,7]$
+    \begin{itemize}
+    \item Do the loop once and do not do the {\tt if}
+    \end{itemize}
+  \item  $[6,3,4,5] \rightarrow   [1,2,3,4,6,3,4,5,6,3,7]$,
+    \begin{itemize}
+    \item Do the loop twice, once with the {\tt if}  and once without.
+    \end{itemize}
+  \item $[4,6,3,4] \rightarrow   [1,2,3,4,6,3,4,6,3,7]$
+    \begin{itemize}
+    \item Do the loop twice, both times without taking the {\tt if}.
+    \end{itemize}
+  \item $[5,6,3,4] \rightarrow   [1,2,3,4,5,6,3,4,6,3,7]$
+    \begin{itemize}
+    \item Do the loop twice, take the {\tt if} once and once without,
+      other way around from the previous case.
+    \end{itemize}
+  \item $[3,4,5,6,3] \rightarrow [1,2,3,4,5,6,3,7]$, loop once with
+    one {\tt if}.
+  \end{itemize}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Prime Paths: Summary}
+  \begin{itemize}
+  \item Prime paths give you a good way of deriving a set of test
+    cases that cover various combinations of loops and branches.
+  \item There is no formal guarantee about completeness. As in all
+    testing it just formalises a good compromise. 
+  \end{itemize}
+
 \end{frame}
 \begin{frame}{Model, define, and approximate}
   \begin{itemize}
@@ -1061,398 +1469,15 @@ The path $[0,1,2,3,4,5]$ tours the path $[0,1,2,4,5]$ with side trips.
 
   
 \end{frame}
-\begin{frame}{Loops}
-  \begin{itemize}
-  \item If a graph contains a loop then it has an infinite number of
-    paths.
-  \item Thus you can not ask for complete path coverage. 
-  \item Attempts to “deal with” loops:
-    \begin{itemize}
-    \item 1970s : Execute cycles once  ([4, 5, 4] in previous example, informal)
-    \item 1980s : Execute each loop, exactly once (formalised)
-    \item 1990s : Execute loops 0 times, once, more than once (informal description)
-    \item 2000s : Prime paths
-\end{itemize}
-  \end{itemize}
-  
-\end{frame}
-\begin{frame}{Simple and Prime Paths}
-  \begin{itemize}
-  \item A path is simple if no node appears more than once except
-    possible that the first and last node can be the same.
-  \item A prime path of a graph is a simple path that is not a
-    sub-path of any other simple path.
-  \end{itemize}
-  
-\end{frame}
-\begin{frame}{Simple Paths}
-\begin{columns}
-%%%First Column    
-\begin{column}{0.3\textwidth}    
- \tikzstyle{cfgnode}=[circle,fill=gray!30]
-\begin{tikzpicture}%[node distance=1.5cm]
-  \node (entry) {};
-  \node[cfgnode,below of=entry] (a) {0};
-  \node[below of=a] (middlenode) {};
-  \node[cfgnode,left of=middlenode] (b) {1};
-  \node[cfgnode,right of=middlenode] (c) {2};
-  \node[cfgnode,below of=middlenode] (f) {3};
-  \node[below of=f] (exit) {};
-\draw[->] (entry) to (a);
-\draw[->] (f) to (exit);
-\draw[->] (f) to (a);
-\draw[->] (a) to (b);
-\draw[->] (a) to (c);
-\draw[->] (b) to (f);
-\draw[->] (c) to (f);
-\end{tikzpicture}
-\end{column}
-%%%%Second Column
-\begin{column}{0.6\textwidth}
-  \begin{itemize}
-  \item $[0]$,$[1]$,$[2]$,$[3]$
-  \item $[0,1]$,$[0,2]$,$[1,3]$,$[2,3]$,$[3,0]$
-  \item $[ 0,1,3]$, $[0,2,3]$, $[1,3,0]$, $[2,3,0]$,$[3,0,1]$
-  \item $[ 0, 1, 3, 0 ]$, $[ 0, 2, 3, 0]$, $[ 1, 3, 0, 1 ]$,
-$[ 2, 3, 0, 2 ]$, $[ 3, 0, 1, 3 ]$, $[ 3, 0, 2, 3 ]$, $[ 1, 3, 0, 2 ]$,
-$[ 2, 3, 0, 1 ]$.
-  \end{itemize}
- 
-\end{column}
-\end{columns}
-  
-\end{frame}
-\begin{frame}{Prime Paths}
-Remove all simple paths that can be extended (either direction) to a longer simple path.
-\begin{columns}
-%%%First Column    
-\begin{column}{0.3\textwidth}    
- \tikzstyle{cfgnode}=[circle,fill=gray!30]
-\begin{tikzpicture}%[node distance=1.5cm]
-  \node (entry) {};
-  \node[cfgnode,below of=entry] (a) {0};
-  \node[below of=a] (middlenode) {};
-  \node[cfgnode,left of=middlenode] (b) {1};
-  \node[cfgnode,right of=middlenode] (c) {2};
-  \node[cfgnode,below of=middlenode] (f) {3};
-  \node[below of=f] (exit) {};
-\draw[->] (entry) to (a);
-\draw[->] (f) to (exit);
-\draw[->] (f) to (a);
-\draw[->] (a) to (b);
-\draw[->] (a) to (c);
-\draw[->] (b) to (f);
-\draw[->] (c) to (f);
-\end{tikzpicture}
-\end{column}
-%%%%Second Column
-\begin{column}{0.6\textwidth}
-  \begin{itemize}
-  \item $\hcancel{[0]}$,$\hcancel{[1]}$,$\hcancel{[2]}$,$\hcancel{[3]}$
-  \item $\hcancel{[0,1]}$,$\hcancel{[0,2]}$,$\hcancel{[1,3]}$,$\hcancel{[2,3]}$,$\hcancel{[3,0]}$
-  \item $\hcancel{[ 0,1,3]}$, $\hcancel{[0,2,3]}$, $\hcancel{[1,3,0]}$, $\hcancel{[2,3,0]}$,$\hcancel{[3,0,1]}$
-  \item $[ 0, 1, 3, 0 ]$, $[ 0, 2, 3, 0]$, $[ 1, 3, 0, 1 ]$,
-$[ 2, 3, 0, 2 ]$, $[ 3, 0, 1, 3 ]$, $[ 3, 0, 2, 3 ]$, $[ 1, 3, 0, 2 ]$,
-$[ 2, 3, 0, 1 ]$.
-  \end{itemize}
-In this case the prime paths are all the longest simple paths. Not
-always the case. 
-\end{column}
-\end{columns}
-  
-\end{frame}
-\begin{frame}{Simple Paths}
-Enumerate all simple paths of length, 1,2,3, $\ldots$ then remove
-simple paths that can be extended. You will be left with the prime paths.
-\begin{columns}
 
-\begin{column}{0.5\textwidth}
- \begin{tikzpicture}
- \node (entry) at (1,3) {};
- 
-% \tikzstyle{every node} = [circle,fill=gray!30]
- \node[below of=entry,circle,fill=gray!30] (initialise) {$1$};
- \node[left  of=initialise] () {$x=0$};
- \node[below of=initialise,circle,fill=gray!30] (start) {$2$};
- \node[below of=start] (placementnode) {};
- \node[left of=placementnode, below of=placementnode,circle,fill=gray!30] (body)
- {$3$}; 
- \node[left of=body] () {body};
- \node[left of=placementnode,node distance=4em] (anchorpoint) {i++};
- \node[right of=placementnode, below of=placementnode,circle,fill=gray!30] (exit)
-{$4$};
- \node[below of=exit] (exitnode) {};
- 
- \draw [->] (exit) to (exitnode);
- \draw [->] (entry) to (initialise);
- \draw [->] (initialise) to (start);
- \draw [->] (start) --
- node[color=black,fill=white,pos=0.5,below,sloped] {$\scriptsize i<x$}
- (body);
- \draw [->] (start) --
- node[color=black,fill=white,pos=0.5,above,sloped] {$\scriptsize i\not<x$} (exit);
- \draw [->] (start) to (exit);
-  \draw [->] (body) to[bend left] (start);
-\end{tikzpicture}
-\end{column}
-%%%Second Column
-\begin{column}{0.5\textwidth}
-  \begin{itemize}
-  \item $[1]$,$[2]$,$[3]$,$[4]$
-  \item $[1,2]$, $[2,3]$, $[2,4]$, $[3,2]$
-  \item $[1,2,3]$ , $[1,2,4]$, $[2,3,2]$
-  \item We have to be careful about the paths of length 4.
-    \begin{itemize}
-    \item $[1,2,3,2]$ is not a simple path. Repeats $2$ which is not
-      at the beginning or the end. 
-    \end{itemize}
-  \item In fact there are no simple paths of length 4 in this graph.
-  \end{itemize}
-\end{column}
-\end{columns}
-\end{frame}
-%%%%%%%%%%
-\begin{frame}{Prime Paths}
-Enumerate all simple paths of length, 1,2,3, $\ldots$ then remove
-simple paths that can be extended. You will be left with the prime paths.
-\begin{columns}
 
-\begin{column}{0.5\textwidth}
- \begin{tikzpicture}
- \node (entry) at (1,3) {};
- 
-% \tikzstyle{every node} = [circle,fill=gray!30]
- \node[below of=entry,circle,fill=gray!30] (initialise) {$1$};
- \node[left  of=initialise] () {$x=0$};
- \node[below of=initialise,circle,fill=gray!30] (start) {$2$};
- \node[below of=start] (placementnode) {};
- \node[left of=placementnode, below of=placementnode,circle,fill=gray!30] (body)
- {$3$}; 
- \node[left of=body] () {body};
- \node[left of=placementnode,node distance=4em] (anchorpoint) {i++};
- \node[right of=placementnode, below of=placementnode,circle,fill=gray!30] (exit)
-{$4$};
- \node[below of=exit] (exitnode) {};
- 
- \draw [->] (exit) to (exitnode);
- \draw [->] (entry) to (initialise);
- \draw [->] (initialise) to (start);
- \draw [->] (start) --
- node[color=black,fill=white,pos=0.5,below,sloped] {$\scriptsize i<x$}
- (body);
- \draw [->] (start) --
- node[color=black,fill=white,pos=0.5,above,sloped] {$\scriptsize i\not<x$} (exit);
- \draw [->] (start) to (exit);
-  \draw [->] (body) to[bend left] (start);
-\end{tikzpicture}
-\end{column}
-%%%Second Column
-\begin{column}{0.5\textwidth}
-  \begin{itemize}
-  \item $\hcancel{[1]}$,$\hcancel{[2]}$,$\hcancel{[3]}$,$\hcancel{[4]}$
-  \item $\hcancel{[1,2]}$, $\hcancel{[2,3]}$, $\hcancel{[2,4]}$, $\hcancel{[3,2]}$
-  \item $[1,2,3]$ , $[1,2,4]$, $[2,3,2]$
-  \end{itemize}
-\end{column}
-\end{columns}
-\end{frame}
-%%%%%%%%%%
-\begin{frame}{Prime Paths to Test Paths}
-\begin{columns}
-
-\begin{column}{0.5\textwidth}
- \begin{tikzpicture}
- \node (entry) at (1,3) {};
- 
-% \tikzstyle{every node} = [circle,fill=gray!30]
- \node[below of=entry,circle,fill=gray!30] (initialise) {$1$};
- \node[left  of=initialise] () {$x=0$};
- \node[below of=initialise,circle,fill=gray!30] (start) {$2$};
- \node[below of=start] (placementnode) {};
- \node[left of=placementnode, below of=placementnode,circle,fill=gray!30] (body)
- {$3$}; 
- \node[left of=body] () {body};
- \node[left of=placementnode,node distance=4em] (anchorpoint) {i++};
- \node[right of=placementnode, below of=placementnode,circle,fill=gray!30] (exit)
-{$4$};
- \node[below of=exit] (exitnode) {};
- 
- \draw [->] (exit) to (exitnode);
- \draw [->] (entry) to (initialise);
- \draw [->] (initialise) to (start);
- \draw [->] (start) --
- node[color=black,fill=white,pos=0.5,below,sloped] {$\scriptsize i<x$}
- (body);
- \draw [->] (start) --
- node[color=black,fill=white,pos=0.5,above,sloped] {$\scriptsize i\not<x$} (exit);
- \draw [->] (start) to (exit);
-  \draw [->] (body) to[bend left] (start);
-\end{tikzpicture}
-\end{column}
-%%%Second Column
-\begin{column}{0.5\textwidth}
-  \begin{itemize}
-  \item $[1,2,3] \rightarrow [1,2,3,4]$
-    \begin{itemize}
-    \item Execute loop once.
-    \end{itemize}
-  \item $[1,2,4] \rightarrow [1,2,4]$
-    \begin{itemize}
-    \item   Execute loop zero times.
-    \end{itemize}
-
-  \item $[2,3,2] \rightarrow [1,2,3,2,4]$
-    \begin{itemize}
-    \item Execute loop more than once.
-    \end{itemize}
-  \end{itemize}
-\end{column}
-\end{columns}
-\end{frame}
-\begin{frame}{Simple Paths}
-\begin{columns}
- \begin{column}{0.35\textwidth}
- \tikzstyle{cfgnode}=[circle,fill=gray!30]
- \begin{tikzpicture}
-      \node[cfgnode] (g1) {1};
-      \node[cfgnode,below=0.5cm of g1] (loopinit) {2};
-      \node[cfgnode,below=0.5cm of loopinit] (loopbody) {3};
-      \draw[->] (loopinit) to (loopbody);
-      \node[cfgnode,below=0.5cm  of loopbody] (loopif) {4};
-      \node[cfgnode,below left=1cm of loopif] (loopbodyifstatement) {5};
-      \node[cfgnode,below=1cm of loopif] (loopbodyifelse) {6};
-      \node[cfgnode,below=0.5cm  of loopbodyifelse] (returnstatment) {7};
-      \draw[->] (g1) to (loopinit);
-%      \draw[->] (loopbody) to (loopif);
-      \path (loopbody) edge[->,above,pos=0.9]  (loopif);
-      \draw[->] (loopif) to  (loopbodyifstatement);
-      \draw[->] (loopif) to   (loopbodyifelse);
-      \draw[->] (loopbodyifstatement) to (loopbodyifelse);
-      \path (loopbodyifelse) edge[->,bend right=80,above]   (loopbody);
-      \path (loopbody) edge[->,bend left=120,below,pos=0.6] (returnstatment);
-\end{tikzpicture}
-\end{column}
-\begin{column}{0.65\textwidth}
-  \begin{itemize}
-  \item $[1]$, $[2]$, $[3]$,$[4]$,$[5]$,$[6]$,$[7]!$
-  \item $[1,2]$,$[2,3]$,$[3,4]$,$[3,7]$, $[4,5]$,$[4,6]$,$[5,6]$,
-    $[6,3]$,$[6,3]$
-  \item $[1,2,3]$, $[2,3,4]$, $[2,3,7]!$, $[3,4,5]$, $[3,4,6]$,
-    $[4,5,6]$, $[4,6,3]$, $[4,6,3]$, $[5,6,3]$, $[5,6,3]$, $[6,3,4]$
-  \item $[1,2,3,4]$, $[1,2,3,7]!$, $[2,3,4,5]$, $[2,3,4,6]$,
-    $[3,4,5,6]$, $[3,4,6,3]$, $[3,4,6,3]$ , $[4,5,6,3]$ ,$[6,3,4,5]$,
-    $[4,5,6,3]$, $[4,6,3,4]$, $[5,6,3,4]$
-  \item $[1,2,3,4,5]$, $[1,2,3,4,6]$, $[2,3,4,5,6]$,$[2,3,4,6,3]$,
-    $[3,4,5,6,3]$ , $[3,4,5,6,3]$,
-  \item $[1,2,3,4,5,6]$.
-  \end{itemize}
-\end{column}
-\end{columns}
-\end{frame}
-\begin{frame}{Prime Paths}
-\begin{columns}
- \begin{column}{0.35\textwidth}
- \tikzstyle{cfgnode}=[circle,fill=gray!30]
- \begin{tikzpicture}
-      \node[cfgnode] (g1) {1};
-      \node[cfgnode,below=0.5cm of g1] (loopinit) {2};
-      \node[cfgnode,below=0.5cm of loopinit] (loopbody) {3};
-      \draw[->] (loopinit) to (loopbody);
-      \node[cfgnode,below=0.5cm  of loopbody] (loopif) {4};
-      \node[cfgnode,below left=1cm of loopif] (loopbodyifstatement) {5};
-      \node[cfgnode,below=1cm of loopif] (loopbodyifelse) {6};
-      \node[cfgnode,below=0.5cm  of loopbodyifelse] (returnstatment) {7};
-      \draw[->] (g1) to (loopinit);
-%      \draw[->] (loopbody) to (loopif);
-      \path (loopbody) edge[->,above,pos=0.9]  (loopif);
-      \draw[->] (loopif) to  (loopbodyifstatement);
-      \draw[->] (loopif) to   (loopbodyifelse);
-      \draw[->] (loopbodyifstatement) to (loopbodyifelse);
-      \path (loopbodyifelse) edge[->,bend right=80,above]   (loopbody);
-      \path (loopbody) edge[->,bend left=120,below,pos=0.6] (returnstatment);
-\end{tikzpicture}
-\end{column}
-\begin{column}{0.65\textwidth}
-  \begin{itemize}
-  \item $\hcancel{[1]}$, $\hcancel{[2]}$, $\hcancel{[3]}$,$\hcancel{[4]}$,$\hcancel{[5]}$,$\hcancel{[6]}$,$\hcancel{[7]!}$
-  \item $\hcancel{[1,2]}$,$\hcancel{[2,3]}$,$\hcancel{[3,4]}$,$\hcancel{[3,7]}$, $\hcancel{[4,5]}$,$\hcancel{[4,6]}$,$\hcancel{[5,6]}$,
-    $\hcancel{[6,3]}$,$\hcancel{[6,3]}$
-  \item $\hcancel{[1,2,3]}$, $\hcancel{[2,3,4]}$, $\hcancel{[2,3,7]!}$, $\hcancel{[3,4,5]}$, $\hcancel{[3,4,6]}$,
-    $\hcancel{[4,5,6]}$, $\hcancel{[4,6,3]}$, $\hcancel{[4,6,3]}$, $\hcancel{[5,6,3]}$, $\hcancel{[5,6,3]}$, $\hcancel{[6,3,4]}$
- \item $\hcancel{[1,2,3,4]}$, $[1,2,3,7]!$, $\hcancel{[2,3,4,5]}$, $\hcancel{[2,3,4,6]}$,
-    $\hcancel{[3,4,5,6]}$,  $[3,4,6,3]$ , $\hcancel{[4,5,6,3]}$ ,$[6,3,4,5]$,
-  $[4,6,3,4]$, $[5,6,3,4]$
-  \item $\hcancel{[1,2,3,4,5]}$, $\hcancel{[1,2,3,4,6]}$,
-    $\hcancel{[2,3,4,5,6]}$, $[3,4,5,6,3]$, 
-  \item $[1,2,3,4,5,6]$.
-  \end{itemize}
-\end{column}
-\end{columns}
-\end{frame}
-
-\begin{frame}{Prime Paths}
-\begin{columns}
- \begin{column}{0.35\textwidth}
- \tikzstyle{cfgnode}=[circle,fill=gray!30]
- \begin{tikzpicture}
-      \node[cfgnode] (g1) {1};
-      \node[cfgnode,below=0.5cm of g1] (loopinit) {2};
-      \node[cfgnode,below=0.5cm of loopinit] (loopbody) {3};
-      \draw[->] (loopinit) to (loopbody);
-      \node[cfgnode,below=0.5cm  of loopbody] (loopif) {4};
-      \node[cfgnode,below left=1cm of loopif] (loopbodyifstatement) {5};
-      \node[cfgnode,below=1cm of loopif] (loopbodyifelse) {6};
-      \node[cfgnode,below=0.5cm  of loopbodyifelse] (returnstatment) {7};
-      \draw[->] (g1) to (loopinit);
-%      \draw[->] (loopbody) to (loopif);
-      \path (loopbody) edge[->,above,pos=0.9]  (loopif);
-      \draw[->] (loopif) to  (loopbodyifstatement);
-      \draw[->] (loopif) to   (loopbodyifelse);
-      \draw[->] (loopbodyifstatement) to (loopbodyifelse);
-      \path (loopbodyifelse) edge[->,bend right=80,above]   (loopbody);
-      \path (loopbody) edge[->,bend left=120,below,pos=0.6] (returnstatment);
-\end{tikzpicture}
-\end{column}
-\begin{column}{0.65\textwidth}
-  \begin{itemize}
-  \item $[1,2,3,7]! \rightarrow  [1,2,3,7]$
-    \begin{itemize}
-    \item  Do the loop zero times.
-    \end{itemize}
-  \item $[3,4,6,3] \rightarrow   [1,2,3,4,6,3,7]$
-    \begin{itemize}
-    \item Do the loop once and do not do the {\tt if}
-    \end{itemize}
-  \item  $[6,3,4,5] \rightarrow   [1,2,3,4,6,3,4,5,6,3,7]$,
-    \begin{itemize}
-    \item Do the loop twice, once with the {\tt if}  and once without.
-    \end{itemize}
-  \item $[4,6,3,4] \rightarrow   [1,2,3,4,6,3,4,6,3,7]$
-    \begin{itemize}
-    \item Do the loop twice, both times without taking the {\tt if}.
-    \end{itemize}
-  \item $[5,6,3,4] \rightarrow   [1,2,3,4,5,6,3,4,6,3,7]$
-    \begin{itemize}
-    \item Do the loop twice, take the {\tt if} once and once without,
-      other way around from the previous case.
-    \end{itemize}
-  \item $[3,4,5,6,3] \rightarrow [1,2,3,4,5,6,3,7]$, loop once with
-    one {\tt if}.
-  \end{itemize}
-\end{column}
-\end{columns}
-\end{frame}
-\begin{frame}{Prime Paths: Summary}
-  \begin{itemize}
-  \item Prime paths give you a good way of deriving a set of test
-    cases that cover various combinations of loops and branches.
-  \item There is no formal guarantee about completeness. As in all
-    testing it just formalises a good compromise. 
-  \end{itemize}
-
-\end{frame}
 
 
 
 
 \end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
