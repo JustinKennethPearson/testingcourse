@@ -319,7 +319,7 @@ We can do this with two test cases:
     \item Test each clause {\em independently} from the other clauses.
     \end{itemize}
   \item You have to work out what exactly does independent mean. The
-    book uses {\em ``making clauses active''}.
+    book uses the concept {\em ``making clauses active''}.
   \end{itemize}
 \end{frame}
 \begin{frame}{Active Clauses}
@@ -460,7 +460,7 @@ evaluate to both true and false.
     and each major clause in each predicate, choose values of minor
     clauses so that the major determines the predicate. Test
     requirements include each major clause evaluates to true and
-    false. The values chosen for the minor clauses{\bf must be the
+    false. The values chosen for the minor clauses {\bf must be the
       same}.
   \item Been used in aviation software. 
   \item No logical reason for the values of the minor clauses to be
@@ -474,7 +474,7 @@ evaluate to both true and false.
   \begin{itemize}
   \item {\em Correlated Active Clause Coverage:} For each predicate
     and each major clause in each predicate, choose values of minor
-    clauses so that the major determines the predicate. Test
+    clauses so that the major clause determines the predicate. Test
     requirements include each major clause evaluates to true and
     false. The values of the minor clauses must be chosen such that
     the predicate evaluates to true and false.
@@ -525,7 +525,7 @@ evaluate to both true and false.
   \item $P=A\lor (B\land C)$, Major clause $A$.
     \begin{itemize}
     \item $P_A = P_{A=T} \oplus P_{A=F} = (T \lor (B\land C)) \oplus
-      (false 
+      (F 
       \lor (B\land C))$ which gives $T\oplus (B\land C) = \neg (B
       \land C) = \neg B \lor \neg C$.
     \item So $B=F$ and $C=T$ is a solution.
