@@ -6,6 +6,7 @@
 \usepackage{listings}
 \title{Software Testing  Lecture 5}
 \author{Justin Pearson}
+\date{2017}
 \setbeamertemplate{footline}[page number]
 \setbeamertemplate{navigation symbols}{}
 
@@ -50,7 +51,9 @@
     \begin{itemize}
     \item In theory too many options to test everything.
     \item Find good coverage criteria that have a chance of covering
-      useful cases. 
+      useful cases.
+    \item As usual there are no guarantees, but try to model cases that
+      capture commonly occurring faults.
     \end{itemize}
   \end{itemize}  
 \end{frame}
@@ -140,7 +143,7 @@ these values.
    $P$ & $Q$ & $P \oplus Q$ Exclusive Or \\
     T  & T   & F \\
     T  & F   & T \\
-    F  & T   & F \\
+    F  & T   & T \\
     F  & F   & F \\
     \hline
   \end{tabular}
