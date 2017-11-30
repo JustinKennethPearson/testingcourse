@@ -1,0 +1,515 @@
+\documentclass{beamer}
+\usetheme{default}
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+\usepackage{hyperref}
+\usepackage{listings}
+\title{Software Testing  Lecture 6 \\ Input Domain Modelling}
+\author{Justin Pearson}
+\date{2017}
+\setbeamertemplate{footline}[page number]
+\setbeamertemplate{navigation symbols}{}
+
+%Lecture 4 stuff
+\newcommand{\todo}[1]{{\tt ... #1 ... }}
+\newcommand{\Reach}{\mathrm{Reach}}
+\newcommand{\Path}{\mathrm{path}}
+
+%Lecture 5 stuff
+\newcommand{\predset}{{\cal P}}
+\newcommand{\clauseset}{{\cal C}}
+%Stolen from Stackexchange
+%http://tex.stackexchange.com/questions/20609/strikeout-in-math-mode 
+\newcommand\hcancel[2][red]{\setbox0=\hbox{$#2$}%
+\rlap{\raisebox{.45\ht0}{\textcolor{#1}{\rule{\wd0}{1pt}}}}#2} 
+
+\begin{document}
+\lstset{language=C}
+
+\begin{frame}
+  \maketitle
+\end{frame}
+\begin{frame}{Input Domains}
+  \begin{itemize}
+  \item The input domain of a program is all the possible inputs to
+    that program.
+  \item Even for small programs the domain is infinite.
+  \item Testing is fundamentally about {\em choosing finite sets} of
+    values from the input domain.
+  \end{itemize}
+  
+\end{frame}
+\begin{frame}{Input Domains}
+  \begin{itemize}
+  \item Input parameters define the scope of the input domain:
+    \begin{itemize}
+    \item Parameters to a method.
+    \item Data read from a file.
+    \item Global variables.
+    \item user level inputs
+    \end{itemize}
+  \item Domain for each parameter is partitioned into regions.
+  \item At least one value is chosen from each region.
+  \end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Partitions Intuition} 
+  \begin{itemize}
+  \item Elements in each partition do the same thing; for some value
+    of  'the same thing'.
+  \item Simple mathematical theory of partitions, allows you to work
+    out if you are on the right track.
+  \end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Benefits of Inputs Space Partitions}
+  \begin{itemize}
+  \item Can be applied at several levels of testing:
+    \begin{itemize}
+    \item Unit
+    \item Integration
+    \item System
+    \end{itemize}
+  \item Relatively easy to apply with no automation
+  \item Easy to adjust to get more of fewer tests
+  \item It is possible to do black box testing, you just need to know
+    what the input space is.
+  \end{itemize}
+    
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Partitions or Equivalence relations} 
+  \begin{itemize}
+  \item We want to formalise the notion of being the same.
+  \item Given a domain. $D$, there are two ways of looking at partitions:
+    \begin{itemize}
+    \item A partition of $D$ is a set of sets $B_1,\ldots,B_q$  that
+      satisfy two properties:
+      \begin{itemize}
+      \item  Sets must be pairwise disjoint, all $i\neq j$ $B_i \cap
+        B_j = \emptyset$.
+      \item Sets must cover the whole of $D$, that is $B_1\cup \cdots
+        \cup B_q = D$.
+      \end{itemize}
+    \item A binary relation $\equiv_B$  on $D$ such that:
+      \begin{itemize}
+      \item for all $d \in D$, $d \equiv_B d$.
+      \item for all $d,e \in D$, $d \equiv_B e \Leftrightarrow e
+        \equiv_B d$.
+      \item For all $d,e,f$ $d \equiv_B e \land e \equiv_B f$ implies
+        $d \equiv_B f$.
+      \end{itemize}
+    \end{itemize}
+  \end{itemize}
+ \end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Partitions or Equivalence relations} 
+  \begin{itemize}
+  \item Given a partition $B_1,\ldots ,  B_q$ of $D$ then define:
+    \[
+      d \equiv_B e \Leftrightarrow \exists i. d \in B_i \land e \in B_i
+    \]
+  \item Given an equivalence relation $\equiv_B$ on $D$ then the
+    partition consists of the sets:
+    \[
+    [d]_{\equiv_B} = \{ e \mid d \equiv_B e \}
+    \]  
+  \end{itemize}
+  
+\end{frame}
+\begin{frame}{Why is this important?}
+  \begin{itemize}
+  \item Remember blocks should be 
+    \begin{itemize}
+    \item disjoint, no overlapping test cases
+    \item cover the domain, every element is tested.
+    \end{itemize}
+  \end{itemize}  
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Using Partitions -- Assumptions}
+  \begin{itemize}
+  \item Choose a value from each partition.
+  \item Each value is assumed to be {\em equally useful} for testing.
+  \end{itemize}
+It is up to tester to work out what it means to be equally useful.
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Characteristics}
+  \begin{itemize}
+  \item Application to testing:
+    \begin{itemize}
+    \item Find {\em characteristics} in the inputs: parameters,
+      semantic descriptions
+    \item Partition each characteristic
+    \item Choose tests by combining values from each characteristic.
+    \end{itemize}
+  \end{itemize}  
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \begin{itemize}
+  \item Example Characteristics
+    \begin{itemize}
+    \item Input X is null
+    \item Order of an input file (sorted, backwards, arbitary
+    \item Minimum separation of two aircraft.
+    \item Input device type (DVD, CD, .... )
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+\begin{frame}{Choosing Partitions}
+  \begin{itemize}
+  \item Choosing (or defining) partitions seems to easy, but it is
+    equally easy to get it wrong.
+  \item Consider the property the order of the file.
+  \item Define the partition as follows:
+    \begin{itemize}
+    \item $b_1 = \ $ files sorted in ascending order.
+    \item $b_2 = \ $ files sorted in descending order.
+    \item $b_3 = \ $ files in an arbitrary order.
+    \end{itemize}
+  \end{itemize}
+  Something is wrong with this. What about files of length $1$.
+\end{frame}
+\begin{frame}{Choosing Partitions}
+  \begin{itemize}
+  \item Choosing (or defining) partitions seems to easy, but it is
+    equally easy to get it wrong.
+  \item Consider the property the order of the file.
+  \item Define the partition as follows:
+    \begin{itemize}
+    \item $b_1 = \ $ files sorted in ascending order.
+    \item $b_2 = \ $ files sorted in descending order.
+    \item $b_3 = \ $ files in an arbitrary order.
+    \end{itemize}
+  \end{itemize}
+ The blocks are not disjoint. Files of length $1$ belong to
+ $b_1$,$b_2$ and $b_3$. Hence for $i\neq j$ $b_i \cap b_j \neq \emptyset$.
+
+\end{frame}
+\begin{frame}{Choosing Partitions}
+
+  \begin{itemize}
+  \item You could just be careful.
+  \item Or make your partitions binary and combine them. So we have two
+    separate partitions. Generate tests from all possible combinations of
+    characteristics. 
+    \begin{itemize}
+    \item File is sorted ascending:
+      \begin{itemize}
+      \item $b_1 = \ $ true
+      \item $b_2 = \ $ false.
+      \end{itemize}
+    \item File is sorted descending:
+      \begin{itemize}
+      \item $b_1 = \ $ true
+      \item $b_2 = \ $ false.
+      \end{itemize}
+    \end{itemize}
+    \item Here the combination  is easy. 
+  \end{itemize} 
+\end{frame}
+\begin{frame}{Properties of Partitions}
+  \begin{itemize}
+  \item Don't forget that partitions should be complete and disjoint,
+    if they are not then they have not been considered carefully
+    enough.
+    \item Review your partitions like any design attempt
+    \item Different alternatives should be considered.
+  \end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Modelling the input domain: Five stage plan}
+
+  \begin{itemize}
+  \item {\bf Step 1:} Identify testable functions
+    \begin{itemize}
+    \item Individual methods
+    \item functions
+    \item More complicated characteristics, hardware/software,
+      etc. You might have to look beyond your code.
+    \end{itemize}
+  \item {\bf Step 2:} Find all parameters
+    \begin{itemize}
+    \item Not rocket science. But be complete.
+    \item Don't forget global variables.
+    \item Files, databases etc.
+    \end{itemize}
+  \end{itemize}
+  \end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Modelling the input domain: Five stage plan}
+  \begin{itemize}
+  \item {\bf Step 3:} Model the input domain.
+    \begin{itemize}
+    \item The domain depends on the parameters.
+    \item Define structure in terms of characteristics
+    \item Get blocks and values.
+    \item This is where some creativity comes in to play, you have to
+      decide which characteristics to you. 
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Modelling the input domain: Five stage plan}
+  \begin{itemize}
+  \item {\bf Step 4:} Test criteria for choosing combinations of values.
+    \begin{itemize}
+    \item See later in the lecture, but you need to combine your
+      characteristics.
+    \item Choosing all combinations is often infeasible.
+    \end{itemize}
+  \item {\bf Step 5:} Refine combinations of blocks into test inputs.
+    \begin{itemize}
+    \item Choose appropriate values from each block.
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Two Approaches to Input Domain Modelling}
+  \begin{enumerate}
+  \item {\bf Interface-based} approach.
+    \begin{itemize}
+    \item Develop characteristics directly from individual input
+      parameters.
+    \item Just use properties of the domains without considering the
+      actual function under test.
+    \end{itemize}
+  \item {\bf Functionality-based} approach
+    \begin{itemize}
+    \item Develops characteristics from a behavioural view of the
+      program under test.
+    \item Use your understanding of what the system should do. 
+    \end{itemize}
+  \end{enumerate}
+  
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%On slide 15, consider doing slides 9-14. I'm not sure.
+
+\begin{frame}[fragile]{Interface-Based vs Functionality-Based Approach Example}
+\begin{verbatim}
+  public boolean findElement(List list, Object element)
+  //if list or element is null throw NullPointerException
+  // else return true if element is in the list.
+\end{verbatim}
+%%Hello
+\begin{itemize}
+ \item Interface-Based Approach
+   \begin{itemize}
+    \item Two parameters: {\tt list}, {\tt element}
+    \item Characteristics:
+      \begin{itemize}
+       \item {\tt list} is null ($b_1$ = true, $b_2$ = false)
+       \item {\tt list} is empty ($b_1$ = true, $b_2$ = false)
+       \end{itemize}
+    \end{itemize}
+\end{itemize}
+\end{frame}
+%
+
+\begin{frame}[fragile]
+{Interface-Based vs Functionality-Based Approach Example}
+\begin{verbatim}
+  public boolean findElement(List list, Object element)
+  //if list or element is null throw NullPointerException
+  // else return true if element is in the list.
+\end{verbatim}
+\begin{itemize}
+  \item Functionality-Based Approach
+   \begin{itemize}
+     \item Two parameters: {\tt list}, {\tt element}
+     \item Characteristics:
+      \begin{itemize}
+        \item number of occurrences of {\tt element} in {\tt list}
+          \[ (0,1,>1)\]
+        \item {\tt element} occurs first in {\tt list}
+        \[ (\mathrm{true},\mathrm{false}) \]
+      \end{itemize}
+    \end{itemize}
+%
+\end{itemize}
+%
+%%
+\end{frame}
+\begin{frame}{Step 3: Modelling the Input Domain}
+  \begin{itemize}
+  \item Partitioning characteristics into blocks and values can be
+    creative.
+  \item More blocks means more tests.
+  \item The partitioning often flows directly from the definition of
+    the {\em characteristics}.
+  \item Strategies for identifying values:
+    \begin{itemize}
+    \item Include {\em valid}, {\em invalid} and {\em special} values.
+    \item Explore {\em boundaries} of domains.
+    \item Include values that represents normal use.
+    \item Don't forget for {\em completeness} and {\em disjoint}
+    \end{itemize}
+  \end{itemize}  
+\end{frame}
+\begin{frame}[fragile]{TriType example}
+It's in the book.
+  \begin{lstlisting}
+  int Tritype(double i, double j, double k)
+  \end{lstlisting}
+Should return  the type of triangle with side length $i$,$j$ and $k$.
+  \begin{itemize}
+  \item 3 = scalene (All sides different length)
+  \item 2 = equilateral triangle
+  \item 1 = isoceles triangle 
+  \item 0 = Not a triangle.
+  \end{itemize}
+It is quite hard to get it right.
+\end{frame}
+\begin{frame}{TriType Interface-Based Approach}
+  \begin{itemize}
+  \item One testable function, and three integer inputs.
+  \end{itemize}
+  \begin{tabular}{||l|l|l|l||}
+\hline 
+ Characteristic & $b_1$ &  $b_2$ & $b_3$ \\ \hline
+ $q_1 = \ $ Relation of i  to $0$ & $>0$ & $=0$ & $<0$ \\
+ $q_2 = \ $ Relation of j  to $0$ & $>0$ & $=0$ & $<0$ \\
+ $q_3 = \ $ Relation of k  to $0$ & $>0$ & $=0$ & $<0$ \\
+\hline    
+\end{tabular}
+\begin{itemize}
+\item Pick one test from each square, a maximum of $3*3*3=27$ tests. 
+\item You have to work out which are valid and which are invalid.
+\end{itemize}
+\end{frame}
+\begin{frame}{TriType  Functional Based Appraoch}
+  \begin{itemize}
+  \item We are classifying triangles.
+  \item Geometric approach.
+  \end{itemize}
+  \begin{tabular}{||l|l|l|l|l||}\hline 
+    Characteristic & $b_1$  & $b_2$ & $b_3$ & $b_4$\\
+    Geometric  &  scalene & isosceles &
+    equilateral & invalid \\
+    \hline
+  \end{tabular}
+  \begin{itemize}
+  \item Do we have a partition? 
+  \item No an equilateral is also isosceles.
+  \end{itemize}
+\end{frame}
+\begin{frame}{TriType  Functional Based Appraoch}
+  \begin{tabular}{||l|l|l|l|l||}\hline 
+    Characteristic & $b_1$  & $b_2$ & $b_3$ & $b_4$\\
+    Geometric  &  scalene & isosceles &
+    equilateral & invalid \\
+    \hline
+  \end{tabular}
+  \begin{itemize}
+  \item Do we have a partition? 
+  \item No an equilateral is also isosceles.
+  \item So refine it to:
+  \end{itemize}
+{\small
+  \begin{tabular}{||l|l|l|l|l||}\hline 
+    Characteristic & $b_1$  & $b_2$ & $b_3$ & $b_4$\\
+    Geometric  &  scalene & isosceles, not equilateral &
+    equilateral & invalid \\
+    \hline
+  \end{tabular}
+}
+Example values $(4,5,6) \in b_1$,  $(3,3,4) \in b_2$, $(3,3,3) \in
+b_3$, $(3,4,8) \in b_4$.
+\end{frame}
+\begin{frame}{Choosing Combinations of Values}
+
+  \begin{itemize}
+  \item We play the usual game.
+  \item Lots of different characteristics, how do we combine them?
+  \item Most obvious:
+    \begin{itemize}
+    \item {\em All Combinations (ACoC)}: All combinations of blocks from all
+      characteristics must be used.
+    \end{itemize}
+  \item Number of tests  the product of the number of blocks in each
+    characteristic. 
+  \end{itemize}
+  \end{frame}
+\begin{frame}{Choosing Combinations of Values}
+  \begin{itemize}
+  \item Usual story, too many test cases!.
+  \item We should at least chose a value from each block at least once.
+    \begin{itemize}
+    \item {\em Each Choice (EC)}: Each value from each block for each
+      characteristic must be used in at least one test case.
+    \end{itemize}
+  \item Yields few tests so cheap, but maybe not such good coverage.
+  \end{itemize}
+\end{frame}
+\begin{frame}{Pair-Wise}
+  \begin{itemize}
+  \item {\em Pair-Wise (PW)}: A value from each block for each
+    characteristic must be combined with a value from every other
+    block for each other characteristic.
+  \item Given three partitions  $[A,B]$,$[q_1,q_2,q_3]$ and
+    $[x,y]$. We would get the requirements:
+
+{\small
+\begin{tabular}{lr}
+  {\large Requirements} & {\large Combinations} \\
+    \begin{tabular}{lll}
+      $(A,q_1)$ & $(B,q_1)$ & $(x,q_1)$ \\
+      $(A,q_2)$ & $(B,q_2)$ & $(y,q_1)$ \\
+      $(A,q_3)$ & $(B,q_3)$ & $(x,q_2)$ \\
+      $(A,x)$  & $(B,x)$   & $(y,q_2)$ \\
+      $(A,y)$  & $(B,y)$   & $(x,q_3)$ \\
+               &           & $(y,q_3)$
+    \end{tabular}
+&  
+\begin{tabular}{ll}
+  $(A,q_1,x)$ & $(B,q_1,y)$ \\
+  $(A,q_2,x)$ & $(B,q_2,y)$ \\
+  $(A,q_3,x)$ & $(B,q_3,y)$ \\
+  $(A,_,y)$ & $(B,_,x)$ 
+\end{tabular}
+\end{tabular}
+}
+  \end{itemize}
+\end{frame}
+\begin{frame}{Constraints Among Characteristics}
+  Back to the triangle type.
+  \begin{itemize}
+  \item Some combinations are infeasible. For example
+    \begin{itemize}
+    \item ``Less than zero'' and ``scalene'' are not possible at the same time.
+    \end{itemize}
+  \item So when you combine test from different blocks you have to be
+    careful.
+  \item As you might guess there are lots of possible ways of combining
+    things.
+    \item For what you are doing, think hard about your partitions and
+      combinations. Generate quality test cases.
+      
+  \end{itemize}
+
+  
+\end{frame}
+\begin{frame}{Input Space Partitioning Summary}
+  \begin{itemize}
+  \item Fairly easy to apply
+  \item By refining or merging partitions  you can add or remove
+    tests.
+  \item Various strategies for combining characteristics.
+  \item Based only on the input space of the program, not on the
+    implementation.
+  \item Even if are just looking at the data types and do things like
+    ``NULL'', ``Empty'', $\ldots$ you are using partitions.
+  \item Designing good partitions can be a good way of generating good
+    quality test cases. 
+  \end{itemize}
+
+\end{frame}
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
