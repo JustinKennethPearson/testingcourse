@@ -24,12 +24,94 @@
 \rlap{\raisebox{.45\ht0}{\textcolor{#1}{\rule{\wd0}{1pt}}}}#2} 
 
 \begin{document}
-\lstset{language=C}
+\lstset{language=Python}
 
 \begin{frame}
   \maketitle
 \end{frame}
 
+\begin{frame}[fragile]
+  \frametitle{When are the enough unit tests?}
+  Lets look at a really simple example.
+  \begin{lstlisting}
+import unittest
+
+def add(x,y):
+    return x+y
+
+class TestAddition(unittest.TestCase):
+    def test_add_1(self):
+        self.assertEqual(add(3,4),7)
+
+      \end{lstlisting}
+We could go on writing a lot of test cases. You can try to find edge cases and
+you could try to get some structural coverage of the code. 
+\end{frame}
+\begin{frame}[fragile]
+  \frametitle{Random testing of addition}
+  \begin{lstlisting}
+def test_add_random_single():
+    x = randint(-sys.maxsize,sys.maxsize)
+    y = randint(-sys.maxsize,sys.maxsize)
+    assert(add(x,y) == x+y)
+
+def test_add_random(max_iterations):
+    i = 0;
+    while(i<max_iterations):
+        test_add_random_single()
+        i += 1
+        sys.stdout.write('.')
+    print("\nRan ",max_iterations," tests.")
+  \end{lstlisting}
+\end{frame}
+\begin{frame}
+  \frametitle{Random testing of addition}
+  \begin{itemize}
+  \item We should next expect any of our tests for addition to
+    fail. Especially since we implement addition with addition.
+  \item But it does illustrate some important concepts.
+    \begin{itemize}
+    \item Test oracles: A mechanism for determining if a test has passed or
+      not.
+    \item Test generator: A mechanism for generating test cases. 
+      
+    \end{itemize}
+  \item Some thought has to go into both oracles and generators. For
+    generators you have to decide what sort of coverage you going to give.
+  \end{itemize}
+  
+\end{frame}
+\begin{frame}[fragile]
+  \frametitle{Set intersection}
+
+The details are not important but I built a
+package\footnote{\url{https://bitbucket.org/justinkennethpearson/mdd}} for
+representing sets of integers compactly as trees. Operations such as
+intersection were provided.
+
+Write inefficient but correct code:
+\begin{lstlisting}
+  def intersection(l1,l2):
+    new_list = []
+    for i in l1:
+        if member(i,l2):
+            new_list.append(i)
+    return(new_list)
+\end{lstlisting}
+
+This is not a very efficient way doing set intersection, but we can use it as
+an oracle together with randomly generated sets to generate lots of test
+cases. 
+\end{frame}
+
+% Ideas - Never underestimate the power of a random number generator.
+% Examples, addition , something more complicated (my set intersection tool).
+
+
+%% More ideas -
+%% Stuff from the book formal methods /specification for oracles , don't
+%% forget constraint programming.
+%%% Model based testing.
 \end{document}
 
 
