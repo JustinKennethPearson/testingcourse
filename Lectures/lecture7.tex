@@ -1,0 +1,39 @@
+\documentclass{beamer}
+\usetheme{default}
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+\usepackage{hyperref}
+\usepackage{listings}
+\title{Software Testing  Lecture 7 \\ Property Based Testing}
+\author{Justin Pearson}
+\date{2017}
+\setbeamertemplate{footline}[page number]
+\setbeamertemplate{navigation symbols}{}
+
+%Lecture 4 stuff
+\newcommand{\todo}[1]{{\tt ... #1 ... }}
+\newcommand{\Reach}{\mathrm{Reach}}
+\newcommand{\Path}{\mathrm{path}}
+
+%Lecture 5 stuff
+\newcommand{\predset}{{\cal P}}
+\newcommand{\clauseset}{{\cal C}}
+%Stolen from Stackexchange
+%http://tex.stackexchange.com/questions/20609/strikeout-in-math-mode 
+\newcommand\hcancel[2][red]{\setbox0=\hbox{$#2$}%
+\rlap{\raisebox{.45\ht0}{\textcolor{#1}{\rule{\wd0}{1pt}}}}#2} 
+
+\begin{document}
+\lstset{language=C}
+
+\begin{frame}
+  \maketitle
+\end{frame}
+
+\end{document}
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
