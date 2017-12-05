@@ -84,7 +84,7 @@ def test_add_random(max_iterations):
 \begin{frame}[fragile]
   \frametitle{Set intersection}
 
-The details are not important but I built a
+The details are not important.  I built a
 package\footnote{\url{https://bitbucket.org/justinkennethpearson/mdd}} for
 representing sets of integers compactly as trees. Operations such as
 intersection were provided.
@@ -104,6 +104,65 @@ an oracle together with randomly generated sets to generate lots of test
 cases. 
 \end{frame}
 
+\begin{frame}
+  \frametitle{Writing Test Oracles}
+  It is   the same problem as always, given some inputs how do we know what
+  the correct output is. Often you use testing as a way to think about the
+  problem and try understand what the output will be for given inputs.
+
+  If you have lots of randomly generated tests then this is obviously
+  not practical.  There are a number of techniques available. 
+  \begin{itemize}
+  \item Specification based verification of the outputs.
+  \item Redundant computations
+  \item Consistency checks.
+  \end{itemize}
+\end{frame}
+\begin{frame}
+  \frametitle{Specification based Verification}
+  If you are lucky, then your software has a specification. If you less lucky,
+ while trying to test the software and in dialogue with the programmer you
+ write a specification.
+
+ Given your specification there are a number of options.
+  \begin{itemize}
+  \item Use property based testing to derive test cases. More on this later.
+  \item Use techniques from formal methods such as model checking,
+    specification animation tools to generate test cases. This is often much
+    easier than using formal methods to verify the software.
+  \item Treat the specification as a combinatorial problem and use techniques
+    such as constraint programming, SAT or SMT to model your problem and
+    derive test cases (Take 1DL448).
+  \item Write code the implements the specification and generates test cases.
+  \end{itemize}
+Techniques such as these are often referred to as model based testing.
+\end{frame}
+\begin{frame}
+  \frametitle{Redundant Computations}
+  We have already seen two examples earlier. There are a number of options.
+  \begin{itemize}
+  \item  Write inefficient but correct code, and  use this as an oracle. Very
+    similar to model based testing, but often more simple. Never underestimate
+    the power of a random number generator and redundant computations; it can
+    be a very good way of finding bugs in code.
+  \item Parallel development of code. Very expensive only used in domains with
+    high reliability requirements (aerospace). Has its own
+    problems. Psychology tells us that people make the same sort of errors.      
+  \end{itemize}
+
+\end{frame}
+\begin{frame}
+  \frametitle{Consistency Checks}
+  % TODO -
+\end{frame}
+\begin{frame}
+  \frametitle{Model Based Testing}
+  %TODO
+\end{frame}
+\begin{frame}
+  \frametitle{Property Based Testing}
+  %TODO
+\end{frame}
 % Ideas - Never underestimate the power of a random number generator.
 % Examples, addition , something more complicated (my set intersection tool).
 
