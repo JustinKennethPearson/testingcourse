@@ -153,15 +153,70 @@ Techniques such as these are often referred to as model based testing.
 \end{frame}
 \begin{frame}
   \frametitle{Consistency Checks}
-  % TODO -
+
+  \begin{itemize}
+  \item   Not really a test oracle, but often a good way to find errors.
+  \item Make sure that the system satisfies any invariants.
+  \item Make sure that the system ends up in a consistent state after you have
+    done a bunch of operations.
+  \end{itemize}
 \end{frame}
 \begin{frame}
   \frametitle{Model Based Testing}
-  %TODO
+  Very similar to using formal methods, but  often a lighter approach.
+
+  Models can come from a variety of sources:
+  \begin{itemize}
+  \item Finite state machines
+  \item UML designs.
+  \item State charts
+  \end{itemize}
+  Either you have to design your own models or adapt existing models so that
+  they can be used to extract tests. There are various tools and techniques
+  out there to extract test cases from models.
+  
+\end{frame}
+\begin{frame}
+  \frametitle{Model Based Testing}
+  \begin{itemize}
+  \item Time spent modelling your problem is not wasted time.
+  \item You have a way to generate lots of test cases, and you understand your
+    problem better.
+  \end{itemize}
+\end{frame}
+\begin{frame}[fragile]
+  \frametitle{Property Based Testing}
+Started with QuickCheck\footnote{Koen Claessen and John Hughes
+  (2000). "QuickCheck: A Lightweight Tool for Random Testing of Haskell
+  Programs"} which was a combinator library for describing test cases.
+
+
+Suppose we have a list reversing function then part of the  specification is
+\[
+  \forall xs:\mathtt{list(int())} reverse((xs))=xs
+\]
+Then we turn the specification into code (via macros)
+\begin{verbatim}
+ ?FORALL(Xs,list(int()),
+             reverse(reverse(Xs)) == Xs)
+\end{verbatim}
+
 \end{frame}
 \begin{frame}
   \frametitle{Property Based Testing}
-  %TODO
+  \begin{itemize}
+  \item   {\tt ?FORALL} takes three arguments: a variable, a generator and a boolean
+  valued expression.
+
+\item {\tt ?FORALL} uses the generator to generate random instances, the
+  boolean expression then run with the randomly generated instances.
+
+\item If it evaluates to false then we have found a failing test case. There
+  is some clever logic to find reduce the size of the failing test case.
+\end{itemize}
+Commercial and free implementations exists for many programming languages
+including Python.
+
 \end{frame}
 % Ideas - Never underestimate the power of a random number generator.
 % Examples, addition , something more complicated (my set intersection tool).
