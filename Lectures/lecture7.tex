@@ -31,7 +31,7 @@
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{When are the enough unit tests?}
+  \frametitle{When are there enough unit tests?}
   Lets look at a really simple example.
   \begin{lstlisting}
 import unittest
@@ -67,7 +67,7 @@ def test_add_random(max_iterations):
 \begin{frame}
   \frametitle{Random testing of addition}
   \begin{itemize}
-  \item We should next expect any of our tests for addition to
+  \item We should not expect any of our tests for addition to
     fail. Especially since we implement addition with addition.
   \item But it does illustrate some important concepts.
     \begin{itemize}
@@ -77,7 +77,8 @@ def test_add_random(max_iterations):
       
     \end{itemize}
   \item Some thought has to go into both oracles and generators. For
-    generators you have to decide what sort of coverage you going to give.
+    generators you have to decide what sort of coverage you going to
+    give. More on this later.
   \end{itemize}
   
 \end{frame}
@@ -99,7 +100,7 @@ Write inefficient but correct code:
     return(new_list)
 \end{lstlisting}
 
-This is not a very efficient way doing set intersection, but we can use it as
+This is not a very efficient way of doing set intersection, but we can use it as
 an oracle together with randomly generated sets to generate lots of test
 cases. 
 \end{frame}
@@ -163,13 +164,13 @@ Techniques such as these are often referred to as model based testing.
 \end{frame}
 \begin{frame}
   \frametitle{Model Based Testing}
-  Very similar to using formal methods, but  often a lighter approach.
 
   Models can come from a variety of sources:
   \begin{itemize}
-  \item Finite state machines
-  \item UML designs.
-  \item State charts
+  \item Finite state machines;
+  \item UML designs;
+  \item State charts;
+  \item Or formal methods.
   \end{itemize}
   Either you have to design your own models or adapt existing models so that
   they can be used to extract tests. There are various tools and techniques
@@ -206,7 +207,7 @@ Then we turn the specification into code (via macros)
   \frametitle{Property Based Testing}
   \begin{itemize}
   \item   {\tt ?FORALL} takes three arguments: a variable, a generator and a boolean
-  valued expression.
+  valued expression (the test oracle).
 
 \item {\tt ?FORALL} uses the generator to generate random instances, the
   boolean expression then run with the randomly generated instances.
