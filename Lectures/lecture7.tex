@@ -194,7 +194,7 @@ Started with QuickCheck\footnote{Koen Claessen and John Hughes
 
 Suppose we have a list reversing function then part of the  specification is
 \[
-  \forall xs:\mathtt{list(int())} reverse((xs))=xs
+  \forall xs:\mathtt{list(int())\ } reverse(reverse(xs))=xs
 \]
 Then we turn the specification into code (via macros)
 \begin{verbatim}
