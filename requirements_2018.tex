@@ -1,6 +1,7 @@
 \documentclass[a4page]{article}
 \usepackage{palatino}
 \usepackage{fullpage}
+\usepackage[hyphens]{url}
 \usepackage{hyperref}
 \usepackage{draftwatermark}
 \SetWatermarkText{DRAFT}
@@ -15,8 +16,8 @@
 \begin{document}
 \maketitle
 
-
-
+\def\UrlBreaks{\do\/\do-}       %adds more characters e.g. \/ for better line breaking 
+                                %regarding links
 \section{Introduction}
 The purpose of this document is to make clear how you will be examined, and
 what is required of you in the course.  This course essentially consists of
@@ -82,7 +83,7 @@ The meeting schedule is as follows:
     to decide if the library is too trivial or too complicated. If you have
     having trouble finding a good library to test then you should try to meet
     your lab assistant in week 46.
-  \item In week 48 you should have a brief meeting wit your assigned lab
+  \item In week 48 you should have a brief meeting with your assigned lab
     assistant to discuss progress.
         \item On 4/12 there is a compulsory presentation, where you are
       to present your library and present some of your tests cases
@@ -104,8 +105,7 @@ The meeting schedule is as follows:
       that cover the API.
     \item  White box testing. In agreement with your lab assistant you
       are to pick some areas of code in your library to cover. Together with
-      the python library
-      \url{https://coverage.readthedocs.io/en/v4.5.x/} you are
+      the python library~\url{https://coverage.readthedocs.io/en/v4.5.x/} you are
       to produce test cases that not only provide statement coverage
       but some sort of path coverage. You need to document and
       motivate your design of the test cases. 
