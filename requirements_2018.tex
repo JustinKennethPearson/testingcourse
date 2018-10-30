@@ -69,10 +69,28 @@ reasons behind your tests.
 The idea of the project is to pick some python library, and write some
 test cases for it. You will have to write both black-box and white-box
 tests and tests that provide coverage of selected parts of the
-code. The final deliverable will be a written document and a
-presentation on the 4/12.
+code. The final deliverables will be a written report and a 10 minute
+presentation.\\
 
-The meeting schedule is as follows:
+Using your chosen library, your tasks are as follows:
+\begin{list}{$\Rightarrow$}{} 
+    \item  Black box testing of the API. You are to produce test cases
+      that cover the API.
+    \item  White box testing. In agreement with your lab assistant you
+      are to pick some areas of code in your library to cover. Together with
+      the python library
+      \url{https://coverage.readthedocs.io/en/coverage-4.4.1/} you are
+      to produce test cases that not only provide statement coverage
+      but some sort of path coverage. 
+    \item For at least one function or method of the library you
+      should construct a control flow graph and apply the coverage criteria
+      that have been covered in the course to the code.
+    \item You need to document and motivate your design of the test cases in
+      a written report. 
+\end{list}
+
+
+\subsubsection*{Schedule for the project}
   \begin{itemize}
   \item By  the start of  week  46 you must form a group. This will be
     handled via the student portal.
@@ -80,18 +98,18 @@ The meeting schedule is as follows:
     meeting you should pick a python library (for example look at the Python
     Standard Library or \url{https://pypi.python.org/}). You must agree
     with your lab assistant that you can work on that library. We have
-    to decide if the library is too trivial or too complicated. If you have
+    to decide if the library is too trivial or too complicated. If you are
     having trouble finding a good library to test then you should try to meet
     your lab assistant in week 46.
   \item In week 48 you should have a brief meeting with your assigned lab
     assistant to discuss progress.
-        \item On 4/12 there is a compulsory presentation, where you are
-      to present your library and present some of your tests cases
+  \item On 4/12 (week 49) there is a compulsory presentation, where you are
+      to present your library and present some of your test cases
       and the reasoning behind them. Your presentation is of work in
       progress.
     \item In week 49 or 50 you again meet with your lab assistant to
       discuss your draft of your  report.
-    \item Jan 7,  2018 is  the deadline for the final
+    \item Jan 7,  2019 is  the deadline for the final
       report. This should be submitted via the student portal.
 
 \end{itemize}
@@ -119,25 +137,31 @@ The meeting schedule is as follows:
 
 
 
-  \subsection*{What should your report contain}
+
+  \subsubsection*{What should your report contain}
   \begin{itemize}
-  \item Description of the python library with examples of use. This should be
-    written for somebody who has not read the documentation.
-  \item Documentation for all tests cases.  When documenting your test cases
-    you have document what your tests are designed to do.
+  \item Description of the python library with examples of use. 
+  This should be written (in English) for somebody who has not read the documentation.
+  \item Outline of your testing strategy, describing which parts of the library 
+    you have performed black box and white box testing on.
+  \item A control flow graph for at least one function, with a description of 
+    how your tests for this function are related to the graph.
+  \item Documentation of all test cases.  When documenting your test cases
+    you have to document what your tests are designed to do. This can be done
+    in comments in your code, for each test case or group of test cases.
   \end{itemize}
-\section{Grading criteria for written deliverables}
+\subsubsection*{Grading criteria for the project}
 \begin{itemize}
 \item Clarity of presentation. It is important that your document can
   be read without reference to the documentation of the library. This
-  means that you will have to reexplain things already in the
+  means that you will have to re-explain things already in the
   documentation. 
-\item Quality of the test cases. What sort of coverage do their
-  provide? Do they test enough functionality?
-\item Documentation of the test cases. These can be in comments in
-  your code, for each test case or group of test cases you must
-  provide reasons for the tests and document  what you are trying to
-  test.
+\item Quality of the test cases. What sort of coverage do they
+  provide? Do they test enough functionality? Have a range of different 
+  techniques been used?
+\item Documentation of the test cases. Have you clearly stated what you are
+  testing, and why, for each test or group of tests? 
+
  
 \end{itemize}
 
