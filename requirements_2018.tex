@@ -1,6 +1,7 @@
 \documentclass[a4page]{article}
 \usepackage{palatino}
 \usepackage{fullpage}
+\usepackage[hyphens]{url}
 \usepackage{hyperref}
 \usepackage{draftwatermark}
 \SetWatermarkText{DRAFT}
@@ -15,8 +16,8 @@
 \begin{document}
 \maketitle
 
-
-
+\def\UrlBreaks{\do\/\do-}       %adds more characters e.g. \/ for better line breaking 
+                                %regarding links
 \section{Introduction}
 The purpose of this document is to make clear how you will be examined, and
 what is required of you in the course.  This course essentially consists of
@@ -114,11 +115,33 @@ Using your chosen library, your tasks are as follows:
 \end{itemize}
 
 
+\begin{itemize}
+
+    \item You are to construct a number of test cases:
+    \begin{itemize}
+    \item  Black box testing of the API. You are to produce test cases
+      that cover the API.
+    \item  White box testing. In agreement with your lab assistant you
+      are to pick some areas of code in your library to cover. Together with
+      the python library~\url{https://coverage.readthedocs.io/en/v4.5.x/} you are
+      to produce test cases that not only provide statement coverage
+      but some sort of path coverage. You need to document and
+      motivate your design of the test cases. 
+    \item For at least one function or method of the library you
+      should construct a control flow graph and apply the coverage criteria
+      that have been covered in the course to the code.
+
+    \end{itemize}
+  \end{itemize}
+
+
+
+
 
   \subsubsection*{What should your report contain}
   \begin{itemize}
-  \item Description of the python library with examples of use. This should be
-    written (in English) for somebody who has not read the documentation.
+  \item Description of the python library with examples of use. 
+  This should be written (in English) for somebody who has not read the documentation.
   \item Outline of your testing strategy, describing which parts of the library 
     you have performed black box and white box testing on.
   \item A control flow graph for at least one function, with a description of 
@@ -138,6 +161,7 @@ Using your chosen library, your tasks are as follows:
   techniques been used?
 \item Documentation of the test cases. Have you clearly stated what you are
   testing, and why, for each test or group of tests? 
+
  
 \end{itemize}
 
