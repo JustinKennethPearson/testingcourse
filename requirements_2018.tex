@@ -3,21 +3,21 @@
 \usepackage{fullpage}
 \usepackage[hyphens]{url}
 \usepackage{hyperref}
-\usepackage{draftwatermark}
-\SetWatermarkText{DRAFT}
-\SetWatermarkScale{1}
+%\usepackage{draftwatermark}
+%\SetWatermarkText{DRAFT}
+%\SetWatermarkScale{1}
 \newcommand{\todo}[1]{{\tt #1}}
 \title{Software Testing 2018}
-\author{Justin Pearson}
+\author{Justin Pearson, Jo Gay and Vasileios Loukas}
 
 
 
  
 \begin{document}
 \maketitle
+%adds more characters e.g. \/ for better line breaking     regarding links
+\def\UrlBreaks{\do\/\do-} 
 
-\def\UrlBreaks{\do\/\do-}       %adds more characters e.g. \/ for better line breaking 
-                                %regarding links
 \section{Introduction}
 The purpose of this document is to make clear how you will be examined, and
 what is required of you in the course.  This course essentially consists of
@@ -64,7 +64,7 @@ reasons behind your tests.
   will probably have to read the book to get enough information to pass the
   exam.
 
-\subsection{Project Work}
+\subsection*{Project Work}
 
 The idea of the project is to pick some python library, and write some
 test cases for it. You will have to write both black-box and white-box
