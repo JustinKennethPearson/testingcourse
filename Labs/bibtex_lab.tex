@@ -7,14 +7,14 @@
         escapeinside={*@}{@*},
         showstringspaces=false}
 
- \title{Test Driven Development of Bib\TeX Author Strings}
+ \title{Test Driven Development of Bib\TeX{} Author Strings}
 \date{2017}
 \begin{document}
 \maketitle
 \section*{Introduction}
 Bib\TeX\footnote{\url{http://en.wikipedia.org/wiki/BibTeX}} is a
-reference management system that is used with La\TeX to ease the use
-of citations in documents. A Bib\TeX database is a text file
+reference management system that is used with La\TeX{} to ease the use
+of citations in documents. A Bib\TeX{} database is a text file
 containing bibliographic information. A typical entry might look like:
 \begin{verbatim}
 @Article{hell:duality_tree_homo,
@@ -29,7 +29,7 @@ containing bibliographic information. A typical entry might look like:
 \end{verbatim}
 
 For the purpose of sorting the entries in the bibliography it is
-important to know the surname and forenames of an author. Bib\TeX
+important to know the surname and forenames of an author. Bib\TeX{}
 provides a convention where surname and forenames can be unambiguously
 given. In general there are two ways of expressing a name.
 \begin{verbatim}
@@ -37,11 +37,11 @@ given. In general there are two ways of expressing a name.
 \end{verbatim}
 or
 \begin{verbatim}
- Forename1 Forename2 Surname
+   Forename1 Forename2 Surname
 \end{verbatim}
 The reason for this complication is that {\tt Ludwig van Beethoven}
 has the surname {\tt van Beethoven}. So this can be expressed in
-Bib\TeX either as 
+Bib\TeX{} either as 
 \begin{verbatim}
 van Beethoven, Ludwig
 \end{verbatim}
@@ -63,13 +63,19 @@ single pair {\tt   ('Surname','Forenames')}.  You can use this
 function to make {\tt extract\_authors}.
 
 \section*{Lab Instructions}
+You will develop a Python module named {\tt bibtex} containing the functions
+{\tt extract\_author(str)} and {\tt extract\_authors(str)} such that all the tests given below pass. 
+You must develop code to pass the tests one by one, \emph{in the order
+given}. 
+
 As you develop your code you need to keep a code diary. In a separate text
 file paste each test and the code that you write to pass the test. It
 is important that you follow TDD strictly. Only write enough code to
-pass the test and refactor when necessary. 
+pass the next test, and refactor when necessary. 
 
 There is nothing to hand in with this lab. You will be orally marked
-by one of the lab assistants. You will show code diary  that have produced,
+by one of the lab assistants. You will show your code diary that you 
+have produced,
 and the lab assistants will ask you questions about the code. The lab
 can be done in pairs, but both members of the group are required to
 understand the code that you have written.  
@@ -77,8 +83,7 @@ understand the code that you have written.
 
 \section*{Test Cases}
 The following listing contains all the test cases that your code needs
-to pass. You develop the code using the tests in the {\tt order}
-given.   Note that you are expected to type in the test cases
+to pass. Note that you are expected to type in the test cases
 yourself.
 
 \begin{lstlisting}
@@ -130,7 +135,7 @@ if __name__ == '__main__':
 
 
 \section*{Hints}
-There are a lot of helpful function in Python for string handling. You
+There are a lot of helpful functions in Python for string handling. You
 should look at {\tt join},{\tt split} and {\tt strip}. Also some of
 the string handling exercises that are in the pre-lab might be useful. 
 
