@@ -7,11 +7,11 @@
         escapeinside={*@}{@*},
         showstringspaces=false}
 
-\title{Introduction to Python and its unit testing framework}
+\title{Introduction to Python and its Unit Testing framework}
 \begin{document}
 \maketitle
 \section*{Instructions}
-These are self evaluation exercises. If you know no python then work through
+These are self evaluation exercises. If you know no python, then work through
 these exercises and it will prepare yourself for the lab.
 %There is nothing to hand in with this lab. You will be orally marked
 %by the lab assistant. You will show code that have produced,
@@ -24,15 +24,15 @@ these exercises and it will prepare yourself for the lab.
 %\item On Friday 15th of November  by the lab assistant in his office. Times should be scheduled by email in advance with the assistant.
 %\item By appointment with the lab assistant during the~week~16/12~--~21/12.
 %\item A yet to be announced time during the re-exam period in the
-%  middle of Aug. 2012.
+%  middle of Aug. 2019.
 %\end{itemize}
 \section*{Lab Goals}
-There are two goals in this lab: The first goal is to get a little experience
-programming Python, and the second goal is to learn how to use Python's unit
+There are two goals in this lab. The first goal is to get a little experience
+programming in Python, and the second goal is to learn how to use Python's unit
 testing framework. This lab should be easy and is designed as preparation for
 the next lab. If you get stuck you should look at the Python tutorial at
 \url{http://docs.python.org/tutorial/} or at the extensive documentation at
-\url{http://docs.python.org/}. If you have had some experience with Python
+\url{http://docs.python.org/}. If you have had some experience with Python,
 then this lab should be very easy. Hopefully if you have had no experience
 with Python, then this lab will help to get you started for the next lab.
 \section*{Note on Python versions}
@@ -42,11 +42,10 @@ Python are in use on the Unix terminals. But all of the code presented in
 this lab should work for any version of Python later than 2.4.
 Note therefore that on the terminal servers, writing just 'python' will invoke Python 2.3,
 while 'python2' will invoke the latest version, Python 2.7.
-
+\newpage
 \section*{Python Unit Testing Mechanics}
-We will split our code up into two files {\tt code.py} and {\tt
-  testcode.py}. In your favourite text editor, create
-the following skeleton for {\tt testcode.py}
+We will split our code up into two files \texttt{code.py} and \texttt{testcode.py}
+In your favourite text editor, create the following skeleton for \texttt{testcode.py}
 
 \begin{lstlisting}
 import code
@@ -78,10 +77,10 @@ OK
 
 \end{verbatim}
 What happened here? We have defined a rather silly function that
-returns 0. We assert that the code also returns 0 using the {\tt
-  self.assertEqual} function in {\tt testcode.py} 
+returns 0. We assert that the code also returns 0 using the {\tt self.assertEqual} function in {\tt testcode.py} 
+  
 \section{Task}
-Python like C++ and Java uses {\tt ==} for comparison. So for example {1 == 2}
+Python, like C++ and Java, uses {\tt ==} for comparison. So for example {1 == 2}
 is {\tt False} while {1 == 1} is {\tt True}. Rewrite the above test to use
 {\tt self.assertTrue}. Note that you need a version of Python greater than or
 equal to 2.4 to use {\tt assertTrue}. As mentioned, on the department Unix
@@ -217,8 +216,7 @@ tests:
 The following code will not work:
 \begin{lstlisting}
   def myjoin(lst,sep):
-    rstring = ''
-    
+    rstring = '' 
     for i in lst:
         rstring = rstring + i + sep
     return rstring

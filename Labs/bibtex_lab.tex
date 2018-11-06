@@ -8,14 +8,14 @@
         showstringspaces=false}
 
  \title{Test Driven Development of Bib\TeX{} Author Strings}
-\date{2017}
+\date{2018}
 \begin{document}
 \maketitle
 \section*{Introduction}
 Bib\TeX\footnote{\url{http://en.wikipedia.org/wiki/BibTeX}} is a
 reference management system that is used with La\TeX{} to ease the use
 of citations in documents. A Bib\TeX{} database is a text file
-containing bibliographic information. A typical entry might look like:
+containing bibliographic information. A typical entry might look like this:
 \begin{verbatim}
 @Article{hell:duality_tree_homo,
   author = 	 {Hell, P. and Ne\v{s}et\v{r}il, J. and Zhu, X. },
@@ -41,11 +41,11 @@ or
 \end{verbatim}
 The reason for this complication is that {\tt Ludwig van Beethoven}
 has the surname {\tt van Beethoven}. So this can be expressed in
-Bib\TeX{} either as 
+Bib\TeX{} either as: 
 \begin{verbatim}
 van Beethoven, Ludwig
 \end{verbatim}
-or
+or as: 
 \begin{verbatim}
 Ludwig {van Beethoven}
 \end{verbatim}
@@ -53,24 +53,22 @@ Ludwig {van Beethoven}
 A list of names is separated by {\tt and}. 
 
 \section*{Goal}
-The goal of this lab is to write a python function {\tt
-  extract\_authors} that takes a string of names separated by {\tt
-  and}  and return a list of pairs or strings {\tt
-  ('Surname','Forenames')}.
-You will do this by test driven development. First you will develop a
-function {\tt extract\_author} that takes a single author and returns a
-single pair {\tt   ('Surname','Forenames')}.  You can use this
-function to make {\tt extract\_authors}.
+The goal of this lab is to write a python function \texttt {extract\_authors}
+that takes a string of names separated by \texttt{and}
+and return a list of pairs or strings \texttt{('Surname','Forenames')}. You will do this by \textbf{test driven development (TDD)}. 
+Initially, you will develop a function \texttt{extract\_author} that 
+takes a single author and returns a single pair \texttt{('Surname','Forenames')}.  
+You can use this function to implement \texttt{extract\_authors}.
 
 \section*{Lab Instructions}
-You will develop a Python module named {\tt bibtex} containing the functions
-{\tt extract\_author(str)} and {\tt extract\_authors(str)} such that all the tests given below pass. 
+You will develop a Python module named \texttt{bibtex} containing the functions
+\texttt{extract\_author(str)} and \texttt{extract\_authors(str)} such that all the tests given below pass. 
 You must develop code to pass the tests one by one, \emph{in the order
 given}. 
 
 As you develop your code you need to keep a code diary. In a separate text
 file paste each test and the code that you write to pass the test. It
-is important that you follow TDD strictly. Only write enough code to
+is important that you follow \textbf{TDD} \emph{strictly}. Only write enough code to
 pass the next test, and refactor when necessary. 
 
 There is nothing to hand in with this lab. You will be orally marked
@@ -136,8 +134,8 @@ if __name__ == '__main__':
 
 \section*{Hints}
 There are a lot of helpful functions in Python for string handling. You
-should look at {\tt join},{\tt split} and {\tt strip}. Also some of
-the string handling exercises that are in the pre-lab might be useful. 
+should look at \texttt{join},\texttt{split} and \texttt{strip}. Also some of
+the string handling exercises included in the pre-lab might be useful. 
 
 
 %\section*{Dates}
