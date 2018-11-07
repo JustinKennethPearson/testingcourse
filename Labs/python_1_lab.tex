@@ -36,16 +36,17 @@ the next lab. If you get stuck you should look at the Python tutorial at
 then this lab should be very easy. Hopefully if you have had no experience
 with Python, then this lab will help to get you started for the next lab.
 \section*{Note on Python versions}
-Python is a changing language. Python 3.0 is in places very different
-from early versions of Python. For various reasons, older versions of
-Python are in use on the Unix terminals. But all of the code presented in
-this lab should work for any version of Python later than 2.4.
-Note therefore that on the terminal servers, writing just 'python' will invoke Python 2.3,
-while 'python2' will invoke the latest version, Python 2.7.
+Python is a changing language. Python 3.0 is in places very different from
+early versions of Python. For various reasons, older versions of Python are in
+use on the Unix terminals. But all of the code presented in this lab should
+work for any version of Python later than 2.4.  Note therefore that on the
+terminal servers, writing just 'python' will invoke Python 2.7. The code in
+this lab should work in Python 3, but it has not been tested.
 \newpage
 \section*{Python Unit Testing Mechanics}
-We will split our code up into two files \texttt{code.py} and \texttt{testcode.py}
-In your favourite text editor, create the following skeleton for \texttt{testcode.py}
+We will split our code up into two files \texttt{code.py} and
+\texttt{testcode.py} In your favourite text editor, create the following
+skeleton for \texttt{testcode.py}
 
 \begin{lstlisting}
 import code
@@ -64,7 +65,13 @@ and the following for {\tt code.py}
   def return_zero():
     return 0
 \end{lstlisting}
-Note that in Python, \emph{indentations matter}. So for example the {\tt def test\_simple(self)} function is a part of the TestCode class \emph{because it has a deeper indentation}. Likewise, the {\tt self.assertEqual} test is part of the {\tt test\_simple} function. In Python, levels of indentations are used instead of the enclosing brackets you may be used to from many other languages. Take care to use \emph{either} spaces \emph{or} tabs for indentations. Never use both in the same file.
+Note that in Python, \emph{indentations matter}. So for example the {\tt def
+  test\_simple(self)} function is a part of the TestCode class \emph{because
+  it has a deeper indentation}. Likewise, the {\tt self.assertEqual} test is
+part of the {\tt test\_simple} function. In Python, levels of indentations are
+used instead of the enclosing brackets you may be used to from many other
+languages. Take care to use \emph{either} spaces \emph{or} tabs for
+indentations. Never use both in the same file.
 
 Now at the command line, or using your favourite IDE, do
 \begin{verbatim}
@@ -76,14 +83,15 @@ Ran 1 test in 0.000s
 OK
 
 \end{verbatim}
-What happened here? We have defined a rather silly function that
-returns 0. We assert that the code also returns 0 using the {\tt self.assertEqual} function in {\tt testcode.py} 
+What happened here? We have defined a rather silly function that returns 0. We
+assert that the code also returns 0 using the {\tt self.assertEqual} function
+in {\tt testcode.py}
   
 \section{Task}
-Python, like C++ and Java, uses {\tt ==} for comparison. So for example {1 == 2}
-is {\tt False} while {1 == 1} is {\tt True}. Rewrite the above test to use
-{\tt self.assertTrue}. Note that you need a version of Python greater than or
-equal to 2.4 to use {\tt assertTrue}. As mentioned, on the department Unix
+Python, like C++ and Java, uses {\tt ==} for comparison. So for example {1 ==
+  2} is {\tt False} while {1 == 1} is {\tt True}. Rewrite the above test to
+use {\tt self.assertTrue}. Note that you need a version of Python greater than
+or equal to 2.4 to use {\tt assertTrue}. As mentioned, on the department Unix
 terminals you can use the command line:
 \begin{verbatim}
 hamberg> python2 testcode.py
@@ -114,10 +122,11 @@ class TestCode(unittest.TestCase):
 if __name__ == '__main__':
     unittest.main()
 
-\end{lstlisting} and run them as usual with {\tt python2 testcode.py}. Note that each test function starts
-with {\tt test}. Note again that indentation is important. From now on only
-the new test functions will be given. It is up to you to add them to
-{\tt testcode.py} and make sure that you have the correct indentation.
+  \end{lstlisting} and run them as usual with {\tt python2 testcode.py}. Note that each test
+  function starts with {\tt test}. Note again that indentation is
+  important. From now on only the new test functions will be given. It is up
+  to you to add them to {\tt testcode.py} and make sure that you have the
+  correct indentation.
 
 \section{Task}
 Now write a new function {\tt triple} in {\tt code.py} and write a
@@ -188,8 +197,9 @@ Use a {\tt for} loop!.
 
 \section*{Python Strings}
 
-Python has a rich set of string handling methods (look at \url{http://docs.python.org/library/string.html}). In your second lab
-you will use the  method {\tt split}. For example:
+Python has a rich set of string handling methods (look at
+\url{http://docs.python.org/library/string.html}). In your second lab you will
+use the method {\tt split}. For example:
 \begin{verbatim}
 >>> '1,2,3,4'.split(',')
 ['1', '2', '3', '4']
@@ -221,8 +231,8 @@ The following code will not work:
         rstring = rstring + i + sep
     return rstring
 \end{lstlisting}
-Run the test and find out. The code nearly works. The loop {\tt for i
-  in l} iterates over every item in the list. The following hints might help:
+Run the test and find out. The code nearly works. The loop {\tt for i in l}
+iterates over every item in the list. The following hints might help:
 \begin{itemize}
 \item Given a list {\tt lst} to get the list minus the last item use:
   \begin{lstlisting}
@@ -233,15 +243,11 @@ Run the test and find out. The code nearly works. The loop {\tt for i
 
 
 \section*{Conclusion}
-This lab has only briefly scratched the surface of Python. Before the
-next lab you are strongly encouraged to go through one of  the many
-Python tutorials on the web. 
+This lab has only briefly scratched the surface of Python. Before the next lab
+you are strongly encouraged to go through one of the many Python tutorials on
+the web.
 
 
 
 \end{document}
 
-%%% Local Variables:
-%%% mode: latex
-%%% TeX-master: "bibtex_lab"
-%%% End:
