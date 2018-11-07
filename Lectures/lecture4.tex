@@ -18,9 +18,9 @@
 
 \title{Software Testing\\ Lecture 4\\ More about Coverage}
 \author{Justin Pearson}
-\date{2017}
-\setbeamertemplate{footline}[page number]
-\setbeamertemplate{navigation symbols}{}
+\date{2018}
+%\setbeamertemplate{footline}[page number]
+%\setbeamertemplate{navigation symbols}{}
 
 \begin{document}
 \lstset{language=C}
@@ -31,7 +31,7 @@
 \begin{frame}
   \frametitle{Summary so far}
   \begin{itemize}
-  \item Turing's halting theorem tells us that in a strong sense that testing
+  \item Turing's halting theorem tells us in a strong sense that testing
     for correctness is impossible.
   \item Formalising programs as control flow graphs gives us a way to talk
     about testing.
@@ -44,13 +44,13 @@
 \begin{frame}
   \frametitle{More material from the last lecture}
   \begin{itemize}
-  \item Test path, represents the execution of a test case. It is a purely
+  \item Test path: represents the execution of a test case. It is a purely
     syntactic characterisation.  A test path might not be semantically
     possible.
-    \item Test case design: separate out {\em Test Requirements} here graph
-      theoretic properties of test paths; {\em Test Criterion} what we want
+    \item Test case design: separate out {\em Test Requirements} describe the
+      theoretic properties of test paths, based on the graph; while {\em Test Criterion} is what we want
       the test requirement to do.
-    \item The {\em Satisfaction} problem given some test requirement how do I
+    \item The {\em Satisfaction} problem: given some test requirement how do I
       find or does my set of test paths satisfy the requirements. 
     \end{itemize}
     General idea in testing. Define your test requirements separately from the
@@ -65,7 +65,7 @@
     structure of the software
   \end{itemize}
   There is also grey box testing where you look find test cases that cover the
-  specification and cover some aspect of the code.  It is a grey area.  
+  specification and some aspect of the code.  It is a grey area.  
 \end{frame}
 \begin{frame}{It is all about coverage}
   \begin{itemize}
@@ -80,7 +80,7 @@
   \end{itemize}
   Short version:
   \begin{itemize}
-  \item  Complete coverage hard to define or impossible;
+  \item  Complete coverage is hard to define or impossible;
   \item  So we have to find some approximation.
   \end{itemize}
 \end{frame}
@@ -113,10 +113,10 @@ There is a lot of theory, most of it is unsatisfactory.
 \end{frame}
 \begin{frame}{Simple and Prime Paths}
   \begin{itemize}
-  \item A path is simple if no node appears more than once except
+  \item A {\it path} is simple if no node appears more than once except
     possible that the first and last node can be the same. Note that this
     gives us unique edges.
-  \item A prime path of a graph is a simple path that is not a
+  \item A {\it prime path} of a graph is a simple path that is not a
     sub-path of any other simple path.
   \end{itemize}
   
@@ -450,7 +450,7 @@ simple paths that can be extended. You will be left with the prime paths.
       \path (loopbody) edge[->,bend left=120,below,pos=0.6] (returnstatment);
 \end{tikzpicture}
 \end{column}
-\begin{column}{0.65\textwidth}
+\begin{column}{0.7\textwidth}
   \begin{itemize}
   \item $[1,2,3,7]! \rightarrow  [1,2,3,7]$
     \begin{itemize}
@@ -471,7 +471,7 @@ simple paths that can be extended. You will be left with the prime paths.
   \item $[5,6,3,4] \rightarrow   [1,2,3,4,5,6,3,4,6,3,7]$
     \begin{itemize}
     \item Do the loop twice, take the {\tt if} once and once without,
-      other way around from the previous case.
+      other way round from the previous case.
     \end{itemize}
   \item $[3,4,5,6,3] \rightarrow [1,2,3,4,5,6,3,7]$, loop once with
     one {\tt if}.
@@ -484,7 +484,7 @@ simple paths that can be extended. You will be left with the prime paths.
   \begin{itemize}
   \item Prime paths give you a good way of deriving a set of test
     cases that cover various combinations of loops and branches.
-  \item There is no formal guarantee about completeness. As in all
+  \item There is no formal guarantee about {\it completeness}. As in all
     testing it just formalises a good compromise. 
   \end{itemize}
 
@@ -493,7 +493,7 @@ simple paths that can be extended. You will be left with the prime paths.
   \begin{itemize}
   \item Model what you want to test.
   \item Define coverage criteria.
-  \item If coverage criteria is undecidable or requires too many test
+  \item If coverage criteria is undecidable or require too many test
     cases then approximate. 
   \end{itemize}
  \end{frame}
@@ -501,12 +501,12 @@ simple paths that can be extended. You will be left with the prime paths.
   \begin{itemize}
   \item Have a reason for a test.
   \item Test requirements are the reasons for tests.
-  \item You need to find test cases satisfying test cases. 
+  \item You need to find satisfying test cases. 
   \end{itemize}
  
 \end{frame}
 
-%Notes this lecture is way to short. It is really half a lecture.
+%Notes this lecture is way too short. It is really half a lecture.
 
 
 
@@ -593,7 +593,7 @@ simple paths that can be extended. You will be left with the prime paths.
 
 \begin{frame}{Test Path}
   \begin{itemize}
-  \item Remember a test path is a path that starts at an entry node
+  \item Remember a {\it test path} is a path that starts at an entry node
     and leaves at an exit node.
   \end{itemize}
   
@@ -647,11 +647,11 @@ simple paths that can be extended. You will be left with the prime paths.
 \begin{frame}{Grey box testing}
   \begin{itemize}
   \item Our test path $[1,2,3,4,5,6,3,7]$ requires the loop to execute
-    exactly once and it to detect one space. So we might try the test
+    exactly once and to detect one space. So we might try the test
     case ({\tt " "},1) but this won't work. Don't forget that {\tt
       i=1} in the loop body.
   \item Instead we have to use the  test case ({\tt "H "},1)
-  \item By thinking about what the code should do, and trying to
+  \item Thinking about what the code should do, and trying to
     construct a test case corresponding to a path, we have uncovered a
     fault.
   \end{itemize}
@@ -715,7 +715,7 @@ simple paths that can be extended. You will be left with the prime paths.
   \begin{itemize}
   \item As we have seen, sometimes we have infeasible  test cases. 
     \begin{itemize}
-    \item This could because there is a fault.
+    \item This might be because there is a fault.
     \item Or, that we have to do other things to get to the
       code. There might be a bit of setup code that we have to call
       first that is not in our path.
@@ -724,17 +724,17 @@ simple paths that can be extended. You will be left with the prime paths.
     \begin{itemize}
     \item $[1,2,3,4,6,3,4,6,3,7]$ tours  the test path $[1,2,3,4,6,3]$ it
       also tours many other paths including $[4,6,3,7]$. 
-    \item Don't forget the difference between a test path and a path.
+    \item Don't forget the difference between a {\it test path} and a {\it path}.
     \end{itemize}
   \end{itemize}
     
 \end{frame}
 \begin{frame}{Relaxing Test Cases}
   \begin{itemize}
-  \item A test path $p$ is set to {\em tour} sub-path $q$ with {\em
+  \item A {\it test path} $p$ is set to {\em tour} sub-path $q$ with {\em
       side-trips} if every edge that is in $q$ is also in $p$ in the
     same order.
-  \item A test path $p$ is set to {\em tour} sub-path $q$ with {\em
+  \item A {\it test path} $p$ is set to {\em tour} sub-path $q$ with {\em
       detours} if every node that is in $q$ is also in $p$ in the
     same order.
   \end{itemize}
@@ -804,12 +804,12 @@ The path $[0,1,2,3,4,5]$ tours the path $[0,1,2,4,5]$ with side trips.
 \begin{frame}{Infeasible  test requirements}
   \begin{itemize}
   \item   Most test criteria have some infeasible test requirements. 
-  \item It is usually undecidable to decide if all test requirements
+  \item It is usually undecidable if all test requirements
     are feasible (halting problem again).
   \item Allowing side trips might weaken the test cases, but allows
     more feasible test cases.
   \item Practical recommendation, best effort touring. Allow as many
-    as possible without side-trips, only allow side-trips on
+    as possible without side-trips; only allow side-trips on
     infeasible test paths.
   \end{itemize}
 
@@ -823,10 +823,10 @@ The path $[0,1,2,3,4,5]$ tours the path $[0,1,2,4,5]$ with side trips.
   \frametitle{Summary}
 
   \begin{itemize}
-  \item  Prime paths give a away look for test cases for loops.
-  \item  With Loops within loops and complicated branching prime-paths gives
+  \item  Prime paths provide some intuition for test cases for loops.
+  \item  With nested loops and complicated branching, prime-paths give
     us test cases that you might not look for.
-  \item Various ways of relaxing test paths when they are infeasible.
+  \item There are various ways of relaxing test paths when they are infeasible.
   \end{itemize}
 \end{frame}
 
@@ -834,10 +834,10 @@ The path $[0,1,2,3,4,5]$ tours the path $[0,1,2,4,5]$ with side trips.
   \frametitle{Do I expect you to draw control flow graphs?}
   \begin{itemize}
   \item For the exam yes. 
-  \item But, why bother. For large pieces of code you will never bother. For
-    troublesome small bits of code prime paths would be a useful tool to look
+  \item But, why bother? For large pieces of code you will never bother. For
+    troublesome small bits of code, {\it prime paths} would be a useful tool to look
     for test cases you might not consider.
-  \item The formalisation allows you to think about what coverage means for a
+  \item Formalisation allows you to think about what coverage means for a
     piece of code.
   \end{itemize}
   %%

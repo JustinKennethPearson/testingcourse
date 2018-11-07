@@ -2,13 +2,14 @@
 \usetheme{default}
 \usepackage{tikz}
 \usetikzlibrary{positioning}
+\setbeamertemplate{footline}[page number]
+\setbeamertemplate{navigation symbols}{}
 \usepackage{hyperref}
 \usepackage{listings}
 \title{Software Testing  Lecture 7 \\ Property Based Testing}
 \author{Justin Pearson}
-\date{2017}
-\setbeamertemplate{footline}[page number]
-\setbeamertemplate{navigation symbols}{}
+\date{2018}
+
 
 %Lecture 4 stuff
 \newcommand{\todo}[1]{{\tt ... #1 ... }}
@@ -51,7 +52,7 @@ class TestAddition(unittest.TestCase):
 
       \end{lstlisting}
 We could go on writing a lot of test cases. You can try to find edge cases and
-you could try to get some structural coverage of the code. 
+then try to get some structural coverage of the code. 
 \end{frame}
 \begin{frame}[fragile]
   \frametitle{Random testing of addition}
@@ -71,10 +72,10 @@ def test_add_random(max_iterations):
   \end{lstlisting}
 \end{frame}
 \begin{frame}
-  \frametitle{Random testing of addition}
+  \frametitle{Random testing of {\tt addition}}
   \begin{itemize}
   \item We should not expect any of our tests for addition to
-    fail. Especially since we implement addition with addition.
+    fail. Especially, since we implement {\tt addition} with addition.
   \item But it does illustrate some important concepts.
     \begin{itemize}
     \item Test oracles: A mechanism for determining if a test has passed or
@@ -113,12 +114,12 @@ cases.
 
 \begin{frame}
   \frametitle{Writing Test Oracles}
-  It is   the same problem as always, given some inputs how do we know what
-  the correct output is. Often you use testing as a way to think about the
-  problem and try understand what the output will be for given inputs.
+  It is the same problem as always; given some inputs how do we know what
+  the correct output is. Often, you use testing as a way to think about the
+  problem and try to understand what the output will be for given inputs.
 
   If you have lots of randomly generated tests then this is obviously
-  not practical.  There are a number of techniques available. 
+  not practical. There are a number of techniques available. 
   \begin{itemize}
   \item Specification based verification of the outputs.
   \item Redundant computations
@@ -127,7 +128,7 @@ cases.
 \end{frame}
 \begin{frame}
   \frametitle{Specification based Verification}
-  If you are lucky, then your software has a specification. If you less lucky,
+  If you are lucky, then your software has a specification. If you are less lucky,
  while trying to test the software and in dialogue with the programmer you
  write a specification.
 
@@ -140,19 +141,19 @@ cases.
   \item Treat the specification as a combinatorial problem and use techniques
     such as constraint programming, SAT or SMT to model your problem and
     derive test cases (Take 1DL448).
-  \item Write code the implements the specification and generates test cases.
+  \item Write code that implements the specification and generates test cases.
   \end{itemize}
-Techniques such as these are often referred to as model based testing.
+Techniques such as these are often referred to as {\it model based testing}.
 \end{frame}
 \begin{frame}
   \frametitle{Redundant Computations}
   We have already seen two examples earlier. There are a number of options.
   \begin{itemize}
   \item  Write inefficient but correct code, and  use this as an oracle. Very
-    similar to model based testing, but often more simple. Never underestimate
+    similar to {\it model based testing}, but often more simple. Never underestimate
     the power of a random number generator and redundant computations; it can
     be a very good way of finding bugs in code.
-  \item Parallel development of code. Very expensive only used in domains with
+  \item Parallel development of code. Very expensive and only used in domains with
     high reliability requirements (aerospace). Has its own
     problems. Psychology tells us that people make the same sort of errors.      
   \end{itemize}
@@ -219,9 +220,9 @@ Then we turn the specification into code (via macros)
   boolean expression then run with the randomly generated instances.
 
 \item If it evaluates to false then we have found a failing test case. There
-  is some clever logic to find reduce the size of the failing test case.
+  is some clever logic to reduce the size of the failing test case.
 \end{itemize}
-Commercial and free implementations exists for many programming languages
+Commercial and free implementations exist for many programming languages,
 including Python.
 
 \end{frame}

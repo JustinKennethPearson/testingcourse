@@ -2,13 +2,14 @@
 \usetheme{default}
 \usepackage{tikz}
 \usetikzlibrary{positioning}
+\setbeamertemplate{footline}[page number]
+\setbeamertemplate{navigation symbols}{}
 \usepackage{hyperref}
 \usepackage{listings}
 \title{Software Testing  Lecture 6 \\ Input Domain Modelling}
 \author{Justin Pearson}
-\date{2017}
-\setbeamertemplate{footline}[page number]
-\setbeamertemplate{navigation symbols}{}
+\date{2018}
+
 
 %Lecture 4 stuff
 \newcommand{\todo}[1]{{\tt ... #1 ... }}
@@ -31,7 +32,7 @@
 \end{frame}
 \begin{frame}{Input Domains}
   \begin{itemize}
-  \item The input domain of a program is all the possible inputs to
+  \item The {\it input domain} of a program is all the possible inputs to
     that program.
   \item Even for small programs the domain is infinite.
   \item Testing is fundamentally about {\em choosing finite sets} of
@@ -70,8 +71,8 @@
     \item Integration
     \item System
     \end{itemize}
-  \item Relatively easy to apply with no automation
-  \item Easy to adjust to get more of fewer tests
+  \item Relatively easy to apply with no automation.
+  \item Easy to adjust to get more of fewer tests.
   \item It is possible to do black box testing, you just need to know
     what the input space is.
   \end{itemize}
@@ -119,9 +120,9 @@
 \end{frame}
 \begin{frame}{Why is this important?}
   \begin{itemize}
-  \item Remember blocks should be 
+  \item Remember, {\it blocks} should: 
     \begin{itemize}
-    \item disjoint, no overlapping test cases
+    \item be disjoint, no overlapping test cases
     \item cover the domain, every element is tested.
     \end{itemize}
   \end{itemize}  
@@ -132,7 +133,7 @@
   \item Choose a value from each partition.
   \item Each value is assumed to be {\em equally useful} for testing.
   \end{itemize}
-It is up to tester to work out what it means to be equally useful.
+It is up to the tester to work out what it means to be equally useful.
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Characteristics}
@@ -140,8 +141,8 @@ It is up to tester to work out what it means to be equally useful.
   \item Application to testing:
     \begin{itemize}
     \item Find {\em characteristics} in the inputs: parameters,
-      semantic descriptions
-    \item Partition each characteristic
+      semantic descriptions.
+    \item Partition each characteristic.
     \item Choose tests by combining values from each characteristic.
     \end{itemize}
   \end{itemize}  
@@ -153,7 +154,7 @@ It is up to tester to work out what it means to be equally useful.
     \begin{itemize}
     \item Input X is null
     \item Order of an input file (sorted, backwards, arbitary
-    \item Minimum separation of two aircraft.
+    \item Minimum separation of two aircrafts.
     \item Input device type (DVD, CD, .... )
     \end{itemize}
   \end{itemize}
@@ -162,7 +163,7 @@ It is up to tester to work out what it means to be equally useful.
   \begin{itemize}
   \item Choosing (or defining) partitions seems to easy, but it is
     equally easy to get it wrong.
-  \item Consider the property the order of the file.
+  \item Consider the property the {\it order of the file}.
   \item Define the partition as follows:
     \begin{itemize}
     \item $b_1 = \ $ files sorted in ascending order.
@@ -192,7 +193,7 @@ It is up to tester to work out what it means to be equally useful.
 
   \begin{itemize}
   \item You could just be careful.
-  \item Or make your partitions binary and combine them. So we have two
+  \item Or make your partitions binary and combine them. So, we have two
     separate partitions. Generate tests from all possible combinations of
     characteristics. 
     \begin{itemize}
@@ -212,7 +213,7 @@ It is up to tester to work out what it means to be equally useful.
 \end{frame}
 \begin{frame}{Properties of Partitions}
   \begin{itemize}
-  \item Don't forget that partitions should be complete and disjoint,
+  \item Don't forget that partitions should be complete and disjoint;
     if they are not then they have not been considered carefully
     enough.
     \item Review your partitions like any design attempt
@@ -226,7 +227,7 @@ It is up to tester to work out what it means to be equally useful.
   \item {\bf Step 1:} Identify testable functions
     \begin{itemize}
     \item Individual methods
-    \item functions
+    \item Functions
     \item More complicated characteristics, hardware/software,
       etc. You might have to look beyond your code.
     \end{itemize}
@@ -244,17 +245,17 @@ It is up to tester to work out what it means to be equally useful.
   \item {\bf Step 3:} Model the input domain.
     \begin{itemize}
     \item The domain depends on the parameters.
-    \item Define structure in terms of characteristics
+    \item Define structure in terms of characteristics.
     \item Get blocks and values.
-    \item This is where some creativity comes in to play, you have to
-      decide which characteristics to you. 
+    \item This is where some creativity comes into play, you have to
+      decide which characteristics are meaningful to you. 
     \end{itemize}
   \end{itemize}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Modelling the input domain: Five stage plan}
   \begin{itemize}
-  \item {\bf Step 4:} Test criteria for choosing combinations of values.
+  \item {\bf Step 4:} {\it Test criteria} for choosing combinations of values.
     \begin{itemize}
     \item See later in the lecture, but you need to combine your
       characteristics.
@@ -278,7 +279,7 @@ It is up to tester to work out what it means to be equally useful.
     \end{itemize}
   \item {\bf Functionality-based} approach
     \begin{itemize}
-    \item Develops characteristics from a behavioural view of the
+    \item Develop characteristics from a behavioural view of the
       program under test.
     \item Use your understanding of what the system should do. 
     \end{itemize}
@@ -344,17 +345,17 @@ It is up to tester to work out what it means to be equally useful.
     \begin{itemize}
     \item Include {\em valid}, {\em invalid} and {\em special} values.
     \item Explore {\em boundaries} of domains.
-    \item Include values that represents normal use.
-    \item Don't forget that partitions must  be {\em complete} and {\em disjoint}
+    \item Include values that represent normal use.
+    \item Don't forget that partitions must  be {\em complete} {\bf and} {\em disjoint}
     \end{itemize}
   \end{itemize}  
 \end{frame}
 \begin{frame}[fragile]{TriType example}
-It's in the book.
+As shown in the book.
   \begin{lstlisting}
   int Tritype(double i, double j, double k)
   \end{lstlisting}
-Should return  the type of triangle with side length $i$,$j$ and $k$.
+Should return  the type of triangle with side length $i$, $j$ and $k$.
   \begin{itemize}
   \item 3 = scalene (All sides different length)
   \item 2 = equilateral triangle
@@ -393,7 +394,7 @@ It is quite hard to get it right.
   \end{tabular}
   \begin{itemize}
   \item Do we have a partition? 
-  \item No an equilateral triangle is also an isosceles triangle.
+  \item No, an equilateral triangle is also an isosceles triangle.
   \end{itemize}
 \end{frame}
 \begin{frame}{TriType  Functional Based Appraoch}
@@ -405,7 +406,7 @@ It is quite hard to get it right.
   \end{tabular}
   \begin{itemize}
   \item Do we have a partition? 
-  \item No an equilateral is also isosceles.
+  \item No, an equilateral is also isosceles.
   \item So refine it to:
   \end{itemize}
 {\small
@@ -429,32 +430,34 @@ b_3$, $(3,4,8) \in b_4$.
     \item {\em All Combinations (ACoC)}: All combinations of blocks from all
       characteristics must be used.
     \end{itemize}
-  \item Number of tests  the product of the number of blocks in each
+  \item Number of tests equals the product of the number of blocks in each
     characteristic. 
   \end{itemize}
   \end{frame}
 \begin{frame}{Choosing Combinations of Values}
   \begin{itemize}
   \item Usual story, too many test cases!
-  \item We should at least chose a value from each block at least once.
+  \item We should at least choose a value from each block at least once.
     \begin{itemize}
-    \item {\em Each Choice (EC)}: Each value from each block for each
-      characteristic must be used in at least one test case.
+    \item {\em Each Choice (EC)}: Each value from each block, for each
+      characteristic, must be used in at least one test case.
     \end{itemize}
-  \item Yields few tests and  cheap, but maybe not such good coverage.
+  \item Yields few tests and is cheap, but maybe does not provide such good coverage.
   \end{itemize}
 \end{frame}
 \begin{frame}{Pair-Wise}
   \begin{itemize}
-  \item {\em Pair-Wise (PW)}: A value from each block for each
-    characteristic must be combined with a value from every other
-    block for each other characteristic.
+  \item {\em Pair-Wise (PW)}: A value from each block, for each
+    characteristic, must be combined with a value from every other
+    block, for each other characteristic.
   \item Given three partitions  $[A,B]$,$[q_1,q_2,q_3]$ and
     $[x,y]$. We would get the requirements:
 
 {\small
+\vspace{2mm}
 \begin{tabular}{lr}
-  {\large Requirements} & {\large Combinations} \\
+\vspace{2mm}
+  {\large Requirements:} & {\large Combinations:} \\
     \begin{tabular}{lll}
       $(A,q_1)$ & $(B,q_1)$ & $(x,q_1)$ \\
       $(A,q_2)$ & $(B,q_2)$ & $(y,q_1)$ \\
@@ -477,11 +480,11 @@ b_3$, $(3,4,8) \in b_4$.
 \begin{frame}{Constraints Among Characteristics}
   Back to the triangle type.
   \begin{itemize}
-  \item Some combinations are infeasible. For example
+  \item Some combinations are infeasible. For example:
     \begin{itemize}
     \item ``Less than zero'' and ``scalene'' are not possible at the same time.
     \end{itemize}
-  \item So when you combine test from different blocks you have to be
+  \item So when you combine tests from different blocks you have to be
     careful.
   \item As you might guess there are lots of possible ways of combining
     things.

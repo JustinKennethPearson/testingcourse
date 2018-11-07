@@ -5,13 +5,14 @@
 \usetheme{default}
 \usepackage{tikz}
 \usetikzlibrary{positioning}
+\setbeamertemplate{footline}[page number]
+\setbeamertemplate{navigation symbols}{}
 \usepackage{hyperref}
 \usepackage{listings}
 \title{Software Testing  Lecture 5}
 \author{Justin Pearson}
-\date{2017}
-\setbeamertemplate{footline}[page number]
-\setbeamertemplate{navigation symbols}{}
+\date{2018}
+
 
 %Lecture 4 stuff
 \newcommand{\todo}[1]{{\tt ... #1 ... }}
@@ -35,8 +36,8 @@
 
 \begin{frame}{Covering Logical Expressions}
   \begin{itemize}
-  \item Logic expression show up in many situations
-  \item Covering logical expressions have a long history, many are the
+  \item Logic expressions show up in many situations
+  \item Covering logical expressions has a long history, many are the
     covering criteria are mandated by the US FAA in safety critical
     software.
   \item Logical expressions can come from many sources:
@@ -52,7 +53,7 @@
   \begin{itemize}
   \item Typical balance in software testing:
     \begin{itemize}
-    \item In theory too many options to test everything.
+    \item In theory, there are too many options to test everything.
     \item Find good coverage criteria that have a chance of covering
       useful cases.
     \item As usual there are no guarantees, but try to model cases that
@@ -69,7 +70,7 @@
       {something_else;}
   \end{lstlisting}
 Branch or edge coverage would only require one test case that executes
-the two branches. Instead you might want to test all the possibilities
+the two branches. Instead, you might want to test all the possibilities
 of the logical expression.
 
 
@@ -91,8 +92,8 @@ of the logical expression.
   \hline 
 \end{tabular}
 
-So a test corresponding to the line $TFT$ would require some value
-$x>0$, $y\leq 0$ and $z>0$. You would have to find a test path with
+So a test corresponding to the line $TFT$ would require:
+$x>0$, $y\leq 0$ and $z>0$. \newline You would have to find a test path with
 these values.
 \end{frame}
 \begin{frame}[fragile]{Logical Connectives: Revisions?}
@@ -156,14 +157,14 @@ these values.
   \begin{itemize}
   \item A {\em predicate} is an expression that evaluates to true or
     false.
-   \item A predicate can contain:
+   \item A predicate may contain:
      \begin{itemize}
      \item Boolean variables.
      \item Expressions evaluating to  Boolean variables that contain
        comparison operation {\tt >, < , ==, >=, != , <=}
      \item  Boolean function calls.
      \end{itemize}
-   \item Internal structure created by logical operators (see
+   \item Internal structure is created by logical operators (see
      previous slide)
    \item A clause is a predicate with no logical operators.
      \begin{itemize}
@@ -190,9 +191,8 @@ these values.
 
 Very simple and very blunt.
   \begin{itemize}
-  \item {\em Predicate Coverage (PC)}: For each $p$ in $\predset$, the
-    test requirements include that $p$ evaluates to true and $p$
-    evaluates to false. 
+  \item {\em Predicate Coverage (PC)}: For each $p$ in $\predset$, the {\it test requirements}
+   include that $p$ evaluates to true and $p$ evaluates to false. 
   \end{itemize}
 
 \end{frame}
@@ -208,8 +208,8 @@ Very simple and very blunt.
     else
        {bar;}
   \end{lstlisting}
-The predicates are \verb+x>0 || y>0+ and \verb+z>0+. So we have 4 test
-requirements. So test case inputs could be $x=3\land y=-10$,
+The predicates are \verb+x>0 || y>0+ and \verb+z>0+. So we have 4 {\it test
+requirements}. So test case inputs could be $x=3\land y=-10$,
 $x=-3\land y=-10$, $z=20$ and $z=-120$.
 \end{frame}
 \begin{frame}{Clause Coverage}
@@ -235,7 +235,7 @@ So we get a new coverage criterion.
        {bar;}
   \end{lstlisting}
 The clause are \verb+x>0+, \verb+y>0+ and  \verb+z>0+.  So we have 6
-test requirements. 
+{\it test requirements}. 
 \end{frame}
 \begin{frame}{Example}
 \[
@@ -295,18 +295,18 @@ We can do this with two test cases:
     \[
      (P \lor Q) \land R
     \]
-    \item Clauses $P$, $Q$ and $R$. 6 test requirements $P=T$,$P=F$,
+    \item Clauses $P$, $Q$ and $R$. Thus, we have 6 {\it test requirements} $P=T$,$P=F$,
     $Q=T$,$Q=F$, $R=T$ and $R=F$.
   \item $(P=F \lor Q=F)    \land R=T$ evaluates to false.
   \item $(P=T \lor Q=T)    \land R=F$ evaluates to false.
-  \item All test requirements covered.  So we need something better,
+  \item All {\it test requirements} covered.  So we need something better,
     all possibilities?
   \end{itemize}  
 \end{frame}
 \begin{frame}{Combinatorial Coverage}
   \begin{itemize}
   \item {\em Combinatorial Coverage} For each $p$ in $\predset$, the
-    test requirement includes that each clause in $C_p$ evaluate to
+    test requirement includes that each clause in $C_p$ evaluates to
     each possible combination of truth values.
   \item That really means test all rows in the truth table. 
 
@@ -314,9 +314,9 @@ We can do this with two test cases:
 \end{frame}
 \begin{frame}{Combinatorial Coverage}
   \begin{itemize}
-    \item Simple, clean, neat, and comprensive.
-  \item But it can be quite expensive $2^N$ tests for $N$ clauses. 
-  \item Lots of suggestion in the literature, but the general idea is
+    \item Simple, clean, neat, and comprehensive.
+  \item But, it can be quite expensive $2^N$ tests for $N$ clauses. 
+  \item Lots of suggestions in the literature, but the general idea is
     simple:
     \begin{itemize}
     \item Test each clause {\em independently} from the other clauses.
@@ -338,7 +338,7 @@ We can do this with two test cases:
   \begin{itemize}
   \item {\em Major clause}  is the clause under consideration.
   \item {\em Minor clause}  are the rest of the clauses.
-  \item Let $c_i$ in  be the major clause in a predicate $p$. Then
+  \item Let $c_i$ be the major clause in a predicate $p$. Then
     $c_i$ determines $p$ if and only if the value of the remaining
     minor clauses are such that changing the value of $C_i$ changes
     the value of $p$. 
@@ -368,10 +368,10 @@ We can do this with two test cases:
   \item For a determining clause you have to take into account the
     assignments of the minor clauses.
 
-  \item Basic idea is for each clause you want assignments to the minor
+  \item Basic idea is: for each clause you want assignments to the minor
 clauses so that your clause becomes a determining clause.
 \item It becomes more complicated, when you consider how the different
-  test requirements overlap.
+  {\it test requirements} overlap.
   \end{itemize} 
 \end{frame}
 %Slide 16.
@@ -379,8 +379,8 @@ clauses so that your clause becomes a determining clause.
   \begin{itemize}
   \item {\em Active Clause Coverage (ACC):} For each predicate $p$ in
     $\predset$ and each major clause, choose values for the  minor
-    clauses so that the major clause determines $p$. The test
-    requirements contains  requirements so  that the major clause
+    clauses so that the major clause determines $p$. The {\it test
+    requirements} contain  requirements so  that the major clause
     evaluates to true and the major clause evaluates to false.
   \end{itemize}
 
@@ -426,9 +426,9 @@ Three possible criteria:
 \end{frame}
 \begin{frame}{General Active Clause Coverage}
 
-{\em General Active Clause Coverage}. For each predicate $p$ in
+{\em General Active Clause Coverage}: For each predicate $p$ in
 $\predset$ and each major clause in $C_p$, choose minor clauses so
-that it determines $p$. Test requirements include that the major
+that it determines $p$.{\it Test requirements} include that the major
 clause evaluates to true and false. The values of the minor clauses do
 {\em not} need to be the same.
 
@@ -461,8 +461,8 @@ evaluate to both true and false.
   \begin{itemize}
   \item {\em Restricted Active Clause Coverage:} For each predicate
     and each major clause in each predicate, choose values of minor
-    clauses so that the major determines the predicate. Test
-    requirements include each major clause evaluates to true and
+    clauses so that the major determines the predicate.{\it Test
+    requirements} include each major clause evaluates to true and
     false. The values chosen for the minor clauses {\bf must be the
       same}.
   \item Been used in aviation software. 
@@ -477,8 +477,8 @@ evaluate to both true and false.
   \begin{itemize}
   \item {\em Correlated Active Clause Coverage:} For each predicate
     and each major clause in each predicate, choose values of minor
-    clauses so that the major clause determines the predicate. Test
-    requirements include each major clause evaluates to true and
+    clauses so that the major clause determines the predicate. {\it Test
+    requirements} include each major clause evaluates to true and
     false. The values of the minor clauses must be chosen such that
     the predicate evaluates to true and false.
   \end{itemize}
@@ -498,12 +498,12 @@ evaluate to both true and false.
 
 \begin{frame}{Making clauses determine a predicate}
   \begin{itemize}
-  \item Finding values for minor clauses it easy for simple
+  \item Finding values for minor clauses is easy for simple
     predicates.
-  \item Trick with more complicated predicates.
-  \item $P_{c=T}$ replace every occurrence of $c$ by $T$.
-  \item $P_{c=F}$ replace every occurrence of $c$ by $F$.
-  \item Solve $P_c = P_{c=T} \oplus P_{c=F} = T$ this gives you the
+  \item Trick comes with more complicated predicates.
+  \item $P_{c=T}$, replace every occurrence of $c$ by $T$.
+  \item $P_{c=F}$, replace every occurrence of $c$ by $F$.
+  \item Solving $P_c = P_{c=T} \oplus P_{c=F} = T$ gives you the
     values of the minor clauses for the major clause $c$ to determine
     the predicate.
   \end{itemize}
@@ -539,7 +539,7 @@ evaluate to both true and false.
 \end{frame}
 \begin{frame}{Logic Coverage Summary}
   \begin{itemize}
-  \item Combinatorial coverage gives to many test cases.
+  \item Combinatorial coverage gives too many test cases.
   \item Predicate coverage is too blunt.
   \item Clause coverage has to be refined to force the predicate to
     evaluate to both true and false.

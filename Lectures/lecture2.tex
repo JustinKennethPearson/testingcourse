@@ -32,7 +32,7 @@
 \item Refactor: If possible refactor your code.
 \end{itemize}
 It seems a bit counter intuitive at first. I must think about the
-algorithm not the tests. Can I write complex algorithms this way?  
+algorithm, not the tests. Can I write complex algorithms this way?  
 \end{frame}
 \begin{frame}
   \frametitle{TDD}
@@ -54,10 +54,10 @@ algorithm not the tests. Can I write complex algorithms this way?
 \begin{frame}
   \frametitle{Refactoring}
   \begin{itemize}
-  \item For us refactoring will be taking a piece of code and making
+  \item For us, refactoring will be taking a piece of code and making
     it simpler to understand and smaller. Hopefully it makes it more
     efficient. Although we won't worry too much about
-    efficiency. Clear readable code is out goal. Efficiency comes when
+    efficiency. Clear, readable code is our goal. Efficiency comes when
     it is needed.
   \item ``We should forget about small efficiencies, say about 97\% of
     the time: premature optimization is the root of all evil.'' Donald Knuth.
@@ -302,7 +302,7 @@ AssertionError: 'twenty ten' != 'thirty'
 \end{frame}
 \begin{frame}[fragile]
   \frametitle{Green}
-So thirty should  treated as a special case.
+So thirty should be treated as a special case.
 \begin{lstlisting}
   def toEnglish(n):
     numbers = [ .... ]
@@ -372,7 +372,7 @@ with a list instead of all those {\tt if} statements.
 \end{frame}
 \begin{frame}[fragile]
   \frametitle{Refactor}
-Run the tests we have to see if we didn't mess anything up.
+Running the tests, we have to see if we didn't mess anything up.
 \begin{verbatim}
   File "test_toEnglish.py", line 27, in test_simple
     self.assertEqual(toEnglish.toEnglish(20),'twenty')
@@ -410,7 +410,7 @@ assertEqual(toEnglish.toEnglish(100),'one hundred')
 \end{lstlisting}
 \end{frame}
 \begin{frame}[fragile]
-So we rewrite the code with the minimal effort to pass the test (it
+So, we rewrite the code with the minimal effort to pass the test (it
 was late in the day).
 \begin{lstlisting}
   def toEnglish(n):
@@ -439,7 +439,7 @@ then the code will fail and we will have to rewrite something.
 \end{frame}
 \begin{frame}[fragile]
 \frametitle{Green}
-\begin{lstlisting}
+\begin{lstlisting}[basicstyle=\fontsize{9}{9}\selectfont]
   def toEnglish(n):
     numberOfHundreds = n // 100
     numberOfTens  = n // 10
@@ -449,7 +449,7 @@ then the code will fail and we will have to rewrite something.
         return(numbers[n])
     elif numberOfHundreds in range(1,10):
         return_string = return_string +\
-                        numbers[numberOfHundreds] + ' hundred'
+                    numbers[numberOfHundreds] + ' hundred'
     elif numberOfTens in range(1,10):
         return_string = return_string + tens[numberOfTens]
         if numberOfUnits > 0 :
@@ -461,9 +461,9 @@ then the code will fail and we will have to rewrite something.
 \end{frame}
 \begin{frame}[fragile]
   \frametitle{Green/Refactor}
-Part of the problem is our numberOfTens calculation assumes that n is
+Part of the problem is our \texttt{numberOfTens} calculation assumes that n is
 two digits and we got our logic wrong with the elif stuff. But we can
-do some refactoring and use toEnglish ourselves using the fact that:
+do some refactoring and use \texttt{toEnglish} ourselves using the fact that:
 \begin{lstlisting}
  'k*100 + w' = toEnglish(k) +
     'hundred and ' + toEnglish(w)  
@@ -494,7 +494,7 @@ doing all these tests we have a deeper understanding of the problem.
 
 \begin{frame}[fragile]
 \frametitle{Green}
-Lets run the tests.
+Let's run the tests.
 \begin{verbatim}
 
 AssertionError: 'one hundred and zero' != 'one hundred'
@@ -534,14 +534,14 @@ AssertionError: None != 'twenty'
 
 AssertionError: None != 'thirty'
 \end{verbatim}
-It means that I've got some of the if then else logic wrong; an easy
+It means that I've got some of the if-then-else logic wrong; an easy
 problem in Python. Good job we have got tests to see if we have messed
 things up.
 
 Look at the handout for the code. It does not really  fit on a slide.
 \end{frame}
 \begin{frame}[fragile]
-  \begin{lstlisting}
+  \begin{lstlisting}[basicstyle=\fontsize{8}{9}\selectfont]
 def toEnglish(n):
     numbers = [... ] 
     tens = [...]
@@ -560,7 +560,8 @@ def toEnglish(n):
     if numberOfTens in range(1,10):
         return_string = return_string + tens[numberOfTens]
         if numberOfUnits > 0 :
-            return_string = return_string + ' ' + numbers[numberOfUnits]
+            return_string = return_string + ' ' +\ 
+            			numbers[numberOfUnits]
         return(return_string)
   \end{lstlisting}
 \end{frame}
@@ -601,7 +602,7 @@ This class does nothing.
 \end{frame}
 \begin{frame}[fragile]
 \frametitle{Red}
-What do we want to do with the class. It is a two player class. We
+What do we want to do with the class? It is a two player class. We
 want to know the score of player 1 and the score of player 2.
 
 We assume that we are playing pub darts and start at 301. Games take
@@ -668,8 +669,8 @@ def test_scoring(self):
   
 \end{frame}
 \begin{frame}[fragile]
-The test will fail, we do not have a {\tt playerthrown} method. So
-first attempt to correct the code.
+The test will fail, as we do not have a {\tt playerthrown} method. So
+first attempt is to correct the code.
 \begin{lstlisting}
 def playerthrown(self,player,multiplier,number):
   if multiplier == 'double':
@@ -718,11 +719,11 @@ should be
 \begin{lstlisting}
        self.playerscores[player-1] -= number
 \end{lstlisting}
-Now finally all the tests pass.
+Now, finally, all the tests pass.
 \end{frame}
 \begin{frame}[fragile]
 \frametitle{Red}
-Darts is a two player game. First player 1 plays three shots then player
+Darts is a two player game. First, player 1 plays three shots then player
 two plays three shots. We have to decide how the object behaves if
 players play out of turn. We'll throw exceptions. There are other ways
 of doing this, but {\em now} is the time to decide. Write the tests to
@@ -771,7 +772,7 @@ fixed all the tests pass.
 \begin{frame}[fragile]
 \frametitle{Red}
  Now we have to think about how the game works. 
- You make 3 throws and then it is the other players turn.
+ You make 3 throws and then it is the other player's turn.
 
  Since we are using exceptions we expect the following code to be
  exception free.
@@ -784,12 +785,12 @@ fixed all the tests pass.
        game.playerthrown(1,'triple',5)
        game.playerthrown(2,'triple',20)
 \end{lstlisting}
-When the tests run we get an exception when player two tries to throw
+When the tests run, we get an exception when player two tries to throw
 a dart.  
 \end{frame}
 \begin{frame}[fragile]
-So we need to keep track of how many throws have been. If we get to 3
-then it is the other players turn.
+So, we need to keep track of how many throws have been. If we get to 3
+then it is the other player's turn.
 
 First modify {\tt init}
 \begin{lstlisting}
@@ -798,7 +799,7 @@ First modify {\tt init}
         self.turn = 1
         self.throws = 0
 \end{lstlisting}
-And, then  modify playerthrown to keep track of how many throws and flip the
+And, then  modify {\tt playerthrown} to keep track of how many throws and flip the
 player when there have been 3 throws.
 \begin{lstlisting}
 def playerthrown(self,player,multiplier,number):
@@ -827,7 +828,7 @@ NameError: throw out of turn
 Ah, I'm stupid. I have a problem with indexing players both by 1 and
 by 0. This is going cause more errors in the future. From now on I
 will always index the players by 1. So I'll use the trick of having a
-dummy entry in the playerscores for the index 0 and rewrite the rest
+dummy entry in the {\tt playerscores} for the index 0 and rewrite the rest
 of the code accordingly.
 \end{frame}
 \begin{frame}[fragile]
@@ -890,9 +891,9 @@ def test_three_throws(self):
 The tests still fail.
 
 \begin{verbatim}
-======================================================================
+====================================================
 ERROR: test_three_throws (__main__.TestDarts)
-----------------------------------------------------------------------
+----------------------------------------------------
 Traceback (most recent call last):
 
   File "darts.py", line 16, in playerthrown
@@ -969,22 +970,22 @@ Now the tests pass.
 \end{frame}
 \begin{frame}
 \frametitle{Hunting for Red}
-If you look in the handout there are more examples of tests of the
+If you look in the handout, there are more examples of tests of the
 scoring system.
 
 Now I'm confident that the scoring code works and the players turn
-works. You have to stare at the code and think. TDD means you only
-have to think about little things at a time. Remember that passing a
+works. You have to stare at the code and think. \newline TDD means you only
+have to think about little things at a time. \newline Remember that passing a
 bunch of tests does not mean that your code is bug free, you have to
 think if you can move on.
   
 \end{frame}
 \begin{frame}
 \frametitle{The end of a darts game}
-What happens when you finish a game of darts. The are variations in
+What happens when you finish a game of darts? The are variations in
 rule sets, but the version I played in the pub is that you must finish
-on exactly 0.  Also you must score every throw. I'm not sure what the
-real rules are. Anyway this is a quick way for player 1 to get to 0.
+on exactly 0.  Also, you must score every throw. I'm not sure what the
+real rules are. Anyway, this is a quick way for player 1 to get to 0.
 \end{frame}
 \begin{frame}[fragile]
 \begin{lstlisting}
@@ -1017,7 +1018,7 @@ have to decide what we want the class to do when a player wins.
 The alternatives are  Exceptions, or  Special value for the score?
 \item Personally I like using exceptions for non-error conditions, but some
 people think this is a bad idea. On some languages exceptions also
-have unnecessary extra overhead. So since this scoreboard will
+carry unnecessary extra overhead. So, since this scoreboard will
 probably be interfaced to a GUI, we'll return a string 'WON' when the
 score goes to 0.
 \end{itemize}
@@ -1054,7 +1055,7 @@ on a double as well, we won't bother with that).  So we can modify the
 previous test.
 
 You can modify the test to make sure that your score is reset each
-round. See the handout
+round. See the handout.
 
 When you run the test you get:
 \begin{verbatim}
@@ -1074,7 +1075,7 @@ Modify {\tt init}.
         self.current_round = 0
 \end{lstlisting}
 When we flip the current player we'll check if the score is negative. If it
-is then we'll add the {\tt current\_round} score back to the score so the
+is, then we'll add the {\tt current\_round} score back to the score so the
 score should be reset to the score before the round.
   
 \end{frame}
@@ -1115,9 +1116,9 @@ AssertionError: -59 != 'WON'
 \end{verbatim}
   
  I must have got the logic wrong for incrementing and decrementing the
-score. I got the current round logic wrong. Before when I flipped it didn't
+score. I got the current round logic wrong. Previously, when I flipped it didn't
 affect the rest of the code. Now I have to flip in the right place.
-I cheated I added print statements to see what was going wrong. Old
+I cheated by adding print statements to see what was going wrong. Old
 habits die hard!
 \end{frame}
 \begin{frame}[fragile]
