@@ -19,8 +19,8 @@
 \title{Software Testing\\ Lecture 3\\ Coverage}
 \author{Justin Pearson}
 \date{2018}
-\setbeamertemplate{footline}[page number]
-\setbeamertemplate{navigation symbols}{}
+%\setbeamertemplate{footline}[page number]
+%\setbeamertemplate{navigation symbols}{}
 
 \begin{document}
 \lstset{language=C}
@@ -31,8 +31,8 @@
 
 \begin{frame}{Approaches to testing}
   \begin{itemize}
-  \item Black Box Testing: Test without looking at the code/hardware
-  \item White Box Testing (clear box testing):  Test the internal
+  \item {\bf Black Box Testing}: Test without looking at the code/hardware
+  \item {\bf White Box Testing} (clear box testing):  Test the internal
     structure of the software
   \end{itemize}
   There is also grey box testing where you look find test cases that cover the
@@ -86,7 +86,7 @@ Does this program halt?
   \item Can I write  a program that takes {\em any} program and
     decides if it halts?
   \end{itemize}
-  Seems that is might be possible, but it is mathematically impossible.
+  Seems that it might be possible, but it is {\it mathematically} impossible.
 
  
 \end{frame}
@@ -103,8 +103,7 @@ Proof
                0 & \text{otherwise}
                \end{cases}
     \]
-is not computable. That is there no program that implements
-$h$. 
+is not computable. That is there no program that implements~$h$. 
   \end{itemize}
 \end{frame}
 \begin{frame}
@@ -137,7 +136,7 @@ Proof strategy is often referred to as a diagonal argument.
 \begin{frame}{Common Caveats}
   \begin{itemize}
   \item Halting function should work on \textcolor{red}{\em all} programs.
-  \item Finite memory, finite number of registers a computer is just a
+  \item Finite memory, finite number of registers imply that a computer is just a
     finite state machine.
   \item So it is possible to write a function that decides if all
     programs up to a given size terminate, but not very efficiently.
@@ -166,7 +165,7 @@ Proof strategy is often referred to as a diagonal argument.
 \end{frame}
 \begin{frame}{Pragmatics}
   \begin{itemize}
-  \item Admit we can not decide properties on all programs.
+  \item Admit that we can not decide properties on all programs.
   \item Do our best on most programs.
   \item Or be content with approximations such as: 
     \begin{itemize}
@@ -184,9 +183,9 @@ Coverage criteria include:
   \item Statement coverage --- Has each statement in the program been
     executed?  
   \item Branch coverage --- Has each branch of each control structure
-    (such as in {\tt if} and {\tt case} statements) been executed?
-  \item Loop coverage --- Have we done a representative number of iterations
-    of all the loops. 
+    (such as {\tt if} and {\tt case} statements) been executed?
+  \item Loop coverage --- Have we executed a representative number of iterations
+    of all the loops? 
   \end{itemize}
 \end{frame}
 
@@ -223,10 +222,10 @@ Coverage criteria include:
    }
 \end{lstlisting}
   \item The test case {\tt silly(1)} runs the loop once. A while loop is a
-    branch with a goto statement. 
-  \item But what about running the loop zero times, lots of times?
-   \item Halting problem again, for all most all loop you can't
-     decide how many times to run the loop.
+    essentially branch with a goto statement. 
+  \item But what about executing the loop zero times, lots of times?
+   \item Halting problem again, for almost all loops you can't
+     decide how many times to run each loop.
 \end{itemize}
     
 \end{frame}
@@ -234,11 +233,11 @@ Coverage criteria include:
 
  \begin{frame}{Control Flow Graphs}
 
-Control flow graphs models the control structures of the program. We
-can use them to reason about executions and test cases.
+Control flow graphs model the control structures of the program. We
+can use them to reasonabout executions and test cases.
 \begin{itemize}
-\item Nodes: Statements of sequence of statements
-\item Edges: Transfer of control
+\item Nodes: Statements of sequence of statements.
+\item Edges: Transfer of control.
 \item Basic Block: Sequence of statements with no transfer of control.
 \end{itemize}
 \end{frame}
@@ -399,12 +398,12 @@ Note that we do not collapse the two return statements.
 \begin{frame}
   \begin{itemize}
   \item Other program constructs are easy to do.
-  \item Each node only to be labelled with one basic block.
+  \item Each node is only to be labelled with one basic block.
   \item Beware of hidden control structures. (C's case statement).
   \end{itemize}
 \end{frame}
  \begin{frame}{Paths}
-Other definitions possible.
+Other possible definitions.
    \begin{itemize}
    \item A path is a sequence of nodes.
    \item The length of a path is the number of edges. A path with only
@@ -507,7 +506,7 @@ Other definitions possible.
   \begin{itemize}
   \item Two notions in program analysis:
     \begin{itemize}
-    \item Syntactic reach. 
+    \item Syntactic Reach. 
     \item Semantic Reach.
     \end{itemize}
    \end{itemize}
@@ -582,8 +581,8 @@ a test can execute many test paths.
  \end{frame}
  \begin{frame}{Testing and Covering Graphs}
    \begin{itemize}
-   \item {\em Test Requirements (TR)} : Describe properties of test paths
-     \item {\em Test Criterion} : Rules that define test requirements
+   \item {\em Test Requirements (TR)} : Describe properties of test paths.
+     \item {\em Test Criterion} : Rules that define test requirements.
      \item {\em Satisfaction} : Given a set TR of test requirements
        for a criterion $C$, a set of tests $T$ satisfies C on a graph if
        and only if for every test requirement in TR, there is a test
@@ -643,7 +642,7 @@ Is there any difference between node and edge coverage?
   \begin{itemize}
   \item Require that all paths are covered.
   \end{itemize}
-  Often there are too many paths. So various approximations.
+  Often, there are too many paths. Thus, approximations vary.
   \begin{itemize}
   \item Require that all paths up to length $k$ are covered.
     \begin{itemize}
@@ -683,13 +682,13 @@ Is there any difference between node and edge coverage?
     \end{column}
     \begin{column}{0.8\textwidth}
       \begin{itemize}
-      \item Node Coverage: $TR=\{0,1,2,3,4,5,6\}$, test paths =
-        $\{[0,1,2,3,6],[0,1,2,4,5,4,6]\}$.
+      \item Node Coverage: $TR=\{0,1,2,3,4,5,6\}$, Test paths:
+        $[0,1,2,3,6],[0,1,2,4,5,4,6]$.
       \item Edge Coverage:
-        $TR=\{(0,1),(0,2),(1,2),(2,3),(2,4),(3,6),(4,5),(4,6),(5,4)\}$,
-        Test paths $[0,1,2,3,6]$, $[0,2,4,5,4,6]$.
+        $TR=\{(0,1),(0,2),(1,2),(2,3),(2,4),(3,6),(4,5),(4,6), \newline (5,4)\}$,
+        Test paths: $[0,1,2,3,6]$, $[0,2,4,5,4,6]$.
 %      \item Edge-Pair Coverage: $TR=\{[0,1,2],[0,2,3],[0,2,4],[1,2,3],[1,2,4],[2,3,6],[2,4,5]$,$[2,4,6],[4,5,4],[5,4,5],[5,4,6]\}$.
-      \item Complete Path Coverage. Test paths
+      \item Complete Path Coverage. Test paths:
         $[0,1,2,3,6]$,$[0,1,2,4,6]$,$[0,1,2,4,5,4,6]$, $[0,1,2,4,5,4,5,4,6]$, etc.
       \end{itemize}
     \end{column}

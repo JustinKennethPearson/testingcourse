@@ -18,7 +18,7 @@
   \begin{itemize}
   \item Does my software work? \pause
   \item Does my software meet its specification? \pause
-  \item I've changed something does it still work? \pause
+  \item I've changed something, does it still work? \pause
   \item How can I become a better programmer? 
   \end{itemize}
 \end{frame}
@@ -70,8 +70,8 @@ NASA's Mars lander, September 1999, crashed due to a units
      ... Self Destruct .... 
    } 
 \end{lstlisting}
-In fact it was an integration problem. The software module was for
-Ariane 4 and the programers  forgot that the Ariane 5 had a higher initial
+In fact, it was an integration problem. The software module was implemented for
+Ariane 4 and the programers  forgot that the Ariane 5 model had a higher initial
 acceleration and a different mass.  
 \end{frame}
 \begin{frame}{Therac-25}
@@ -128,18 +128,18 @@ instead of
   \begin{itemize}
   \item Simple programming error: not getting the loop termination
     condition correct.
-  \item Later we'll see that this might of been avoided with testing.
+  \item Later we'll see that this might have been avoided with testing.
   \end{itemize}
 \end{frame}
 \begin{frame}
   \frametitle{Software Failures}
   \begin{itemize}
-  \item These are just some of more spectacular examples. There is
+  \item These are just some of the most spectacular examples. There is
     a lot of bad software out there. Anything we can do to
     improve the quality of software is a good thing. 
   \item  Formal methods are hard to implement, but
     software testing with some discipline can become part of any
-    programmers toolbox.
+    programmer's toolbox.
   \end{itemize}
 \end{frame}
 \begin{frame}
@@ -147,15 +147,15 @@ instead of
   There are lots of different testing activities. We can't cover them
   all but they include:
   \begin{itemize}
-  \item Unit Testing: Testing your functions/methods as you write your
+  \item \textbf{Unit Testing}: Testing your functions/methods as you write your
     code.
-  \item Regression testing: maintaining a possibly large set of test
+  \item \textbf{Regression testing}: maintaining a possibly large set of test
     cases that have to passed when ever you make a new release.
-  \item Integration testing: testing  if your software modules fit
+  \item \textbf{Integration testing}: testing  if your software modules fit
     together. 
   \end{itemize}
 As we learn about software engineering you'll see how different
-testing can be in different phases of the software engineering
+testing paradigms can be involved in different phases of the software engineering
 process. 
 \end{frame}
 \begin{frame}
@@ -172,7 +172,7 @@ bugs. Anything you do to reduce the number of bugs is a good thing.
 \end{frame}
 \begin{frame}
   \frametitle{Test Driven Development}
-  Later on we will look at test driven development which is a
+  Later on we will look at \textit{test driven development} (TDD) which is a
   programming discipline where you write the tests before you write
   the code.
 \end{frame}
@@ -182,7 +182,7 @@ bugs. Anything you do to reduce the number of bugs is a good thing.
   \begin{itemize}
   \item A test is simply some inputs and some expected outputs.
   \end{itemize}
-  This simple description hides a lot of complexity.
+  This simple description hides a lot of complexity, though.
   \begin{itemize}
   \item How do I run a test? How do I give inputs to a real-time system or a
     GUI?
@@ -198,7 +198,7 @@ bugs. Anything you do to reduce the number of bugs is a good thing.
   \item Test Execution
   \item Test Evaluation
   \end{enumerate}
-Very important test execution should be as automated as possible. It
+It is very important that test execution should be as automated as possible. It
 should be part of your {\tt Makefile}. Some systems even automatically
 run tests when you check in code.
 \end{frame}
@@ -207,8 +207,8 @@ run tests when you check in code.
   \begin{itemize}
   \item  Writing good tests is  hard. 
   \item It requires knowledge of you  problem, and 
-  \item knowledge of common errors.
-  \item Often a test designer is a separate  position in a company.
+  \item Knowledge of common errors.
+  \item Often, a test designer is a separate  position in a company.
   \end{itemize}
 \end{frame}
 \begin{frame}
@@ -229,7 +229,7 @@ run tests when you check in code.
   \frametitle{Test Automation}
   \begin{itemize}
   \item Designing good tests is hard.
-  \item If you don't make running the tests an automated process then
+  \item If you don't make the execution of the tests an automated process, then
     people will never run them.
   \item There are many automated systems, but you can roll your own
     via scripting languages.   
@@ -244,10 +244,10 @@ run tests when you check in code.
   \item There are tools for automatically testing web systems.
   \item There are tools for testing GUIs.
     \begin{itemize}
-    \item If you design you software correctly you should decouple as
+    \item If you design your software correctly you should decouple as
       much of the GUI behaviour from the rest of the program as you
       can. This will not only make your program easier to port to
-      other GUIs it will make it easier to test.
+      other GUIs, but also it will make it easier to test.
     \end{itemize}
   \item Don't forget to include test  automation in your compilation process.
   \item Consider integrating automated testing into your version
@@ -290,9 +290,9 @@ some planning.
 \begin{frame}
   \frametitle{Important Terminology and Concepts}
   \begin{itemize}
-  \item  {\bf Software Fault:} A static defect in the software
+  \item  {\bf Software Fault:} A static defect in the software.
   \item {\bf Software Error:} An incorrect internal state that is the
-    manifestation of some fault 
+    manifestation of some fault. 
   \item {\bf  Software Failure:} External,
     incorrect behavior with respect to the requirements or other
     description of the expected behaviour.
@@ -354,9 +354,9 @@ so it is testable.
     regression testing.
   \item The best way to write testable code is to write the tests as
     you develop the code. 
-  \item Writing the test cases after the fact takes more time and
+  \item Writing the test cases after the code takes more time and
     effort than writing the test during the code. It is like good
-    documentation you'll always find something else to do if you leave
+    documentation; you'll always find something else to do if you leave
     until after you've written the code.  
   \end{itemize}
   This will be covered in more detail in the next lecture.
@@ -376,7 +376,7 @@ so it is testable.
   \frametitle{{\tt assertTrue}}
  Suppose we want to test our string length function {\tt int
    istrlen(char*) }
-The the following things should be true:
+Then, the following things should be true:
 \begin{itemize}
 \item The length of {\tt "Hello"} is 5.
 \item The length of {\tt ""} is 0.
@@ -436,13 +436,13 @@ class TestCode(unittest.TestCase):
   \frametitle{Important Unit Testing Concepts}
   \begin{itemize}
   \item Setup. You might need to initialise some data structures.  \pause
-  \item The tests. Well you need to do tests. \pause
-  \item Teardown. Always clean up after you. \pause
+  \item The tests. Well, you need to do tests. \pause
+  \item Teardown. Always! clean up after you. \pause
   \end{itemize}
 Important idea.
 \begin{itemize}
 \item Each test should be able to be run independently of the other
-  tests. You don't know what order the tests will be run. Or even if
+  tests. You don't know in what order the tests will be run. Or even if
   all tests will be run. The programmer might just rerun the test that
   caused problems. 
 \end{itemize}
@@ -459,15 +459,15 @@ Important idea.
   \frametitle{More Testing Concepts}
   \begin{itemize}
   \item Sometimes you don't have all the functionality
-    implemented. Write dummy functions {\em stubs} that simply return
+    implemented. Write dummy functions, {\em stubs}, that simply return
     null values rather doing any real work. Means that you can get
     your code going.
   \item {\em Mock} or {\em Fake} objects (people make a distinction
     but don't worry) implement enough of an object to get the test
     going.
   \end{itemize}
-In fact in test driven development you write the test implement the
-mocks first and as you introduce more tests you add code to make the
+In fact in test driven development you write the test, implement the
+{\em mocks} first and as you introduce more tests you add code to make the
 tests pass.
 
 \end{frame}
@@ -553,7 +553,7 @@ tests pass.
     website\footnote{\url{http://www.satisfice.com/}}
   \item The book {\em Introduction to Software
       Testing}\footnote{\url{http://cs.gmu.edu/~offutt/softwaretest/}}
-    by Ammann and Offutt. This is a bit theorectical. 
+    by Ammann and Offutt. This is a bit theoretical. 
   \item The book {\em Test-Driven Development by Example} by Kent Beck.
     Who is one of the  fathers of unit testing, agile programming  and
     extreme programming. 

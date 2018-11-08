@@ -2,6 +2,7 @@
 *.aux
 *~
 *.pyc
+*.synctex.gz
 *.nav
 *.toc
 *.snm
@@ -9,3 +10,4 @@
 *.vrb
 *._DS_Store
 *.DS_Store
+*.pdf
