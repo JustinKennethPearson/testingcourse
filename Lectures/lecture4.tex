@@ -287,7 +287,7 @@ simple paths that can be extended. You will be left with the prime paths.
   \begin{itemize}
   \item $\hcancel{[1]}$,$\hcancel{[2]}$,$\hcancel{[3]}$,$\hcancel{[4]}$
   \item $\hcancel{[1,2]}$, $\hcancel{[2,3]}$, $\hcancel{[2,4]}$, $\hcancel{[3,2]}$
-  \item $[1,2,3]$ , $[1,2,4]$, $[2,3,2]$
+  \item $[1,2,3]$ , $[1,2,4]$, $[2,3,2]$, $[3,2,3]$
   \end{itemize}
 \end{column}
 \end{columns}
@@ -329,7 +329,7 @@ simple paths that can be extended. You will be left with the prime paths.
 %%%Second Column
 \begin{column}{0.5\textwidth}
   \begin{itemize}
-  \item $[1,2,3] \rightarrow [1,2,3,4]$
+  \item $[1,2,3] \rightarrow [1,2,3,2,4]$ or $[2,3,2] \rightarrow [1,2,3,2,4]$
     \begin{itemize}
     \item Execute loop once.
     \end{itemize}
@@ -338,7 +338,7 @@ simple paths that can be extended. You will be left with the prime paths.
     \item   Execute loop zero times.
     \end{itemize}
 
-  \item $[2,3,2] \rightarrow [1,2,3,2,4]$
+  \item $[3,2,3] \rightarrow [1,2,3,2,3,2,4]$
     \begin{itemize}
     \item Execute loop more than once.
     \end{itemize}
