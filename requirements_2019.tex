@@ -3,12 +3,13 @@
 \usepackage{fullpage}
 \usepackage[hyphens]{url}
 \usepackage{hyperref}
-%\usepackage{draftwatermark}
-%\SetWatermarkText{DRAFT}
-%\SetWatermarkScale{1}
-\newcommand{\todo}[1]{{\tt #1}}
-\title{Software Testing 2018}
-\author{Justin Pearson, Jo Gay and Vasileios Loukas}
+%%%%Draft watermark.
+\usepackage{draftwatermark}
+\SetWatermarkText{DRAFT}
+\SetWatermarkScale{1}
+\newcommand{\todo}[1]{{\tt TODO:#1}}
+\title{Software Testing 2019}
+\author{Justin Pearson, Christopher Ekfeldt, and Nodari Kankava}
 
 
 
@@ -25,20 +26,20 @@ four components:
 \begin{enumerate}
 \item A series of lectures on aspects of software testing;
 \item Group work on test design;
-\item A lab on test driven development;
-\item An exam.
+\item A lab on test driven development (2019-11-20);
+\item An exam (2020-01-16).
 \end{enumerate}
 The exam is graded U,3,4,5. The group work and the project is pass or fail.
 
-If you only learn one thing about testing during this course, then you will
-fail, but if you learn the following idea ``You should have a reason for each
-test. For each test you should be able to explain what you are trying to test
-for.'' then you will at least understand why we study testing. When we examine
-you, and when you produce tests, we expect you to be able to explain the
-reasons behind your tests.
+If you only learn one thing about testing during this course, then you
+will fail, but if you learn the following idea ``You should have a
+reason for each test. For each test you should be able to explain what
+you are trying to test for.'' then you will at least understand why we
+study testing. When we examine you, and when you produce tests, we
+expect you to be able to explain the reasons behind your tests.
 
 
-\section{Deliverables and requirements  2018}
+\section{Deliverables and requirements  2019}
 
 
 
@@ -47,28 +48,28 @@ reasons behind your tests.
   done in groups of 2 or 3. It will be marked at the lab. There is no
   hand-in. 
 
-
+%In 2019 there are 102 registered, so groups of 5. 
 \item Project work on test case design for some python library. This
-  is done in groups of 4.
+  is done in groups of 5.
 \item An exam.
 
   \end{enumerate}
 
-
-  Information on the lab can be found either linked from the student portal or
-  via
+  Information on the lab can be found either linked from the student
+  portal or via
   \url{http://user.it.uu.se/~justin/Teaching/Testing/index.html}. Information
-  on the exam will come later. It is safe to say that if I mention a concept
-  on the slides, then I might ask an exam question on it. It is also safe to
-  say, that my slides do not contain all the information that you need. You
-  will probably have to read the book to get enough information to pass the
-  exam.
+  on the exam will come later. It is safe to say that if I mention a
+  concept on the slides, then I might ask an exam question on it. It
+  is also safe to say, that my slides do not contain all the
+  information that you need. You will probably have to read the book
+  to get enough information to pass the exam.
 
 \subsection*{Project Work}
 
 The idea of the project is to pick some python library, and write some
 test cases for it. You will have to write both black-box and white-box
-tests and tests that provide coverage of selected parts of the code. The final deliverables will be a written report and a 10 minute
+tests and tests that provide coverage of selected parts of the
+code. The final deliverables will be a written report and a 10 minute
 presentation.
 
 
@@ -91,25 +92,27 @@ Using your chosen library, your tasks are as follows:
 
 \subsubsection*{Schedule for the project}
   \begin{itemize}
-  \item By  the start of  week  46 you must form a group. This will be
-    handled via the student portal.
-  \item In week 47 you will meet your assigned lab assistant; before the
-    meeting you should pick a python library (for example look at the Python
-    Standard Library or \url{https://pypi.python.org/}). You must agree
-    with your lab assistant that you can work on that library. We have
-    to decide if the library is too trivial or too complicated. If you are
-    having trouble finding a good library to test then you should try to meet
-    your lab assistant in week 46.
-  \item In week 48 you should have a brief meeting with your assigned lab
+  \item By the start of  week 46 you must form a
+    group. This will be handled via the student portal.
+  \item In week 47 you will meet your assigned lab assistant; before
+    the meeting you should pick a python library (for example look at
+    the Python Standard Library or
+    \url{https://pypi.python.org/}). You must agree with your lab
+    assistant that you can work on that library. We have to decide if
+    the library is too trivial or too complicated. If you are having
+    trouble finding a good library to test then you should try to meet
+    your lab assistant in \todo{correct week} week 46.
+  \item In week  48 you should have a brief meeting with your assigned lab
     assistant to discuss progress.
 
-  \item On 4/12 (week 49) there is a compulsory presentation, where you are
-      to present your library and present some of your test cases
-      and the reasoning behind them. Your presentation is of work in
-      progress.
-    \item In week 49 or 50 you again meet with your lab assistant to
-      discuss your draft of your  report.
-    \item Jan 7,  2019 is  the deadline for the final
+  \item On 5/12 (week 49) there is a compulsory presentation, where
+    you are to present your library and present some of your test
+    cases and the reasoning behind them. Your presentation is of work
+    in progress.
+    \item In  week 49 or 50 you again meet with your lab assistant to
+      discuss your draft of your  report. You must submit a draft of
+      your report to your assistant before your meeting.
+    \item Jan 19,  2020 is  the deadline for the final
       report. This should be submitted via the student portal.
 
 \end{itemize}
