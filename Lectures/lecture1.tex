@@ -5,7 +5,7 @@
 \usepackage{listings}
 \title{Software Testing  Lecture 1}
 \author{Justin Pearson}
-\date{2018}
+\date{2019}
 \setbeamertemplate{footline}[page number]
 \setbeamertemplate{navigation symbols}{}
 \begin{document}
@@ -45,7 +45,8 @@ NASA's Mars lander, September 1999, crashed due to a units
       from the SM\_FORCES software. The data in the AMD file was
       required to be in metric units per existing software interface
       documentation, and the trajectory modelers assumed the data was
-      provided in metric units per the requirements.\footnote{\url{ftp://ftp.hq.nasa.gov/pub/pao/reports/1999/MCO_report.pdf}}
+      provided in metric units per the
+      requirements.\footnote{\url{ftp://ftp.hq.nasa.gov/pub/pao/reports/1999/MCO_report.pdf}}
     \end{quote}  
 \end{frame}
 \begin{frame}{Ariane 5 explosion}
@@ -142,10 +143,19 @@ instead of
     programmer's toolbox.
   \end{itemize}
 \end{frame}
+\begin{frame}{The V model}
+%  Hello this is some stuff.
+\begin{center} 
+ \includegraphics[height=2in,width=4in]{V_model.png}
+\end{center}
+Even if you don't develop software this way, it is a useful way of
+thinking about software development.
+\end{frame}
+
 \begin{frame}
-  \frametitle{Testing}
-  There are lots of different testing activities. We can't cover them
-  all but they include:
+  \frametitle{Testing} There are lots of different testing activities
+  with names inspired by the V model.  We can't cover them all but
+  they include:
   \begin{itemize}
   \item \textbf{Unit Testing}: Testing your functions/methods as you write your
     code.
@@ -154,9 +164,6 @@ instead of
   \item \textbf{Integration testing}: testing  if your software modules fit
     together. 
   \end{itemize}
-As we learn about software engineering you'll see how different
-testing paradigms can be involved in different phases of the software engineering
-process. 
 \end{frame}
 \begin{frame}
   \frametitle{Can we test?}
@@ -170,26 +177,37 @@ process.
 This is true, but it is no reason to give up on testing. All software has
 bugs. Anything you do to reduce the number of bugs is a good thing.
 \end{frame}
+
 \begin{frame}
   \frametitle{Test Driven Development}
   Later on we will look at \textit{test driven development} (TDD) which is a
   programming discipline where you write the tests before you write
   the code.
 \end{frame}
+\begin{frame}{What is a Test?}
+  This is quite a complex question and depends on what you are
+  developing.
+  \begin{itemize}
+  \item How do I test a GUI?
+  \item How do I test a real-time system?
+  \item How do I load-test a web-server?
+  \item How do I test a database system?
+  \end{itemize}
+
+\end{frame}
 \begin{frame}
   \frametitle{What is a Test?}
-
+In this course we will look testing functions or methods. 
   \begin{itemize}
   \item A test is simply some inputs and some expected outputs.
   \end{itemize}
   This simple description hides a lot of complexity, though.
   \begin{itemize}
-  \item How do I run a test? How do I give inputs to a real-time system or a
-    GUI?
-  \item How do I know what my code is supposed to do, so that I can work out
-    what the expected outputs are?
+  \item How do I know what my code is supposed to do, so that I can
+    work out what the expected outputs are?
   \end{itemize}
 \end{frame}
+
 \begin{frame}
   \frametitle{Aspects of Testing}
   \begin{enumerate}
@@ -209,6 +227,7 @@ run tests when you check in code.
   \item It requires knowledge of you  problem, and 
   \item Knowledge of common errors.
   \item Often, a test designer is a separate  position in a company.
+  \item Test design helps the tester understand the system.
   \end{itemize}
 \end{frame}
 \begin{frame}
@@ -222,10 +241,14 @@ run tests when you check in code.
   \item Constructive view of test design:
     \begin{quote}
        How do I design software tests that improve the software process?
-    \end{quote}
+     \end{quote}
+   \item Often you design tests to uncover common programming errors
+     for example off by one errors.
   \end{itemize}
 \end{frame}
-\begin{frame}
+
+
+\begin{frame}  
   \frametitle{Test Automation}
   \begin{itemize}
   \item Designing good tests is hard.
@@ -249,7 +272,8 @@ run tests when you check in code.
       can. This will not only make your program easier to port to
       other GUIs, but also it will make it easier to test.
     \end{itemize}
-  \item Don't forget to include test  automation in your compilation process.
+  \item Don't forget to include test automation in your compilation
+    process.
   \item Consider integrating automated testing into your version
     management system.  
   \end{itemize}
@@ -345,6 +369,23 @@ so it is testable.
   \end{itemize}
 \end{frame}
 
+\begin{frame}{The RIP model}
+ Reachability,  Infection and Propagation.
+  \begin{itemize}
+  \item Reachability: The test causes the faulty statement to be
+    reached.
+  \item Infection: The test case causes the faulty statement to result
+    in an incorrect state.
+  \item Propagation: The incorrect state propagates to incorrect output.
+    \end{itemize}
+  \end{frame}
+  \begin{frame}{Analogy with disease}
+    \begin{itemize}
+    \item The symptom is only an indication of what is wrong with you.
+    \item Test cases are a diagnostic tool. We can only see the
+      symptoms and not inside the software. 
+    \end{itemize}    
+  \end{frame}
 \begin{frame}
   \frametitle{Unit Testing}
   \begin{itemize}
@@ -519,7 +560,7 @@ tests pass.
       }
    \end{lstlisting}
 \item  So you have to have a string  of length 0,1 and some bigger number.
-  \end{itemize}
+\end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
