@@ -8,13 +8,123 @@
 \usepackage{color}
 \title{Software Testing Lecture 2}
 \author{Justin Pearson}
-\date{2017}
+\date{2019}
 \setbeamertemplate{footline}[page number]
 \setbeamertemplate{navigation symbols}{}
 \begin{document}
 \begin{frame}
   \maketitle
 \end{frame}
+\begin{frame}
+  \frametitle{Unit Testing}
+  \begin{itemize}
+  \item xUnit testing is a framework where individual functions and
+    methods are tested. 
+  \item It is not particularly well suited to integration testing or
+    regression testing.
+  \item The best way to write testable code is to write the tests as
+    you develop the code. 
+  \item Writing the test cases after the code takes more time and
+    effort than writing the test during the code. It is like good
+    documentation; you'll always find something else to do if you leave
+    until after you've written the code.  
+  \end{itemize}
+  This will be covered in more detail in the next lecture.
+\end{frame}
+\begin{frame}
+  \frametitle{The heart of Unit Testing}
+
+  The unit test framework is quite powerful. But the heart are two
+  functions:
+  \begin{itemize}
+  \item {\bf assertTrue} 
+  \item {\bf assertFalse}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{{\tt assertTrue}}
+ Suppose we want to test our string length function {\tt int
+   istrlen(char*) }
+Then, the following things should be true:
+\begin{itemize}
+\item The length of {\tt "Hello"} is 5.
+\item The length of {\tt ""} is 0.
+\item The length of {\tt "My kingdom for a horse."} is 23.
+\end{itemize}
+\end{frame}
+\begin{frame}
+  \frametitle{{\tt assertTrue}}
+Then we would assert that the following things are true:
+\begin{itemize}
+\item {\tt assertTrue} (The length of {\tt "Hello"} is 5.)
+\item  {\tt assertTrue}(The length of {\tt ""} is 0.)
+\item  {\tt assertTrue} (The length of {\tt "My kingdom for a horse."}
+  is 23.)
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{{\tt assertTrue}}
+  \begin{itemize}
+  \item Key idea in xUnit:
+  \item {\tt assertTrue}( executable code )
+    \begin{itemize}
+    \item  Runs the executable code which should evaluate to true.
+    \end{itemize}
+  \item {\tt assertFalse}( executable code)
+
+    \begin{itemize}
+  \item Runs the executable code which should evaluate to false. 
+\end{itemize}
+    \end{itemize}
+\end{frame}
+\begin{frame}
+  \begin{itemize}
+  \item Different xUnit frameworks run the tests in different
+  ways. 
+\item Python unit testing framework has a notion of test suites and
+  registries.
+\item But it is quite simple to set up tests.
+\item  Key to success in understanding complex APIs. Take example code
+  and modify it to do what you want. 
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Python Unit Testing}
+\begin{lstlisting}
+import code_to_be_tested
+import unittest
+class TestCode(unittest.TestCase):
+   def tests(self):
+     x = "Hello"
+     self.assertTrue(len(x) == 5)
+\end{lstlisting}
+\end{frame} 
+\begin{frame}
+  \frametitle{Important Unit Testing Concepts}
+  \begin{itemize}
+  \item Setup. You might need to initialise some data structures.  \pause
+  \item The tests. Well, you need to do tests. \pause
+  \item Teardown. Always! clean up after you. \pause
+  \end{itemize}
+Important idea.
+\begin{itemize}
+\item Each test should be able to be run independently of the other
+  tests. You don't know in what order the tests will be run. Or even if
+  all tests will be run. The programmer might just rerun the test that
+  caused problems. 
+\end{itemize}
+\end{frame}
+\begin{frame}
+  \frametitle{Teardown}
+  \begin{itemize}
+  \item Teardown is more common in languages without automatic garbage
+    collection. 
+  \end{itemize}
+\end{frame}
+
 \begin{frame}
 \frametitle{Test Driven Development}
 \begin{itemize}
