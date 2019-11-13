@@ -28,6 +28,7 @@
 \begin{frame}
   \maketitle
 \end{frame}
+
 \begin{frame}
   \frametitle{Summary so far}
   \begin{itemize}
@@ -41,8 +42,68 @@
   \end{itemize}
   Don't forget the distinction between syntactic and semantic reachability. 
 \end{frame}
-\begin{frame}
-  \frametitle{More material from the last lecture}
+
+  \begin{frame}{Test Cases and Test Paths}
+\begin{center}
+   \begin{tikzpicture}
+     \node[rectangle,draw,fill=blue!20] (test1) {Test 1};
+     \node[rectangle,below of=test1,draw,fill=blue!20] (test2) {Test 2};
+     \node[rectangle,below of=test2,draw,fill=blue!20] (test3) {Test
+       3};
+     \node[right of=test2,node distance=10em]  (placementnode) {};
+     \node[rectangle,right of=placementnode,draw,fill=blue!20] (path)
+     {Test Path};
+     \draw [->] (test1) to (path);
+     \draw [->] (test2) to (path);
+     \draw [->] (test3) to (path);
+   \end{tikzpicture}
+\end{center}
+Many to one. Deterministic software, each test path has identical
+execution.
+\begin{center}
+   \begin{tikzpicture}
+     \node[rectangle,draw,fill=blue!20] (test1) {Test 1};
+     \node[rectangle,below of=test1,draw,fill=blue!20] (test2) {Test 2};
+     \node[rectangle,below of=test2,draw,fill=blue!20] (test3) {Test
+       3};
+     \node[rectangle,right of=test1,draw,fill=blue!20,node
+     distance=10em] (path1) {Test Path 1};
+     \node[rectangle,right of=test2,draw,fill=blue!20,node
+          distance=10em] (path2) {Test Path 2};
+     \node[rectangle,right of=test3,draw,fill=blue!20,node
+     distance=10em] (path3) {Test Path 3};
+     \draw[->] (test1) to (path1);
+     \draw[->] (test1) to (path2);
+     \draw[->] (test1) to (path3);
+     \draw[->] (test2) to (path1);
+     \draw[->] (test2) to (path2);
+     \draw[->] (test2) to (path3);
+     \draw[->] (test3) to (path1);
+     \draw[->] (test3) to (path2);
+     \draw[->] (test3) to (path3);
+   \end{tikzpicture}
+\end{center}
+Many to many, non-deterministic software (you'll meet it all the time)
+a test can execute many test paths.
+\end{frame}
+
+\begin{frame}{Thinking about testing}
+  Important to separate:
+  \begin{itemize}
+  \item What coverage criteria are we trying to test?
+    \begin{itemize}
+    \item Branch, statement, function points $\ldots$
+    \end{itemize}
+  \item How do we test this property?
+    \begin{itemize}
+    \item What paths do we cover in the control flow graph?
+    \end{itemize}
+    \item What test cases (inputs and expected outputs) will make the
+      paths execute? 
+  \end{itemize}
+\end{frame}
+
+ \begin{frame}{More material from the last lecture}
   \begin{itemize}
   \item Test path: represents the execution of a test case. It is a purely
     syntactic characterisation.  A test path might not be semantically
@@ -57,7 +118,8 @@
     tests cases. Reformulate your requirements into test criteria and then try
     to find test paths that satisfy your test criteria.
 \end{frame}
- 
+
+
 \begin{frame}{Approaches to testing}
   \begin{itemize}
   \item Black Box Testing: Test without looking at the code/hardware
@@ -84,6 +146,168 @@
   \item  So we have to find some approximation.
   \end{itemize}
 \end{frame}
+
+ \begin{frame}{Testing and Coverage of  Control Flow Graphs}
+   \begin{itemize}
+   \item {\em Test Requirements (TR)} : Describe properties of test paths.
+     \item {\em Test Criterion} : Rules that define test requirements.
+     \item {\em Satisfaction} : Given a set TR of test requirements
+       for a criterion $C$, a set of tests $T$ satisfies C on a graph if
+       and only if for every test requirement in TR, there is a test
+       path in $\Path(T)$ that meets the test requirement.
+   \end{itemize}
+General idea in testing. Define your test requirements separately from
+the tests cases. Reformulate your requirements  into test
+criteria and then try to find test paths that satisfy your test
+criteria.
+ \end{frame}
+
+\begin{frame}{Node Coverage --- Statement Coverage} 
+  \begin{itemize}
+  \item Node Coverage (NC) : Test set $T$ satisfies node coverage on
+    graph $G$ iff for every syntactically reachable node $n$ in $N$, there
+    is some path $p$ in path($T$) such that $p$ visits $n$.
+  \end{itemize}
+\end{frame}
+\begin{frame}{Edge Coverage --- Branch Coverage}
+  \begin{itemize}
+  \item Edge Coverage (EC) : TR contains each reachable path of length
+    up to 1, inclusive, in $G$.
+  \end{itemize}
+Is there any difference between node and edge coverage?
+\end{frame}
+\begin{frame}{Difference between node and edge coverage}
+ \begin{columns}
+   \begin{column}{0.5\textwidth}
+     \begin{tikzpicture}
+       \node (start) {};
+       \node [below of=start,circle,fill=gray!30] (i) {$0$};
+       \node [below left of=i,circle,fill=gray!30] (a) {$1$};
+       \node [below right of=a,circle,fill=gray!30] (b) {$2$};
+       \draw [->] (start) to (i);
+       \draw [->] (i) to (a);
+       \draw [->] (i) to (b);
+       \draw [->] (a) to (b);
+     \end{tikzpicture}
+   \end{column}
+   \begin{column}{0.5\textwidth}
+     \begin{itemize}
+     \item Node coverage
+       \begin{itemize}
+       \item Test requirement (TR) = $\{0,1,2\}$.
+       \item Test path = $[0,1,2]$.
+       \end{itemize}
+     \item Edge Coverage
+       \begin{itemize}
+       \item Test requirement (TR) = $\{(0,1),(0,2),(1,2)\}$.
+       \item Test paths = $[0,1,2],[0,2]$.
+       \end{itemize}
+     \end{itemize}
+   \end{column}
+ \end{columns}
+\end{frame}
+\begin{frame}{Complete Path Coverage}
+  \begin{itemize}
+  \item Require that all paths are covered.
+  \end{itemize}
+  Often, there are too many paths. So you have to make an
+  approximation, which is a comment theme in software testing.
+  \begin{itemize}
+  \item Require that all paths up to length $k$ are covered.
+    \begin{itemize}
+    \item $k=0$, node coverage.
+    \item $k=1$, edge coverage.
+    \item $k=2$, edge-pair coverage.
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+ \begin{frame}{Structural Coverage Example}
+  \begin{columns}
+    \begin{column}{0.2\textwidth}
+      \begin{tikzpicture}
+        \node (entry) {};
+        \tikzstyle{every node} = [circle,fill=gray!30]
+        \node[below of=entry] (a) {0};
+        \node[below left of=a] (b) {1};
+        \node[below right of=b] (c) {2};
+        \node[below left of=c] (d) {3};
+        \node[below right of=c] (e) {4};
+        \node[below left of=d] (f) {6};
+        \node[below right of=e] (g) {5};
+        \node[draw=none,fill=none,below of=f] (exit) {};
+        \draw[->] (entry) to (a);
+        \draw[->] (a) to (b);
+        \draw[->] (a) to (c);
+        \draw[->] (b) to (c);
+        \draw[->] (c) to (d);
+        \draw[->] (c) to (e);
+        \draw[->] (d) to (f);
+        \draw[->] (e) to (f);
+        \draw[->] (e) to (g);
+        \draw[->] (g.west) to (e);
+        \draw[->] (f) to (exit);
+      \end{tikzpicture}
+    \end{column}
+    \begin{column}{0.8\textwidth}
+      \begin{itemize}
+      \item Node Coverage: $TR=\{0,1,2,3,4,5,6\}$, Test paths:
+        $[0,1,2,3,6],[0,1,2,4,5,4,6]$.
+      \item Edge Coverage:
+        $TR=\{(0,1),(0,2),(1,2),(2,3),(2,4),(3,6),(4,5),(4,6), \newline (5,4)\}$,
+        Test paths: $[0,1,2,3,6]$, $[0,2,4,5,4,6]$.
+        % \item Edge-Pair Coverage:
+        %   $TR=\{[0,1,2],[0,2,3],[0,2,4],[1,2,3],[1,2,4],[2,3,6],[2,4,5]$,$[2,4,6],[4,5,4],[5,4,5],[5,4,6]\}$.
+      \item Complete Path Coverage. Test paths:
+        $[0,1,2,3,6]$,$[0,1,2,4,6]$,$[0,1,2,4,5,4,6]$,
+        $[0,1,2,4,5,4,5,4,6]$, etc.
+      \end{itemize}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Structural Coverage Example}
+  \begin{columns}
+    \begin{column}{0.2\textwidth}
+      \begin{tikzpicture}
+        \node (entry) {};
+        \tikzstyle{every node} = [circle,fill=gray!30]
+        \node[below of=entry] (a) {0};
+        \node[below left of=a] (b) {1};
+        \node[below right of=b] (c) {2};
+        \node[below left of=c] (d) {3};
+        \node[below right of=c] (e) {4};
+        \node[below left of=d] (f) {6};
+        \node[below right of=e] (g) {5};
+        \node[draw=none,fill=none,below of=f] (exit) {};
+        \draw[->] (entry) to (a);
+        \draw[->] (a) to (b);
+        \draw[->] (a) to (c);
+        \draw[->] (b) to (c);
+        \draw[->] (c) to (d);
+        \draw[->] (c) to (e);
+        \draw[->] (d) to (f);
+        \draw[->] (e) to (f);
+        \draw[->] (e) to (g);
+        \draw[->] (g.west) to (e);
+        \draw[->] (f) to (exit);
+      \end{tikzpicture}
+    \end{column}
+    \begin{column}{0.8\textwidth}
+      \begin{itemize}
+      \item Edge-Pair Coverage: $TR=\{[0,1,2],[0,2,3]$,
+        $[0,2,4],[1,2,3],[1,2,4]$,$[2,3,6]$, $[2,4,5]$,$[2,4,6]$,
+        $[4,5,4],[5,4,5],[5,4,6]\}$
+      \item Test Paths
+        \begin{itemize}
+        \item $[0,1,2,3,6]$,$[0,1,2,4,6]$, $[0,2,3,6]$
+        \item $[0,2,4,5,4,5,4,6]$.
+        \end{itemize}
+      \end{itemize}
+    \end{column}
+  \end{columns}
+\end{frame}
+
 
 \begin{frame}{Loops}
 There is a lot of theory, most of it is unsatisfactory. 
