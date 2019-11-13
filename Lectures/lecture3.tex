@@ -18,7 +18,7 @@
 
 \title{Software Testing\\ Lecture 3\\ Coverage}
 \author{Justin Pearson}
-\date{2018}
+\date{2019}
 %\setbeamertemplate{footline}[page number]
 %\setbeamertemplate{navigation symbols}{}
 
@@ -35,7 +35,7 @@
   \item {\bf White Box Testing} (clear box testing):  Test the internal
     structure of the software
   \end{itemize}
-  There is also grey box testing where you look find test cases that cover the
+  There is also grey\footnote{This is the British English spelling.} box testing where you look find test cases that cover the
   specification and cover some aspect of the code.  It is a grey area.  
 \end{frame}
 \begin{frame}{It is all about coverage}
@@ -192,7 +192,7 @@ Coverage criteria include:
 \begin{frame}[fragile]{Statement and Branch coverage}
 
 \begin{itemize}
-\item Statement coverage $\subseteq$ Branch coverage
+\item Statement coverage $\subset$ Branch coverage
 \begin{lstlisting}
        silly(int x) {
          int y=0;
@@ -536,7 +536,7 @@ semantically you have to infer something about {\tt f()}.
    \end{itemize}
 \end{frame}
 %%%%%%%
- \begin{frame}{Test and Test Paths}
+ \begin{frame}{Test Cases and Test Paths}
 \begin{center}
    \begin{tikzpicture}
      \node[rectangle,draw,fill=blue!20] (test1) {Test 1};
@@ -578,8 +578,23 @@ execution.
 \end{center}
 Many to many, non-deterministic software (you'll meet it all the time)
 a test can execute many test paths.
- \end{frame}
- \begin{frame}{Testing and Covering Graphs}
+\end{frame}
+\begin{frame}{Thinking about testing}
+  Important to separate:
+  \begin{itemize}
+  \item What coverage criteria are we trying to test?
+    \begin{itemize}
+    \item Branch, statement, function points $\ldots$
+    \end{itemize}
+  \item How do we test this property?
+    \begin{itemize}
+    \item What paths do we cover in the control flow graph?
+    \end{itemize}
+    \item What test cases (inputs and expected outputs) will make the
+      paths execute? 
+  \end{itemize}
+\end{frame}
+ \begin{frame}{Testing and Coverage of  Control Flow Graphs}
    \begin{itemize}
    \item {\em Test Requirements (TR)} : Describe properties of test paths.
      \item {\em Test Criterion} : Rules that define test requirements.
@@ -642,13 +657,14 @@ Is there any difference between node and edge coverage?
   \begin{itemize}
   \item Require that all paths are covered.
   \end{itemize}
-  Often, there are too many paths. Thus, approximations vary.
+  Often, there are too many paths. So you have to make an
+  approximation, which is a comment theme in software testing.
   \begin{itemize}
   \item Require that all paths up to length $k$ are covered.
     \begin{itemize}
     \item $k=0$, node coverage.
     \item $k=1$, edge coverage.
-    \item $k=2$, edge pair coverage.
+    \item $k=2$, edge-pair coverage.
     \end{itemize}
   \end{itemize}
 \end{frame}
@@ -687,9 +703,11 @@ Is there any difference between node and edge coverage?
       \item Edge Coverage:
         $TR=\{(0,1),(0,2),(1,2),(2,3),(2,4),(3,6),(4,5),(4,6), \newline (5,4)\}$,
         Test paths: $[0,1,2,3,6]$, $[0,2,4,5,4,6]$.
-%      \item Edge-Pair Coverage: $TR=\{[0,1,2],[0,2,3],[0,2,4],[1,2,3],[1,2,4],[2,3,6],[2,4,5]$,$[2,4,6],[4,5,4],[5,4,5],[5,4,6]\}$.
+        % \item Edge-Pair Coverage:
+        %   $TR=\{[0,1,2],[0,2,3],[0,2,4],[1,2,3],[1,2,4],[2,3,6],[2,4,5]$,$[2,4,6],[4,5,4],[5,4,5],[5,4,6]\}$.
       \item Complete Path Coverage. Test paths:
-        $[0,1,2,3,6]$,$[0,1,2,4,6]$,$[0,1,2,4,5,4,6]$, $[0,1,2,4,5,4,5,4,6]$, etc.
+        $[0,1,2,3,6]$,$[0,1,2,4,6]$,$[0,1,2,4,5,4,6]$,
+        $[0,1,2,4,5,4,5,4,6]$, etc.
       \end{itemize}
     \end{column}
   \end{columns}
