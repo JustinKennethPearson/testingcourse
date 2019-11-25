@@ -11,7 +11,7 @@
 \usepackage{listings}
 \title{Software Testing  Lecture 5}
 \author{Justin Pearson}
-\date{2018}
+\date{2019}
 
 
 %Lecture 4 stuff
@@ -49,6 +49,33 @@
   \end{itemize}
   
 \end{frame}
+\begin{frame}{Interlude TCAS}
+  \begin{itemize}
+  \item Traffic collision avoidance system (TCAS)
+  \end{itemize}
+  Two aircraft flying towards each other, you have to decide which one
+  goes up and which one goes down. From wikipedia:
+  \begin{quote}
+    The next step beyond identifying potential collisions is
+    automatically negotiating a mutual avoidance manoeuver (currently,
+    manoeuvers are restricted to changes in altitude and modification
+    of climb/sink rates) between the two (or more) conflicting
+    aircraft. These avoidance manoeuvers are communicated to the
+    flight crew by a cockpit display and by synthesized voice
+    instructions.
+  \end{quote}
+  
+\end{frame}
+\begin{frame}{TCAS}
+
+
+  \begin{center}
+        \includegraphics[height=2.5in,width=3.5in]{TCAS_Volume.jpg}
+  \end{center}
+There are rather a lot of complicated interacting logical requirements
+that decide unambiguously how each aircraft should react.     
+\end{frame}
+
 \begin{frame}{Covering Logical Expressions}
   \begin{itemize}
   \item Typical balance in software testing:
@@ -61,6 +88,7 @@
     \end{itemize}
   \end{itemize}  
 \end{frame}
+
 
 \begin{frame}[fragile]{Motivation}
   \begin{lstlisting}
@@ -500,10 +528,10 @@ evaluate to both true and false.
   \begin{itemize}
   \item Finding values for minor clauses is easy for simple
     predicates.
-  \item Trick comes with more complicated predicates.
+  \item A trick help with more complicated predicates.
   \item $P_{c=T}$, replace every occurrence of $c$ by $T$.
   \item $P_{c=F}$, replace every occurrence of $c$ by $F$.
-  \item Solving $P_c = P_{c=T} \oplus P_{c=F} = T$ gives you the
+  \item Solving $P_{c=T} \oplus P_{c=F} = T$ gives you the
     values of the minor clauses for the major clause $c$ to determine
     the predicate.
   \end{itemize}
@@ -527,7 +555,7 @@ evaluate to both true and false.
   \begin{itemize}
   \item $P=A\lor (B\land C)$, Major clause $A$.
     \begin{itemize}
-    \item $P_A = P_{A=T} \oplus P_{A=F} = (T \lor (B\land C)) \oplus
+    \item $P_{A=T} \oplus P_{A=F} = (T \lor (B\land C)) \oplus
       (F 
       \lor (B\land C))$ which gives $T\oplus (B\land C) = \neg (B
       \land C) = \neg B \lor \neg C$.
