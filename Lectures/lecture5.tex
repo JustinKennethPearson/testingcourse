@@ -535,7 +535,8 @@ evaluate to both true and false.
     values of the minor clauses for the major clause $c$ to determine
     the predicate.
   \end{itemize}
-  
+Remember that $A\oplus B$ is equivalent to $(A\lor B) \land \neg (A
+\land B)$. 
 \end{frame}
 \begin{frame}{Making clauses determine a predicate}
   \begin{itemize}
@@ -565,6 +566,17 @@ evaluate to both true and false.
 
   \end{itemize}
 \end{frame}
+\begin{frame}{Determination is not always possible}
+  Consider $p = (a\land b) \lor  (a\land \neg b)$ 
+  \begin{itemize}
+  \item $p_{b=T} \oplus p_{b=F} = (a\land T) \lor (a\land \neg T) \oplus
+    (a\land F) \lor (a\land \neg F)$
+  \item $=(a \lor F) \oplus (F \lor a)$
+  \item $=a \oplus a$ which is always false. 
+  \end{itemize}
+If you think about this, then it should not be too surprising.  In
+this case $b$ is redundant.
+\end{frame}
 \begin{frame}{Logic Coverage Summary}
   \begin{itemize}
   \item Combinatorial coverage gives too many test cases.
@@ -572,9 +584,24 @@ evaluate to both true and false.
   \item Clause coverage has to be refined to force the predicate to
     evaluate to both true and false.
   \item We want the test case to do some work, so we use correlated
-    active clause coverage.
+    active clause coverage. The are lots of different variations, but
+    it is important to remember major, minor clauses determining a
+    predicate, requiring the predicate to be true or false. The
+    variations are then on requirements on how the clauses overlap.
   \end{itemize}
   Think about infeasible   test requirements: $X>0 \land X<0$.
+\end{frame}
+\begin{frame}{Common Themes}
+  \begin{itemize}
+  \item Define coverage, even in a finite case there are too many
+    cases to consider.
+  \item Look for restrictions, but look for restrictions that find
+    test cases that actually do some work.
+  \item Try to maximise the overlapping test cases for each
+    requirement in order to minimise the number of test cases needed.
+  \item As usual there are no (or very few) theoretical guarantees.
+  \item In some domains standards are mandated. 
+  \end{itemize}
 \end{frame}
 \end{document}
 
