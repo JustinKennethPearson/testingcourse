@@ -8,7 +8,7 @@
 \usepackage{listings}
 \title{Software Testing  Lecture 6 \\ Input Domain Modelling}
 \author{Justin Pearson}
-\date{2018}
+\date{2019}
 
 
 %Lecture 4 stuff
@@ -52,6 +52,7 @@
   \item Domain for each parameter is partitioned into regions.
   \item At least one value is chosen from each region.
   \end{itemize}
+  Don't forget the global state can be part of your test case.  
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Partitions Intuition} 
@@ -135,8 +136,48 @@
   \end{itemize}
 It is up to the tester to work out what it means to be equally useful.
 \end{frame}
+\begin{frame}{Partition design and test design}
+  \begin{itemize}
+  \item There is no mathematical theorem that says that values in an
+    equivalence class act the same way.
+  \item When you design a partition as a test designer you are
+    deciding want to treat as equal.
+  \item Partitions also allow you mathematically define classes of
+    tests that you believe all do the same amount of work.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+ Consider 
+  \begin{lstlisting}
+     if (x > 0 ) { .... } else { .... }
+  \end{lstlisting}
+ One of the most important thing about test design is documenting
+ what you expect tests to do. Giving a partition is one way of saying
+ that you the tester believe that values in equivalence classes behave
+ the same.
+\end{frame}
+
+\begin{frame}[fragile]{How do we specify partitions?}
+  Consider a function
+  \begin{lstlisting}
+      int f(int x, int y)
+    \end{lstlisting}
+    \begin{itemize}
+    \item The input domain is the Cartesian product of the domains of all the
+      input parameters.
+    \item In theory you would do the partition on this domain.
+    \end{itemize}
+    \[
+      D = \{ -2147483647 \ldots ... 2147483648\}\times \{ -2147483647
+      \ldots ... 2147483648\}
+    \]
+Sometimes you want to specify partitions on these sorts of domains,
+but it is often too complex. 
+\end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Characteristics}
+ Characteristics give a simple way specifying partitions. 
   \begin{itemize}
   \item Application to testing:
     \begin{itemize}
@@ -188,6 +229,17 @@ It is up to the tester to work out what it means to be equally useful.
  The blocks are not disjoint. Files of length $1$ belong to
  $b_1$,$b_2$ and $b_3$. Hence for $i\neq j$ $b_i \cap b_j \neq \emptyset$.
 
+\end{frame}
+\begin{frame}{Check your Partitions}
+
+  \begin{itemize}
+  \item   It is important to double check that you do have a
+    partition.
+    \item If you  do not have a partition then you have not though
+      carefully enough about your test case design.
+  \end{itemize}
+
+  
 \end{frame}
 \begin{frame}{Choosing Partitions}
 
@@ -287,7 +339,7 @@ It is up to the tester to work out what it means to be equally useful.
   
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%On slide 15, consider doing slides 9-14. I'm not sure.
+
 
 \begin{frame}[fragile]{Interface-Based vs Functionality-Based Approach Example}
 \begin{verbatim}
