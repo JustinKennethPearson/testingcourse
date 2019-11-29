@@ -186,7 +186,8 @@ but it is often too complex.
     \item Partition each characteristic.
     \item Choose tests by combining values from each characteristic.
     \end{itemize}
-  \end{itemize}  
+  \end{itemize}
+  Characteristics define blocks.
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
@@ -287,6 +288,8 @@ but it is often too complex.
     \begin{itemize}
     \item Not rocket science. But be complete.
     \item Don't forget global variables.
+    \item Don't forget the objects have states. Doing things to an
+      empty list is different to doing things to a non-empty list.
     \item Files, databases etc.
     \end{itemize}
   \end{itemize}
@@ -384,7 +387,18 @@ but it is often too complex.
 %
 \end{itemize}
 %
+\end{frame}
 %%
+\begin{frame}{Sources for functionality-based characteristics}
+  \begin{itemize}
+  \item The specification, or intended behaviour.
+  \item Pre-conditions: tell what ranges and values you expect for
+    input variables.
+  \item Post conditions: often give you relationships between input
+    and output parameters. 
+  \end{itemize}
+  
+
 \end{frame}
 \begin{frame}{Step 3: Modelling the Input Domain}
   \begin{itemize}
@@ -401,6 +415,10 @@ but it is often too complex.
     \item Don't forget that partitions must  be {\em complete} {\bf and} {\em disjoint}
     \end{itemize}
   \end{itemize}  
+\end{frame}
+\begin{frame}{Special Values}
+  Some programming languages such as Java have special values such as
+  {\tt null}. Use these in your partitions. 
 \end{frame}
 \begin{frame}[fragile]{TriType example}
 As shown in the book.
@@ -473,7 +491,7 @@ Example values $(4,5,6) \in b_1$,  $(3,3,4) \in b_2$, $(3,3,3) \in
 b_3$, $(3,4,8) \in b_4$.
 \end{frame}
 \begin{frame}{Choosing Combinations of Values}
-
+  
   \begin{itemize}
   \item We play the usual game.
   \item Lots of different characteristics, how do we combine them?
