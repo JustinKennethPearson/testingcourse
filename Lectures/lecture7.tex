@@ -8,7 +8,7 @@
 \usepackage{listings}
 \title{Software Testing  Lecture 7 \\ Property Based Testing}
 \author{Justin Pearson}
-\date{2018}
+\date{2019}
 
 
 %Lecture 4 stuff
@@ -138,9 +138,9 @@ cases.
   \item Use techniques from formal methods such as model checking,
     specification animation tools to generate test cases. This is often much
     easier than using formal methods to verify the software.
-  \item Treat the specification as a combinatorial problem and use techniques
-    such as constraint programming, SAT or SMT to model your problem and
-    derive test cases (Take 1DL448).
+  \item Treat the specification as a combinatorial problem and use
+    techniques such as Constraint Programming, SAT or SMT to model
+    your problem and derive test cases (Take 1DL448).
   \item Write code that implements the specification and generates test cases.
   \end{itemize}
 Techniques such as these are often referred to as {\it model based testing}.
@@ -149,13 +149,15 @@ Techniques such as these are often referred to as {\it model based testing}.
   \frametitle{Redundant Computations}
   We have already seen two examples earlier. There are a number of options.
   \begin{itemize}
-  \item  Write inefficient but correct code, and  use this as an oracle. Very
-    similar to {\it model based testing}, but often more simple. Never underestimate
-    the power of a random number generator and redundant computations; it can
-    be a very good way of finding bugs in code.
-  \item Parallel development of code. Very expensive and only used in domains with
-    high reliability requirements (aerospace). Has its own
-    problems. Psychology tells us that people make the same sort of errors.      
+  \item Write inefficient but correct code, and use this as an
+    oracle. Very similar to {\it model based testing}, but often more
+    simple. Never underestimate the power of a random number generator
+    and redundant computations. This can be a very good way of finding
+    faults in code.
+  \item Parallel development of code. Very expensive and only used in
+    domains with high reliability requirements (aerospace). Has its
+    own problems. Psychology tells us that people make the same sort
+    of errors.
   \end{itemize}
 
 \end{frame}
@@ -163,7 +165,7 @@ Techniques such as these are often referred to as {\it model based testing}.
   \frametitle{Consistency Checks}
 
   \begin{itemize}
-  \item   Not really a test oracle, but often a good way to find errors.
+  \item Not really a test oracle, but often a good way to find errors.
   \item Make sure that the system satisfies any invariants.
   \item Make sure that the system ends up in a consistent state after you have
     done a bunch of operations.
@@ -188,8 +190,8 @@ Techniques such as these are often referred to as {\it model based testing}.
   \frametitle{Model Based Testing}
   \begin{itemize}
   \item Time spent modelling your problem is not wasted time.
-  \item You have a way to generate lots of test cases, and you understand your
-    problem better.
+  \item You have a way to generate lots of test cases, and you
+    understand your problem better.
   \end{itemize}
 \end{frame}
 \begin{frame}[fragile]
@@ -225,6 +227,60 @@ Then we turn the specification into code (via macros)
 Commercial and free implementations exist for many programming languages,
 including Python.
 
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Property Based Testing}
+  This is not a realistic example, but it illustrates the generation
+  strategy.
+\begin{verbatim}
+?FORALL((x,y),(int,int),add(x,y)==x+y)
+\end{verbatim}
+  This would generate code something like:
+\begin{lstlisting}
+  error_found = false
+  while (not error_found):
+   x = random(int)
+   y = random(int)
+   error_found = ( add(x,y) == x+y )
+
+  print("Error found")
+  
+\end{lstlisting}
+  Note that {\tt ( add(x,y) == x+y ) } means run the equality check
+  and return true or false. Again the beauty is that we use executable
+  code for our assertions.  
+\end{frame}
+\begin{frame}{Property Based Testing}
+  Quickcheck has inspired many property testing tools such as: 
+  \begin{itemize}
+  \item PropEr\footnote{\url{http://proper.softlab.ntua.gr/}} for
+    Erlang
+  \item
+    Hypthoesis\footnote{https://hypothesis.readthedocs.io/en/latest/}
+    for Python.
+  \item Quickcheck has been re-implemented in various languages.
+   
+  \end{itemize}
+
+  
+\end{frame}
+\begin{frame}{Property Based Testing}
+  There are interesting research questions with important practical
+  consequences:
+  \begin{itemize}
+  \item If you have a counter example, can you find a shorter more
+    human readable one.
+  \item How do you specify and test concurrent behaviour?  
+  \end{itemize}
+\end{frame}
+\begin{frame}{Property Based Testing}
+
+  \begin{itemize}
+  \item Most importantly, writing your tests as properties not only
+    generates you many more test cases, but it forces you to think
+    about the specification of the system.
+  \end{itemize}
 \end{frame}
 % Ideas - Never underestimate the power of a random number generator.
 % Examples, addition , something more complicated (my set intersection tool).
