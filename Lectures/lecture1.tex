@@ -5,9 +5,17 @@
 \usepackage{listings}
 \title{Software Testing  Lecture 1}
 \author{Justin Pearson}
-\date{2019}
+\date{2020}
 \setbeamertemplate{footline}[page number]
 \setbeamertemplate{navigation symbols}{}
+\newcommand{\recordingpause}{
+\begin{frame}{Recording Pause}
+  \begin{center}
+    Recording Pause
+  \end{center}
+\end{frame}
+}
+\renewcommand{\recordingpause}{}
 \begin{document}
 \lstset{language=python}
 
@@ -28,6 +36,12 @@
     {\Huge 
   Testing}
   \end{center}
+\end{frame}
+\begin{frame}{Motivation for Software Testing}
+  Before we talk about what software testing is, I would like to give
+  you some examples of some spectacular software failures.
+  
+  
 \end{frame}
 \begin{frame}
   \frametitle{Software Failures}
@@ -144,11 +158,18 @@ instead of
   \end{itemize}
 \end{frame}
 
-\begin{frame}{Recording Pause}
-  \begin{center}
-    Recording Pause
-  \end{center}
+\begin{frame}{The reality of Software Development}
+  \begin{itemize}
+  \item All code has problems.
+  \item Anything that we can do to improve the quality of our code is
+    important.
+    
+  \end{itemize}
+  
 \end{frame}
+
+\recordingpause
+
 \begin{frame}{Software Engineering and Testing}
 
 Software Engineering tells us how to develop software. There are many
@@ -199,6 +220,8 @@ This is true, but it is no reason to give up on testing. All software has
 bugs. Anything you do to reduce the number of bugs is a good thing.
 \end{frame}
 
+\recordingpause
+
 %\begin{frame}
 %  \frametitle{Test Driven Development}
 %  Later on we will look at \textit{test driven development} (TDD) which is a
@@ -233,11 +256,6 @@ In this course we will look testing functions or methods.
 
 \end{frame}
 
-\begin{frame}{Recording Pause}
-  \begin{center}
-    Recording Pause
-  \end{center}
-\end{frame}
 \begin{frame}
   \frametitle{Aspects of Testing}
   \begin{enumerate}
@@ -329,11 +347,8 @@ some planning.
     have to design more tests?
   \end{itemize}
 \end{frame}
-\begin{frame}{Recording Pause}
-  \begin{center}
-    Recording Pause
-  \end{center}
-\end{frame}
+
+\recordingpause
 
 \begin{frame}
   \frametitle{Important Terminology and Concepts}
@@ -422,103 +437,102 @@ so it is testable.
       symptoms and not inside the software. 
     \end{itemize}    
   \end{frame}
-\begin{frame}{Recording Pause}
-  \begin{center}
-    Recording Pause
-  \end{center}
-\end{frame}
 
-\begin{frame}
-  \frametitle{More Testing Concepts}
-  \begin{itemize}
-  \item Sometimes you don't have all the functionality
-    implemented. Write dummy functions, {\em stubs}, that simply return
-    null values rather doing any real work. Means that you can get
-    your code going.
-  \item {\em Mock} or {\em Fake} objects (people make a distinction
-    but don't worry) implement enough of an object to get the test
-    going.
-  \end{itemize}
-In fact in test driven development you write the test, implement the
-{\em mocks} first and as you introduce more tests you add code to make the
-tests pass.
 
-\end{frame}
-\begin{frame}
-  \frametitle{Test functions}
-  \begin{itemize}
-  \item It is a matter of judgment and taste how many tests you put in
-    each function.
-  \item  You don't want individual tests  to take too much time to
-    run. This will discourage the programmer from running individual
-    test often.
-  \item Whenever you compile your code you should run the tests. 
-  \item Often IDEs implement red and green bars for tests. Green means
-    the test has passed and red means the test has failed.
-  \item Green is good. 
-  \end{itemize}
-\end{frame}
-\begin{frame}
-  \frametitle{How to use Unit Tests}
-  \begin{itemize}
-  \item When you are writing functions use test cases to see if the
-    behaviour is as expected.
-  \item Use tests as another form of documentation. Helps other
-    programmers understand your API.
-  \item When you find a bug write a test case and then correct the
-    bug. Leave the test case there just in case fixing another bug
-    reintroduces a bug.
-  \end{itemize}
-\end{frame}
-\begin{frame}[fragile]
-  \frametitle{Some things to test for}
-  \begin{itemize}
-  \item Extreme values. Empty strings, large values.
-  \item Loops executing zero, once, many times, and test the loop
-    termination condition.
-    \begin{lstlisting}
-      for(int i=0; i<M; i++) {
-        do_something(i);
-      }
-    \end{lstlisting}
- \item  Find a test case that sets {\tt M} to be 0, 1 and some larger
-   number. 
- \item Often {\tt M} will not be an input parameter. You might have to
-   work out how the input parameters affect {\tt M}
-   \begin{lstlisting}
-      void whatever(char* str) {
-         M = strlen(str); 
-         .... 
-      }
-   \end{lstlisting}
-\item  So you have to have a string  of length 0,1 and some bigger number.
-\end{itemize}
-\end{frame}
 
-\begin{frame}[fragile]
-  \frametitle{Some things to test for}
-  \begin{itemize}
-  \item Code coverage. This is a complex area, but you should not
-    really have untested code.
-    \begin{lstlisting}
-       if(X==Y) { do_something(); } 
-       else {do_something_else();}
-    \end{lstlisting}
-\item Find a test case where {\tt X} equals {\tt Y} and a test case
-  where they are different.
-  \end{itemize}
-\end{frame}
-\begin{frame}
-  \frametitle{Have a reason}
-  \begin{itemize}
-  \item You can't test code just by letting a monkey type random
-    things on the keyboard (although it sometimes helps).
-  \item Try to have a reason for every test.
-  \item Document reasons.
-  \item When you test suite gets too large you have to work out which
-    tests to delete.
-  \end{itemize}
-\end{frame}
+
+%\begin{frame}
+%  \frametitle{More Testing Concepts}
+%  \begin{itemize}
+%  \item Sometimes you don't have all the functionality
+%    implemented. Write dummy functions, {\em stubs}, that simply return
+%    null values rather doing any real work. Means that you can get
+%    your code going.
+%  \item {\em Mock} or {\em Fake} objects (people make a distinction
+%    but don't worry) implement enough of an object to get the test
+%    going.
+%  \end{itemize}
+%In fact in test driven development you write the test, implement the
+%{\em mocks} first and as you introduce more tests you add code to make the
+%tests pass.
+%
+%\end{frame}
+%\begin{frame}
+%  \frametitle{Test functions}
+%  \begin{itemize}
+%  \item It is a matter of judgment and taste how many tests you put in
+%    each function.
+%  \item  You don't want individual tests  to take too much time to
+%    run. This will discourage the programmer from running individual
+%    test often.
+%  \item Whenever you compile your code you should run the tests. 
+%  \item Often IDEs implement red and green bars for tests. Green means
+%    the test has passed and red means the test has failed.
+%  \item Green is good. 
+%  \end{itemize}
+%\end{frame}
+%\begin{frame}
+%  \frametitle{How to use Unit Tests}
+%  \begin{itemize}
+%  \item When you are writing functions use test cases to see if the
+%    behaviour is as expected.
+%  \item Use tests as another form of documentation. Helps other
+%    programmers understand your API.
+%  \item When you find a bug write a test case and then correct the
+%    bug. Leave the test case there just in case fixing another bug
+%    reintroduces a bug.
+%  \end{itemize}
+%\end{frame}
+%\begin{frame}[fragile]
+%  \frametitle{Some things to test for}
+%  \begin{itemize}
+%  \item Extreme values. Empty strings, large values.
+%  \item Loops executing zero, once, many times, and test the loop
+%    termination condition.
+%    \begin{lstlisting}
+%      for(int i=0; i<M; i++) {
+%        do_something(i);
+%      }
+%    \end{lstlisting}
+% \item  Find a test case that sets {\tt M} to be 0, 1 and some larger
+%   number. 
+% \item Often {\tt M} will not be an input parameter. You might have to
+%   work out how the input parameters affect {\tt M}
+%   \begin{lstlisting}
+%      void whatever(char* str) {
+%         M = strlen(str); 
+%         .... 
+%      }
+%   \end{lstlisting}
+%\item  So you have to have a string  of length 0,1 and some bigger number.
+%\end{itemize}
+%\end{frame}
+%
+%\begin{frame}[fragile]
+%  \frametitle{Some things to test for}
+%  \begin{itemize}
+%  \item Code coverage. This is a complex area, but you should not
+%    really have untested code.
+%    \begin{lstlisting}
+%       if(X==Y) { do_something(); } 
+%       else {do_something_else();}
+%    \end{lstlisting}
+%\item Find a test case where {\tt X} equals {\tt Y} and a test case
+%  where they are different.
+%  \end{itemize}
+%\end{frame}
+%\begin{frame}
+%  \frametitle{Have a reason}
+%  \begin{itemize}
+%  \item You can't test code just by letting a monkey type random
+%    things on the keyboard (although it sometimes helps).
+%  \item Try to have a reason for every test.
+%  \item Document reasons.
+%  \item When you test suite gets too large you have to work out which
+%    tests to delete.
+%  \end{itemize}
+%\end{frame}
+%
 \begin{frame}
   \frametitle{Suggested Reading}
   \begin{itemize}
