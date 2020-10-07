@@ -19,9 +19,18 @@
 \newcommand\hcancel[2][red]{\setbox0=\hbox{$#2$}%
 \rlap{\raisebox{.45\ht0}{\textcolor{#1}{\rule{\wd0}{1pt}}}}#2} 
 
+\newcommand{\recordingpause}{
+\begin{frame}{Recording Pause}
+  \begin{center}
+    Recording Pause
+  \end{center}
+\end{frame}
+}
+% \renewcommand{\recordingpause}{}
+
 \title{Software Testing\\ Lecture 4\\ More about Coverage}
 \author{Justin Pearson}
-\date{2019}
+\date{2020}
 %\setbeamertemplate{footline}[page number]
 %\setbeamertemplate{navigation symbols}{}
 
@@ -32,64 +41,64 @@
   \maketitle
 \end{frame}
 
-\begin{frame}
-  \frametitle{Summary so far}
-  \begin{itemize}
-  \item Turing's halting theorem tells us in a strong sense that testing
-    for correctness is impossible.
-  \item Formalising programs as control flow graphs gives us a way to talk
-    about testing.
-  \item Node coverage corresponds to statement coverage, edge coverage
-    corresponds to something like branch coverage. Covering all execution
-    paths is impossible with loops, so there are various approximations.
-  \end{itemize}
-  Don't forget the distinction between syntactic and semantic reachability. 
-\end{frame}
-
-  \begin{frame}{Test Cases and Test Paths}
-\begin{center}
-   \begin{tikzpicture}
-     \node[rectangle,draw,fill=blue!20] (test1) {Test 1};
-     \node[rectangle,below of=test1,draw,fill=blue!20] (test2) {Test 2};
-     \node[rectangle,below of=test2,draw,fill=blue!20] (test3) {Test
-       3};
-     \node[right of=test2,node distance=10em]  (placementnode) {};
-     \node[rectangle,right of=placementnode,draw,fill=blue!20] (path)
-     {Test Path};
-     \draw [->] (test1) to (path);
-     \draw [->] (test2) to (path);
-     \draw [->] (test3) to (path);
-   \end{tikzpicture}
-\end{center}
-Many to one. Deterministic software, each test path has identical
-execution.
-\begin{center}
-   \begin{tikzpicture}
-     \node[rectangle,draw,fill=blue!20] (test1) {Test 1};
-     \node[rectangle,below of=test1,draw,fill=blue!20] (test2) {Test 2};
-     \node[rectangle,below of=test2,draw,fill=blue!20] (test3) {Test
-       3};
-     \node[rectangle,right of=test1,draw,fill=blue!20,node
-     distance=10em] (path1) {Test Path 1};
-     \node[rectangle,right of=test2,draw,fill=blue!20,node
-          distance=10em] (path2) {Test Path 2};
-     \node[rectangle,right of=test3,draw,fill=blue!20,node
-     distance=10em] (path3) {Test Path 3};
-     \draw[->] (test1) to (path1);
-     \draw[->] (test1) to (path2);
-     \draw[->] (test1) to (path3);
-     \draw[->] (test2) to (path1);
-     \draw[->] (test2) to (path2);
-     \draw[->] (test2) to (path3);
-     \draw[->] (test3) to (path1);
-     \draw[->] (test3) to (path2);
-     \draw[->] (test3) to (path3);
-   \end{tikzpicture}
-\end{center}
-Many to many, non-deterministic software (you'll meet it all the time)
-a test can execute many test paths.
-\end{frame}
-
+%\begin{frame}
+%  \frametitle{Summary so far}
+%  \begin{itemize}
+%  \item Turing's halting theorem tells us in a strong sense that testing
+%    for correctness is impossible.
+%  \item Formalising programs as control flow graphs gives us a way to talk
+%    about testing.
+%  \item Node coverage corresponds to statement coverage, edge coverage
+%    corresponds to something like branch coverage. Covering all execution
+%    paths is impossible with loops, so there are various approximations.
+%  \end{itemize}
+%  Don't forget the distinction between syntactic and semantic reachability. 
+%\end{frame}
+%
+%  \begin{frame}{Test Cases and Test Paths}
+%\begin{center}
+%   \begin{tikzpicture}
+%     \node[rectangle,draw,fill=blue!20] (test1) {Test 1};
+%     \node[rectangle,below of=test1,draw,fill=blue!20] (test2) {Test 2};
+%     \node[rectangle,below of=test2,draw,fill=blue!20] (test3) {Test
+%       3};
+%     \node[right of=test2,node distance=10em]  (placementnode) {};
+%     \node[rectangle,right of=placementnode,draw,fill=blue!20] (path)
+%     {Test Path};
+%     \draw [->] (test1) to (path);
+%     \draw [->] (test2) to (path);
+%     \draw [->] (test3) to (path);
+%   \end{tikzpicture}
+%\end{center}
+%Many to one. Deterministic software, each test path has identical
+%execution.
+%\begin{center}
+%   \begin{tikzpicture}
+%     \node[rectangle,draw,fill=blue!20] (test1) {Test 1};
+%     \node[rectangle,below of=test1,draw,fill=blue!20] (test2) {Test 2};
+%     \node[rectangle,below of=test2,draw,fill=blue!20] (test3) {Test
+%       3};
+%     \node[rectangle,right of=test1,draw,fill=blue!20,node
+%     distance=10em] (path1) {Test Path 1};
+%     \node[rectangle,right of=test2,draw,fill=blue!20,node
+%          distance=10em] (path2) {Test Path 2};
+%     \node[rectangle,right of=test3,draw,fill=blue!20,node
+%     distance=10em] (path3) {Test Path 3};
+%     \draw[->] (test1) to (path1);
+%     \draw[->] (test1) to (path2);
+%     \draw[->] (test1) to (path3);
+%     \draw[->] (test2) to (path1);
+%     \draw[->] (test2) to (path2);
+%     \draw[->] (test2) to (path3);
+%     \draw[->] (test3) to (path1);
+%     \draw[->] (test3) to (path2);
+%     \draw[->] (test3) to (path3);
+%   \end{tikzpicture}
+%\end{center}
+%Many to many, non-deterministic software (you'll meet it all the time)
+%a test can execute many test paths.
+%\end{frame}
+%
 \begin{frame}{Thinking about testing}
   Important to separate:
   \begin{itemize}
@@ -107,13 +116,14 @@ a test can execute many test paths.
 \end{frame}
 
  \begin{frame}{More material from the last lecture}
-  \begin{itemize}
-  \item Test path: represents the execution of a test case. It is a purely
-    syntactic characterisation.  A test path might not be semantically
-    possible.
-    \item Test case design: separate out {\em Test Requirements} describe the
-      theoretic properties of test paths, based on the graph; while {\em Test Criterion} is what we want
-      the test requirement to do.
+   \begin{itemize}
+   \item Test path: represents the execution of a test case. It is a
+     purely syntactic characterisation.  A test path might not be
+     semantically possible.
+   \item Test case design: separate out {\em Test Requirements}
+     describe the theoretic properties of test paths, based on the
+     graph; while {\em Test Criterion} is what we want the test
+     requirement to do.
     \item The {\em Satisfaction} problem: given some test requirement how do I
       find or does my set of test paths satisfy the requirements. 
     \end{itemize}
@@ -123,32 +133,7 @@ a test can execute many test paths.
 \end{frame}
 
 
-\begin{frame}{Approaches to testing}
-  \begin{itemize}
-  \item Black Box Testing: Test without looking at the code/hardware
-  \item White Box Testing (clear box testing):  Test the internal
-    structure of the software
-  \end{itemize}
-  There is also grey box testing where you look find test cases that cover the
-  specification and some aspect of the code.  It is a grey area.  
-\end{frame}
-\begin{frame}{It is all about coverage}
-  \begin{itemize}
-  \item Black box testing: test by covering the specification
-  \item White box testing: test by covering the source code
-    \begin{itemize}
-    \item Execution paths
-    \item Statements
-    \item Decision coverage
-    \item $\ldots$
-    \end{itemize}
-  \end{itemize}
-  Short version:
-  \begin{itemize}
-  \item  Complete coverage is hard to define or impossible;
-  \item  So we have to find some approximation.
-  \end{itemize}
-\end{frame}
+
 
  \begin{frame}{Testing and Coverage of  Control Flow Graphs}
    \begin{itemize}
@@ -209,6 +194,9 @@ Is there any difference between node and edge coverage?
    \end{column}
  \end{columns}
 \end{frame}
+
+\recordingpause
+
 \begin{frame}{Complete Path Coverage}
   \begin{itemize}
   \item Require that all paths are covered.
@@ -338,6 +326,7 @@ There is a lot of theory, most of it is unsatisfactory.
   \end{itemize}
   
 \end{frame}
+\recordingpause 
 \begin{frame}{Simple and Prime Paths}
   \begin{itemize}
   \item A {\it path} is simple if no node appears more than once except
@@ -718,6 +707,9 @@ simple paths that can be extended. You will be left with the prime paths.
   \end{itemize}
 
 \end{frame}
+
+\recordingpause
+
 \begin{frame}{Model, define, and approximate}
   \begin{itemize}
   \item Model what you want to test.
@@ -734,11 +726,6 @@ simple paths that can be extended. You will be left with the prime paths.
   \end{itemize}
  
 \end{frame}
-
-%Notes this lecture is way too short. It is really half a lecture.
-
-
-
 
 
 
@@ -940,9 +927,11 @@ simple paths that can be extended. You will be left with the prime paths.
   \end{itemize}
   \end{frame}
 
+\recordingpause
+
 \begin{frame}{Relaxing test cases}
   \begin{itemize}
-  \item As we have seen, sometimes we have infeasible  test cases. 
+  \item As we have seen, sometimes we have infeasible test cases.
     \begin{itemize}
     \item This might be because there is a fault.
     \item Or, that we have to do other things to get to the
