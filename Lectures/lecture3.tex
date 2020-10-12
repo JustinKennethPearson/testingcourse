@@ -18,7 +18,7 @@
 
 \title{Software Testing\\ Lecture 3\\ Coverage}
 \author{Justin Pearson}
-\date{2019}
+\date{2020}
 %\setbeamertemplate{footline}[page number]
 %\setbeamertemplate{navigation symbols}{}
 
@@ -28,34 +28,42 @@
 \begin{frame}
   \maketitle
 \end{frame}
-
-\begin{frame}{Approaches to testing}
+\begin{frame}{Overview of what is to come}
   \begin{itemize}
-  \item {\bf Black Box Testing}: Test without looking at the code/hardware
-  \item {\bf White Box Testing} (clear box testing):  Test the internal
-    structure of the software
-  \end{itemize}
-  There is also grey\footnote{This is the British English spelling.} box testing where you look find test cases that cover the
-  specification and cover some aspect of the code.  It is a grey area.  
-\end{frame}
-\begin{frame}{It is all about coverage}
-  \begin{itemize}
-  \item Black box testing: test by covering the specification
-  \item White box testing: test by covering the source code
+  \item The limits of testing, Turing's halting problem.
+  \item Black box and white box testing
+  \item Understanding coverage
     \begin{itemize}
-    \item Execution paths
-    \item Statements
-    \item Decision coverage
-    \item $\ldots$
+    \item Test Requirements
+    \item Test Coverage      
     \end{itemize}
-  \end{itemize}
-  Short version:
-  \begin{itemize}
-  \item  Complete coverage hard to define or impossible;
-  \item  So we have to find some approximation.
+  \item Code Coverage: Statement and Branch Coverage
+  \item Introduction to modelling code coverage with control flow
+    graphs.
+  \item Test Cases and Test Paths
   \end{itemize}
 \end{frame}
+\begin{frame}{The limitations of Testing}
 
+  \begin{itemize}
+  \item Can we test everything?
+  \item Can we test if our program is correct?
+  \end{itemize}
+To answer this question we would to know what we mean by everything,
+and what we mean by correctness.
+
+Correctness could mean that: 
+\begin{itemize}
+\item Our test cases show that the program always meets it
+  requirements.
+\end{itemize}
+Formalising all this, even for finite automata, is quite difficult and
+out of scope of this course.
+
+Luckily there is a general theorem that tells you that all attempts
+for non-trivial systems are doomed to failure.
+
+\end{frame}
 \begin{frame}[fragile]{Turing's halting problem}
 Does this program halt?
 \begin{lstlisting}
@@ -176,6 +184,45 @@ Proof strategy is often referred to as a diagonal argument.
     \end{itemize}
   \end{itemize}
 \end{frame}
+\begin{frame}{Approaches to testing}
+  \begin{itemize}
+  \item {\bf Black Box Testing}: Test without looking at the code/hardware
+  \item {\bf White Box Testing} (clear box testing):  Test the internal
+    structure of the software
+  \end{itemize}
+  There is also grey\footnote{This is the British English spelling.} box testing where you look find test cases that cover the
+  specification and cover some aspect of the code.  It is a grey area.  
+\end{frame}
+\begin{frame}{It is all about coverage}
+  \begin{itemize}
+  \item Black box testing: test by covering the specification
+  \item White box testing: test by covering the source code
+    \begin{itemize}
+    \item Execution paths
+    \item Statements
+    \item Decision coverage
+    \item $\ldots$
+    \end{itemize}
+  \end{itemize}
+  Short version:
+  \begin{itemize}
+  \item  Complete coverage hard to define or impossible;
+  \item  So we have to find some approximation.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Black Box Testing}
+  Two approaches:
+  \begin{itemize}
+  \item Look at the specification and derive test cases. If the
+    specification is to count the number of spaces in a string,
+    then you would generate test cases based on the specification:
+    Strings with no spaces, strings with one space, strings with many
+    spaces, $\ldots$
+  \item Look at the interface. Empty strings, very long strings
+    $\ldots$.
+      \end{itemize}
+  \end{frame}
 \begin{frame}{White Box testing}
 Coverage criteria include:
   \begin{itemize}
@@ -190,6 +237,48 @@ Coverage criteria include:
   \end{itemize}
 \end{frame}
 
+\begin{frame}{Tests --- Requirements, Specifications and Test Cases}
+  \begin{itemize}
+  \item   When thinking about generating test cases it is useful to think
+  about what we want tests to do. Randomly generating test cases is
+  not always the best strategy.
+
+\item   So we distinguish between: Test Requirements, test specifications
+  and test cases.
+
+\item   Noticing the differences means that you often notice different
+  testing strategies are actually quite similar.
+  \end{itemize}  
+\end{frame}
+\begin{frame}{Test Requirements}
+  \begin{quote}
+    A {\em Test Requirements} A test requirement is a specific element
+    of a software artifact that a test case must satisfy or cover. 
+  \end{quote}
+``Specific element of a software artifact'' is rather abstract, but it
+means rather concrete things like ``all statements'', ``all true
+branches''.
+\end{frame}
+\begin{frame}{Test Coverage}
+  Coverage is a recipe for generating test cases.  The definition from
+  the book :-
+  \begin{quote}
+    A {\em coverage criterion} is a rule or collection of rules that
+    impose test requirements on a test set.
+  \end{quote}
+
+  $100\%$ is in general impossible.
+  
+\end{frame}
+
+\begin{frame}{Approaches to test case generation}
+  \begin{itemize}
+  \item Make a model of the software artifact (control flow graph, see
+    later) and define criteria in terms of properties of the model.
+  \item Use test requirements to measure how well your tests cases
+    satisfy your requirements.
+  \end{itemize}
+\end{frame}
 \begin{frame}[fragile]{Statement and Branch coverage}
 
 \begin{itemize}
@@ -230,7 +319,7 @@ Coverage criteria include:
 \end{itemize}
     
 \end{frame}
-%%%%You are here, be pragmatic, how much to talk about graphs.
+
 
  \begin{frame}{Control Flow Graphs}
 
@@ -241,6 +330,10 @@ can use them to reason about executions and test cases.
 \item Edges: Transfer of control.
 \item Basic Block: Sequence of statements with no transfer of control.
 \end{itemize}
+
+We can use control flow graphs to define test requirements and
+coverage criteria. They also provide an easier way to see the
+differences between different test requirements? 
 \end{frame}
 
 
