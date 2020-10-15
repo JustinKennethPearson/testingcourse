@@ -24,10 +24,16 @@ The purpose of this document is to make clear how you will be examined, and
 what is required of you in the course.  This course essentially consists of
 four components:
 \begin{enumerate}
-\item A series of lectures on aspects of software testing;
+\item A series of flipped lectures on aspects of software testing;
+    % \item A lab on test driven development (2019-11-20);
+  %%   Corona version
+
+\item An exercise that should be done in week 46; \todo{Discuss with
+    the lab assistants: My plan is to cancel the lab session and get
+    people to able to book zoom sessions in week 46 if they need to
+    make contact.}
 \item Group work on test design;
-\item A lab on test driven development (2019-11-20);
-\item An exam (2020-01-16).
+\item An exam (2021-01-07).
 \end{enumerate}
 The exam is graded U,3,4,5. The group work and the project is pass or fail.
 
@@ -39,25 +45,31 @@ study testing. When we examine you, and when you produce tests, we
 expect you to be able to explain the reasons behind your tests.
 
 
-\section{Deliverables and requirements  2019}
+\section{Deliverables and requirements  2020}
 
 
 
 \begin{enumerate}
-\item A lab on  test driven development (TDD) for  BibTex.   This is
-  done in groups of 2 or 3. It will be marked at the lab. There is no
-  hand-in. 
-
-%In 2019 there are 102 registered, so groups of 5. 
+%Precorona
+%\item An lab on  test driven development (TDD) for  BibTex.   This is
+%  done in groups of 2 or 3. It will be marked at the lab. There is no
+%  hand-in. 
+%  Post covid
+  \item An exercise on  test driven development (TDD) for  author name
+    parsing in BibTex. This is to be done individually.
+    
+    % In 2019 there are 102 registered, so groups of 5.
+ \todo{Currently Oct 15, there are 68 registered, we except this to go
+   up to 100ish. So group of 5. 25 groups, 12.5ish groups for each assistant.}
 \item Project work on test case design for some Python library. This
-  is done in groups of 6.
+  is done in groups of 5.
 \item An exam.
 
   \end{enumerate}
-
-  Information on the lab can be found either linked from the student
-  portal or via
-  \url{http://user.it.uu.se/~justin/Teaching/Testing/index.html}. Information
+%exercise -> lab if you have a lab
+  Information on the exercise can be found either linked from the
+  student portal or via
+  \url{http://user.it.uu.se/~justin/http://user.it.uu.se/~justin/Hugo/courses/softwaretesting/}. Information
   on the exam will come later. It is safe to say that if I mention a
   concept on the slides, then I might ask an exam question on it. It
   is also safe to say, that my slides do not contain all the
@@ -69,8 +81,8 @@ expect you to be able to explain the reasons behind your tests.
 The idea of the project is to pick some python library, and write some
 test cases for it. You will have to write both black-box and white-box
 tests and tests that provide coverage of selected parts of the
-code. The final deliverables will be a written report and a 10 minute
-presentation.
+code. The final deliverables is the written report.% and a 10 minute
+%presentation.
 
 
 Using your chosen library, your tasks are as follows:
@@ -93,29 +105,28 @@ Using your chosen library, your tasks are as follows:
 
 \subsubsection*{Schedule for the project}
   \begin{itemize}
-  \item By the end of  week 46 you must form a
-    group. This will be handled via the student portal.
-  \item In week 47 you will meet your assigned lab assistant; before
-    the meeting you should pick a python library (for example look at
-    the Python Standard Library or
+  \item By the end of  week 45 you must form a
+    group. This will be handled via the student portal\todo{Or Studium?}.
+  \item In week 46 you will meet your assigned lab assistant; before
+    the meeting you should pick a python library (see 
     \url{https://pypi.python.org/}). You must agree with your lab
     assistant that you can work on that library. We have to decide if
     the library is too trivial or too complicated. If you are having
     trouble finding a good library to test then you should try to meet
-    your lab assistant in \todo{correct week} week 46.
+    your lab assistant in correct week week 46.
   \item In week  48 you should have a brief meeting with your assigned lab
     assistant to discuss progress.
 
-  \item On 5/12 (week 49) there is a compulsory presentation, where
-    you are to present your library and present some of your test
-    cases and the reasoning behind them. Your presentation is of work
-    in progress.
-  \item In week 49, 50 or in the new year, you again meet with your
+%  \item On 5/12 (week 49) there is a compulsory presentation, where
+%    you are to present your library and present some of your test
+%    cases and the reasoning behind them. Your presentation is of work
+%    in progress.
+  \item In week 50 or in the new year, you again meet with your
     lab assistant to discuss your draft of your report. You must
     submit a draft of your report to your assistant before your
     meeting.
-    \item Jan 19,  2020 is  the deadline for the final
-      report. This should be submitted via the student portal.
+    \item Jan 15,  2021 is  the deadline for the final
+      report. This should be submitted via \todo{Studium or the student portal}.
 
 \end{itemize}
 
@@ -148,8 +159,42 @@ Using your chosen library, your tasks are as follows:
  
 \end{itemize}
 
+\subsection*{Unsuitable Python libraries}
+This is not an exhaustive list of libraries, just some libraries that
+have not worked well in the past.
+\begin{itemize}
+\item numpy \url{https://pypi.org/project/numpy/}: This has been a
+  tempting library for many students in the past, but it is hard to
+  come up with good test cases, especially when you are trying to do
+  path coverage.
+\item Almost anything from the python standard library, especially
+  implementations of basic data types.
+\item \todo{NetWorkX   } Never worked well in the past.
+\end{itemize}
 
 \end{document}
+
+\subsection*{Ideas for libraries}
+This is not a prescriptive list, but if you are looking for
+inspiration some of these libraries have worked quite well in the
+past, or they are libraries that we suggest you look at.
+
+\begin{itemize}
+\item beautifulsoup \url{https://pypi.org/project/beautifulsoup4/}
+  is a web scraping library. This is interesting, because you have to
+  work out how to generate and send test cases to the library.
+\item PyGreen \url{https://pypi.org/project/pygreen/} PyGreen is a
+  static site generator. Any static site generator or a tool to
+  convert markdown to some over format. 
+\item \todo{Panda?} I'm not sure that this is so good.
+\item diplomacy \url{https://pypi.org/project/diplomacy/} is an
+  implementation of the board game Diplomacy. Any similar project will
+  be interesting especially if you try to come up with black-box test
+  cases that cover the game requirements.
+\item \todo{More ideas from the assistants}
+  
+\end{itemize}
+
 
 %%% Local Variables:
 %%% mode: latex
