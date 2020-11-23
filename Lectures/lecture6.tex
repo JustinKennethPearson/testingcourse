@@ -24,6 +24,12 @@
 \newcommand\hcancel[2][red]{\setbox0=\hbox{$#2$}%
 \rlap{\raisebox{.45\ht0}{\textcolor{#1}{\rule{\wd0}{1pt}}}}#2} 
 
+\newcommand{\pauseslide}{\begin{frame}{}
+  \begin{center}
+    Recording Pause
+  \end{center}
+  
+\end{frame}}
 \begin{document}
 \lstset{language=C}
 
@@ -136,6 +142,9 @@
   \end{itemize}
 It is up to the tester to work out what it means to be equally useful.
 \end{frame}
+
+\pauseslide
+
 \begin{frame}{Partition design and test design}
   \begin{itemize}
   \item There is no mathematical theorem that says that values in an
@@ -274,6 +283,9 @@ but it is often too complex.
   \end{itemize}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\pauseslide
+
 \begin{frame}{Modelling the input domain: Five stage plan}
 
   \begin{itemize}
@@ -323,6 +335,8 @@ but it is often too complex.
   \end{itemize}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%
+\pauseslide
+%%%%%%%%%
 \begin{frame}{Two Approaches to Input Domain Modelling}
   \begin{enumerate}
   \item {\bf Interface-based} approach.
@@ -420,6 +434,10 @@ but it is often too complex.
   Some programming languages such as Java have special values such as
   {\tt null}. Use these in your partitions. 
 \end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pauseslide
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+
 \begin{frame}[fragile]{TriType example}
 As shown in the book.
   \begin{lstlisting}
@@ -490,6 +508,9 @@ It is quite hard to get it right.
 Example values $(4,5,6) \in b_1$,  $(3,3,4) \in b_2$, $(3,3,3) \in
 b_3$, $(3,4,8) \in b_4$.
 \end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pauseslide
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Choosing Combinations of Values}
   
   \begin{itemize}
@@ -576,7 +597,9 @@ b_3$, $(3,4,8) \in b_4$.
   \item Even if are just looking at the data types and do things like
     ``NULL'', ``Empty'', $\ldots$ you are using partitions.
   \item Designing good partitions can be a good way of generating good
-    quality test cases. 
+    quality test cases.
+    \item Provides the foundation for techniques such as boundary
+      value testing\footnote{\tiny{\url{https://www.guru99.com/equivalence-partitioning-boundary-value-analysis.html}}}
   \end{itemize}
 
 \end{frame}
