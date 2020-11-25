@@ -595,10 +595,11 @@ simple paths that can be extended. You will be left with the prime paths.
   \item $[1,2,3]$, $[2,3,4]$, $[2,3,7]!$, $[3,4,5]$, $[3,4,6]$,
     $[4,5,6]$, $[4,6,3]$, $[4,6,3]$, $[5,6,3]$, $[5,6,3]$, $[6,3,4]$
   \item $[1,2,3,4]$, $[1,2,3,7]!$, $[2,3,4,5]$, $[2,3,4,6]$,
-    $[3,4,5,6]$, $[3,4,6,3]$, $[3,4,6,3]$ , $[4,5,6,3]$ ,$[6,3,4,5]$,
-    $[4,5,6,3]$, $[4,6,3,4]$, $[5,6,3,4]$
+    $[3,4,5,6]$, $[3,4,6,3]$, $[4,5,6,3]$ , $[4,6,3,4]$ ,
+    $[4,6,3,7]!$, $[5,6,3,7]$,  $[5,6,3,4]$ ,  $[6,3,4,5]$,
+    $[6,3,4,6]$
   \item $[1,2,3,4,5]$, $[1,2,3,4,6]$, $[2,3,4,5,6]$,$[2,3,4,6,3]$,
-    $[3,4,5,6,3]$ , $[3,4,5,6,3]$,
+    $[3,4,5,6,3]$ , $[4, 5, 6, 3, 4]$, $[5, 6, 3, 4, 5]$ , $[6, 3, 4, 5, 6]$, 
   \item $[1,2,3,4,5,6]$.
   \end{itemize}
 \end{column}
@@ -629,23 +630,41 @@ simple paths that can be extended. You will be left with the prime paths.
 \end{column}
 \begin{column}{0.65\textwidth}
   \begin{itemize}
-  \item $\hcancel{[1]}$, $\hcancel{[2]}$, $\hcancel{[3]}$,$\hcancel{[4]}$,$\hcancel{[5]}$,$\hcancel{[6]}$,$\hcancel{[7]!}$
+ %\item $\hcancel{[1]}$, $\hcancel{[2]}$, $\hcancel{[3]}$,$\hcancel{[4]}$,$\hcancel{[5]}$,$\hcancel{[6]}$,$\hcancel{[7]!}$
+ %\item $\hcancel{[1,2]}$,$\hcancel{[2,3]}$,$\hcancel{[3,4]}$,$\hcancel{[3,7]}$, $\hcancel{[4,5]}$,$\hcancel{[4,6]}$,$\hcancel{[5,6]}$,
+ %  $\hcancel{[6,3]}$,$\hcancel{[6,3]}$
+ %\item $\hcancel{[1,2,3]}$, $\hcancel{[2,3,4]}$, $\hcancel{[2,3,7]!}$, $\hcancel{[3,4,5]}$, $\hcancel{[3,4,6]}$,
+ %  $\hcancel{[4,5,6]}$, $\hcancel{[4,6,3]}$, $\hcancel{[4,6,3]}$, $\hcancel{[5,6,3]}$, $\hcancel{[5,6,3]}$, $\hcancel{[6,3,4]}$
+ %item $\hcancel{[1,2,3,4]}$, $[1,2,3,7]!$, $\hcancel{[2,3,4,5]}$, $\hcancel{[2,3,4,6]}$,
+ %  $\hcancel{[3,4,5,6]}$,  $[3,4,6,3]$ , $\hcancel{[4,5,6,3]}$ ,$[6,3,4,5]$,
+ %$[4,6,3,4]$, $[5,6,3,4]$
+ %\item $\hcancel{[1,2,3,4,5]}$, $\hcancel{[1,2,3,4,6]}$,
+ %  $\hcancel{[2,3,4,5,6]}$, $[3,4,5,6,3]$, 
+ %\item $[1,2,3,4,5,6]$.
+  \item $\hcancel{[1]}$, $\hcancel{[2]}$, $\hcancel{[3]}$,
+    $\hcancel{[4]}$,$\hcancel{[5]}$,$\hcancel{[6]}$,$\hcancel{[7]!}$
   \item $\hcancel{[1,2]}$,$\hcancel{[2,3]}$,$\hcancel{[3,4]}$,$\hcancel{[3,7]}$, $\hcancel{[4,5]}$,$\hcancel{[4,6]}$,$\hcancel{[5,6]}$,
     $\hcancel{[6,3]}$,$\hcancel{[6,3]}$
   \item $\hcancel{[1,2,3]}$, $\hcancel{[2,3,4]}$, $\hcancel{[2,3,7]!}$, $\hcancel{[3,4,5]}$, $\hcancel{[3,4,6]}$,
     $\hcancel{[4,5,6]}$, $\hcancel{[4,6,3]}$, $\hcancel{[4,6,3]}$, $\hcancel{[5,6,3]}$, $\hcancel{[5,6,3]}$, $\hcancel{[6,3,4]}$
- \item $\hcancel{[1,2,3,4]}$, $[1,2,3,7]!$, $\hcancel{[2,3,4,5]}$, $\hcancel{[2,3,4,6]}$,
-    $\hcancel{[3,4,5,6]}$,  $[3,4,6,3]$ , $\hcancel{[4,5,6,3]}$ ,$[6,3,4,5]$,
-  $[4,6,3,4]$, $[5,6,3,4]$
-  \item $\hcancel{[1,2,3,4,5]}$, $\hcancel{[1,2,3,4,6]}$,
-    $\hcancel{[2,3,4,5,6]}$, $[3,4,5,6,3]$, 
+  \item $\hcancel{[1,2,3,4]}$, $[1,2,3,7]!$, $\hcancel{[2,3,4,5]}$,
+    $\hcancel{[2,3,4,6]}$, $\hcancel{[3,4,5,6]}$,
+    $\hcancel{[3,4,6,3]}$, $\hcancel{[4,5,6,3]}$ , $[4,6,3,4]$ ,
+    $[4,6,3,7]!$, $[5,6,3,7]$, $[5,6,3,4]$ ,
+    $[6,3,4,5]$,
+    $[6,3,4,6]$
+  \item $\hcancel{[1,2,3,4,5]}$, $[1,2,3,4,6]$,
+    $\hcancel{[2,3,4,5,6]}$,
+    $[2,3,4,6,3]$,
+    $[3,4,5,6,3]$ , $[4, 5, 6, 3, 4]$, $[5, 6, 3, 4, 5]$ , $[6, 3, 4, 5, 6]$, 
   \item $[1,2,3,4,5,6]$.
-  \end{itemize}
+ \end{itemize}
+ %
 \end{column}
 \end{columns}
 \end{frame}
 
-\begin{frame}{Prime Paths}
+\begin{frame}{Prime Paths to Test Paths}
 \begin{columns}
  \begin{column}{0.35\textwidth}
  \tikzstyle{cfgnode}=[circle,fill=gray!30]
@@ -669,6 +688,7 @@ simple paths that can be extended. You will be left with the prime paths.
 \end{tikzpicture}
 \end{column}
 \begin{column}{0.7\textwidth}
+  Some prime paths (not all):
   \begin{itemize}
   \item $[1,2,3,7]! \rightarrow  [1,2,3,7]$
     \begin{itemize}
