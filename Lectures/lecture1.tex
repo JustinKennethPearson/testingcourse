@@ -5,7 +5,7 @@
 \usepackage{listings}
 \title{Software Testing  Lecture 1}
 \author{Justin Pearson}
-\date{2020}
+\date{2021}
 \setbeamertemplate{footline}[page number]
 \setbeamertemplate{navigation symbols}{}
 \newcommand{\recordingpause}{
@@ -420,7 +420,8 @@ so it is testable.
   \end{itemize}
 \end{frame}
 
-\begin{frame}{The RIP model}
+
+\begin{frame}{The RIP Model}
  Reachability,  Infection and Propagation.
   \begin{itemize}
   \item Reachability: The test causes the faulty statement to be
@@ -430,6 +431,10 @@ so it is testable.
   \item Propagation: The incorrect state propagates to incorrect output.
     \end{itemize}
   \end{frame}
+  \begin{frame}{State}
+    \todo{TODO - Talk about the program state.}
+    
+  \end{frame}
   \begin{frame}{Analogy with disease}
     \begin{itemize}
     \item The symptom is only an indication of what is wrong with you.
@@ -438,8 +443,74 @@ so it is testable.
     \end{itemize}    
   \end{frame}
 
+  \begin{frame}[fragile]{The RIP Model --- Example}
+  \begin{lstlisting}[numbers=left]
+  int count_spaces(char* str) {
+   int length, i,count;
+   count = 0;
+   length = strlen(str);
+   for(i=1; i<length; i++)  { 
+     if(str[i] == ' ') { count++; }
+   }
+   return(count);
+  }
+\end{lstlisting}
+We need to {\em reach} the fault one line 5, that is easy in this case,
+because this will always happen regardless of the input string.  
+\end{frame}
 
+\begin{frame}[fragile]{The RIP Model --- Example}
+  \begin{lstlisting}[numbers=left]
+  int count_spaces(char* str) {
+   int length, i,count;
+   count = 0;
+   length = strlen(str);
+   for(i=1; i<length; i++)  { 
+     if(str[i] == ' ') { count++; }
+   }
+   return(count);
+  }
+\end{lstlisting}
+How do we {\em infect} the program? How do we get in to an incorrect state?
 
+In this case, the final  value of {\tt count} should not actually be
+the length of the string. So the input string should be a string that
+starts with a space character. 
+\end{frame}
+
+\begin{frame}[fragile]{The RIP Model --- Example}
+  \begin{lstlisting}[numbers=left]
+  int count_spaces(char* str) {
+   int length, i,count;
+   count = 0;
+   length = strlen(str);
+   for(i=1; i<length; i++)  { 
+     if(str[i] == ' ') { count++; }
+   }
+   return(count);
+  }
+\end{lstlisting}
+Propagation again is easy, because it always returns the value of {\tt count}.
+\end{frame}
+
+\begin{frame}{The RIP Model}
+  In the example reachability and propagation were easy. This is not
+  always the case.
+
+ All you can do if give inputs to a function and look at
+ outputs. Testing is different from debugging, you do not have the
+ ability to observe and change the program state.
+
+ This means that you have to think about what input values will get
+ you to the fault in the program.
+
+ Another time when you need to think about reachability is when you
+ correct some failure (fix a bug), you want a test case that
+ reproduces the failure that you fixed. So studying the changes you
+ made and trying to come up with test cases involves thinking about
+ the RIP model. 
+  
+\end{frame}
 
 %\begin{frame}
 %  \frametitle{More Testing Concepts}
