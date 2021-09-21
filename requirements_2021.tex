@@ -1,0 +1,202 @@
+\documentclass[a4paper]{article}
+\usepackage{palatino}
+\usepackage{fullpage}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}
+%%%%Draft watermark.
+%\usepackage{draftwatermark}
+%\SetWatermarkText{DRAFT}
+%\SetWatermarkScale{1}
+\newcommand{\todo}[1]{{\tt TODO:#1}}
+\title{Software Testing 2021}
+\author{Justin Pearson }
+
+
+
+ 
+\begin{document}
+\maketitle
+%adds more characters e.g. \/ for better line breaking     regarding links
+\def\UrlBreaks{\do\/\do-} 
+
+\section{Introduction}
+The purpose of this document is to make clear how you will be examined, and
+what is required of you in the course.  This course essentially consists of
+four components:
+\begin{enumerate}
+\item A series of flipped lectures on aspects of software testing;
+ \item A lab on test driven development (2019-11-20);
+  %%   Corona version
+\item Group work on test design;
+\item An exam 2021-01-04\footnote{This date is not binding, the
+    advertised date in Ladok is the binding date. If I have made a
+    mistake with the date please inform me.}. 
+\end{enumerate}
+The exam is graded U,3,4,5. The group work and the project is pass or fail.
+
+If you only learn one thing about testing during this course, then you
+will fail, but if you learn the following idea ``You should have a
+reason for each test. For each test you should be able to explain what
+you are trying to test for.'' then you will at least understand why we
+study testing. When we examine you, and when you produce tests, we
+expect you to be able to explain the reasons behind your tests.
+
+
+\section{Deliverables and requirements  2021}
+
+
+
+\begin{enumerate}
+\item An lab on  test driven development (TDD) for  BibTex.   This is
+  done in groups of 2 or 3. It will be marked at the lab. There is no
+  hand-in. 
+\item Project work on test case design for some Python library. This
+  is done in groups of 5 or 6.
+\item An exam.
+
+There is an {\em optional} pre-lab exercise that you can do if you are
+not so familiar with Python.  
+
+
+  
+  
+  \end{enumerate}
+  Information on the lab and the pre-lab exercise can be found either
+  linked from the Studium page or via
+  \url{http://user.it.uu.se/~justin/Hugo/courses/softwaretesting/}.
+
+\subsection*{Project Work}
+
+The idea of the project is to pick some python library, and write some
+test cases for it. You will have to write both black-box and white-box
+tests and tests that provide coverage of selected parts of the
+code. The final deliverable is the written report.% and a 10 minute
+%presentation.
+
+
+Using your chosen library, your tasks are as follows:
+\begin{list}{$\Rightarrow$}{} 
+    \item  Black box testing of the API. You are to produce test cases
+      that cover the API.
+    \item White box testing. In agreement with your lab assistant you
+      are to pick some areas of code in your library to
+      cover. Together with the python
+      library~\url{https://coverage.readthedocs.io/en/v4.5.x/} you are
+      to produce test cases that not only provide statement coverage
+      but some sort of path coverage.
+    \item For at least one function or method of the library you
+      should construct a control flow graph and apply the coverage
+      criteria (including prime paths)
+      that have been covered in the course to the code. 
+    \item You need to document and motivate your design of the test cases in
+      a written report. 
+\end{list}
+
+
+\subsubsection*{Schedule for the project}
+
+\item By the end of  week 45 you must form a
+    group. This will be handled via Studium.  If you are happy to be
+    assigned in a random group then email
+    \url{it-testing-course@lists.uu.se}. If you do not  join a group
+    or do not email me to be assigned a random group then I will
+    assume that you are not following the project. 
+  \item In week 46 you will meet with  your assigned lab assistant; before
+    the meeting you should pick a python library (see 
+    \url{https://pypi.python.org/}). You must agree with your lab
+    assistant that you can work on that library. We have to decide if
+    the library is too trivial or too complicated. If you are having
+    trouble finding a good library to test then you should discuss
+    with your lab assistant. 
+  \item In week  48 you should have a brief meeting with your assigned lab
+    assistant to discuss progress and show a draft report. 
+
+%  \item On 5/12 (week 49) there is a compulsory presentation, where
+%    you are to present your library and present some of your test
+%    cases and the reasoning behind them. Your presentation is of work
+%    in progress.
+  \item In week 50 or in the new year, you again meet with your
+    lab assistant to discuss your draft of your report. You must
+    submit a draft of your report to your assistant before your
+    meeting.
+    \item Jan 15,  2021 is  the deadline for the final
+      report. This should be submitted via Studium. 
+
+\end{itemize}
+
+
+
+  \subsubsection*{What should your report contain}
+  \begin{itemize}
+  \item Description of the python library with examples of use.  This
+    should be written (in English) for somebody who has not read the
+    documentation.
+  \item Outline of your testing strategy, describing which parts of the library 
+    you have performed black box and white box testing on.
+  \item A control flow graph for at least one function, with a description of 
+    how your tests for this function are related to the graph.
+  \item Documentation of all test cases.  When documenting your test cases
+    you have to document what your tests are designed to do. This can be done
+    in comments in your code, for each test case or group of test cases.
+  \end{itemize}
+\subsubsection*{Grading criteria for the project}
+\begin{itemize}
+\item Clarity of presentation. It is important that your document can
+  be read without reference to the documentation of the library. This
+  means that you will have to re-explain things already in the
+  documentation. 
+\item Quality of the test cases. What sort of coverage do they
+  provide? Do they test enough functionality? Have a range of different 
+  techniques been used?
+\item Documentation of the test cases. Have you clearly stated what you are
+  testing, and why, for each test or group of tests? 
+
+ 
+\end{itemize}
+
+\subsection*{Unsuitable Python libraries}
+This is not an exhaustive list of libraries, just some libraries that
+have not worked well in the past.
+\begin{itemize}
+\item numpy \url{https://pypi.org/project/numpy/}: This has been a
+  tempting library for many students in the past, but it is hard to
+  come up with good test cases, especially when you are trying to do
+  path coverage.
+\item Almost anything from the python standard library, especially
+  implementations of basic data types.
+\item The Python date and time library, is covered by the above item,
+  but it is very hard to come up with good test cases.
+  
+\end{itemize}
+
+
+
+\subsection*{Ideas for libraries}
+This is not a prescriptive list, but if you are looking for
+inspiration some of these libraries have worked quite well in the
+past, or they are libraries that we suggest you look at:
+
+\begin{itemize}
+\item beautifulsoup \url{https://pypi.org/project/beautifulsoup4/}
+  is a web scraping library. This is interesting, because you have to
+  work out how to generate and send test cases to the library.
+\item PyGreen \url{https://pypi.org/project/pygreen/} PyGreen is a
+  static site generator. Any static site generator or a tool to
+  convert markdown to some other format. 
+\item Panda \url{https://pandas.pydata.org/} is a data analysis tool
+  for Python.
+\item Diplomacy \url{https://pypi.org/project/diplomacy/} is an
+  implementation of the board game Diplomacy. Any similar project will
+  be interesting especially if you try to come up with black-box test
+  cases that cover the game requirements.
+\end{itemize}
+
+Remember that you must discuss the choice of the library with your lab
+assistant. The library should not be too simple, nor should be too
+complex. You are in Sweden so the library should be lagom.
+
+\end{document}
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
