@@ -1,5 +1,5 @@
-%\documentclass[handout]{beamer}
-\documentclass{beamer}
+\documentclass[handout]{beamer}
+%\documentclass{beamer}
 \usetheme{default}
 \usepackage{hyperref}
 \usepackage{listings}
@@ -8,14 +8,14 @@
 \date{2021}
 \setbeamertemplate{footline}[page number]
 \setbeamertemplate{navigation symbols}{}
-\newcommand{\recordingpause}{
-\begin{frame}{Recording Pause}
-  \begin{center}
-    Recording Pause
-  \end{center}
-\end{frame}
-}
-\renewcommand{\recordingpause}{}
+%\newcommand{\recordingpause}{
+%\begin{frame}{Recording Pause}
+%  \begin{center}
+%    Recording Pause
+ % \end{center}
+%\end{frame}
+%
+%\renewcommand{\recordingpause}{}
 \begin{document}
 \lstset{language=python}
 
@@ -168,7 +168,7 @@ instead of
   
 \end{frame}
 
-\recordingpause
+%\recordingpause
 
 \begin{frame}{Software Engineering and Testing}
 
@@ -220,7 +220,7 @@ This is true, but it is no reason to give up on testing. All software has
 bugs. Anything you do to reduce the number of bugs is a good thing.
 \end{frame}
 
-\recordingpause
+%\recordingpause
 
 %\begin{frame}
 %  \frametitle{Test Driven Development}
@@ -348,7 +348,7 @@ some planning.
   \end{itemize}
 \end{frame}
 
-\recordingpause
+%\recordingpause
 
 \begin{frame}
   \frametitle{Important Terminology and Concepts}
@@ -431,10 +431,22 @@ so it is testable.
   \item Propagation: The incorrect state propagates to incorrect output.
     \end{itemize}
   \end{frame}
-  \begin{frame}{State}
-    \todo{TODO - Talk about the program state.}
+\begin{frame}{State}
+    What is the state of a program? 
+
+ \begin{itemize}
+   \item  For a deterministic single threaded program it is the values
+     of all variables, the program counter (where you are in the
+     program), and possibly the contents of files on external
+     storage.
+   \item For multi-threaded, concurrent programs it is much more
+     complicated, and we will only deal with deterministic single
+     threaded programs.
+   \item It can get even more complicated: for example, what about the
+     state of the cache to take into account timing effects.
+ \end{itemize}
     
-  \end{frame}
+\end{frame}
   \begin{frame}{Analogy with disease}
     \begin{itemize}
     \item The symptom is only an indication of what is wrong with you.
