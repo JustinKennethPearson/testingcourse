@@ -26,7 +26,7 @@ look at the Python tutorial at \url{http://docs.python.org/tutorial/}
 or at the extensive documentation at \url{http://docs.python.org/}. If
 you have had some experience with Python, then this exercise should be very
 easy. Hopefully if you have had no experience with Python, then this
-exercise will help to get you started for the next lab.
+exercise will help to get you started for the  lab.
 \section*{Note on Python versions}
 This code should work with Python 3
 
@@ -75,11 +75,12 @@ assert that the code also returns 0 using the {\tt self.assertEqual} function
 in {\tt testcode.py}
   
 \section{Task}
-Python, like C++ and Java, uses {\tt ==} for comparison. So for example {1 ==
-  2} is {\tt False} while {1 == 1} is {\tt True}. Rewrite the above test to
-use {\tt self.assertTrue}. Note that you need a version of Python greater than
-or equal to 2.4 to use {\tt assertTrue}. As mentioned, on the department Unix
-terminals you can use the command line:
+Python, like C++ and Java, uses {\tt ==} for comparison. So for
+example {1 == 2} is {\tt False} while {1 == 1} is {\tt True}. Rewrite
+the above test to use {\tt self.assertTrue}. Note that you need a
+version of Python greater than or equal to 2.4 to use {\tt
+  assertTrue}. As mentioned above, on the department Unix terminals
+you can use the command line:
 \begin{verbatim}
 hamberg> python3 testcode.py
 \end{verbatim}
@@ -109,11 +110,12 @@ class TestCode(unittest.TestCase):
 if __name__ == '__main__':
     unittest.main()
 
-  \end{lstlisting} and run them as usual with {\tt python3 testcode.py}. Note that each test
-  function starts with {\tt test}. Note again that indentation is
-  important. From now on only the new test functions will be given. It is up
-  to you to add them to {\tt testcode.py} and make sure that you have the
-  correct indentation.
+  \end{lstlisting} and run them as usual with {\tt python3
+    testcode.py}. Note that each test function starts with {\tt
+    test}. Note again that indentation is important. From now on only
+  the new test functions will be given. It is up to you to add them to
+  {\tt testcode.py} and make sure that you have the correct
+  indentation.
 
 \section{Task}
 Now write a new function {\tt triple} in {\tt code.py} and write a
