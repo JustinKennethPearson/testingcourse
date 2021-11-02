@@ -8,7 +8,7 @@
 \usepackage{color}
 \title{Software Testing Lecture 2 \\ Introduction to Unit Testing and TDD}
 \author{Justin Pearson}
-\date{2019}
+\date{2021}
 \setbeamertemplate{footline}[page number]
 \setbeamertemplate{navigation symbols}{}
 \begin{document}
@@ -69,12 +69,12 @@ Then we would assert that the following things are true:
   \item Key idea in xUnit:
   \item {\tt assertTrue}( executable code )
     \begin{itemize}
-    \item  Runs the executable code which should evaluate to true.
+    \item  Runs the executable code that should evaluate to true.
     \end{itemize}
   \item {\tt assertFalse}( executable code)
 
     \begin{itemize}
-  \item Runs the executable code which should evaluate to false. 
+  \item Runs the executable code that should evaluate to false. 
 \end{itemize}
     \end{itemize}
 \end{frame}
@@ -159,7 +159,6 @@ algorithm, not the tests. Can I write complex algorithms this way?
   \begin{itemize}
   \item Converting numbers to English.
   \item A score board for the game of darts.
-%  \item Part of  parser for bibtex entries.
   \end{itemize}
 \end{frame}
 \begin{frame}
@@ -182,8 +181,8 @@ algorithm, not the tests. Can I write complex algorithms this way?
   \begin{itemize}
   \item  The idea is to write a function that given a number between 0 and 999
 inclusive returns a string spelling out the number in English. For
-example {\tt toEnglish(43)} should produce the string {\tt 'forty
-  three'}. 
+example {\tt toEnglish(42)} should produce the string {\tt 'forty
+  two'}. 
 \item We are going to develop the function in Python. If you are
 not familiar with Python, then  pretend it is pseudo code.
 \item See the web page for accompanying pdf file that explains how to
@@ -292,7 +291,9 @@ You can guess what the code looks like.
         return('four')
     elif n==5:
      ....... 
-\end{lstlisting}
+   \end{lstlisting}
+Note that Python 3.10 has {\tt case} statements so you can write the
+code in a more readable way now.   
 \end{frame}
 \begin{frame}[fragile]
 \frametitle{Refactor}
