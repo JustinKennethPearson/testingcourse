@@ -8,7 +8,7 @@
 \usepackage{listings}
 \title{Software Testing  Lecture 6 \\ Input Domain Modelling}
 \author{Justin Pearson}
-\date{2020}
+\date{2021}
 
 
 %Lecture 4 stuff
@@ -23,13 +23,15 @@
 %http://tex.stackexchange.com/questions/20609/strikeout-in-math-mode 
 \newcommand\hcancel[2][red]{\setbox0=\hbox{$#2$}%
 \rlap{\raisebox{.45\ht0}{\textcolor{#1}{\rule{\wd0}{1pt}}}}#2} 
-
-\newcommand{\pauseslide}{\begin{frame}{}
-  \begin{center}
-    Recording Pause
-  \end{center}
-  
-\end{frame}}
+%
+%\newcommand{\pauseslide}{\begin{frame}{}
+%  \begin{center}
+%    Recording Pause
+%  \end{center}
+%  
+%\end{frame}}
+%
+\newcommand{\pauseslide}{} 
 \begin{document}
 \lstset{language=C}
 
@@ -245,7 +247,7 @@ but it is often too complex.
   \begin{itemize}
   \item   It is important to double check that you do have a
     partition.
-    \item If you  do not have a partition then you have not though
+    \item If you  do not have a partition then you have not thought
       carefully enough about your test case design.
   \end{itemize}
 
@@ -266,11 +268,15 @@ but it is often too complex.
       \end{itemize}
     \item File is sorted descending:
       \begin{itemize}
-      \item $b_1 = \ $ true
-      \item $b_2 = \ $ false.
+      \item $b'_1 = \ $ true
+      \item $b'_2 = \ $ false.
       \end{itemize}
     \end{itemize}
-    \item Here the combination  is easy. 
+  \item Here the combination  is easy.
+You generate test cases for the 4 possible cases $b_1,b'_1$
+$b_1,b'_2$, $b_2,b'_1$, $b_2,b_2'$.
+Remember that you need only one test case from each block.
+
   \end{itemize} 
 \end{frame}
 \begin{frame}{Properties of Partitions}
@@ -301,7 +307,7 @@ but it is often too complex.
     \item Not rocket science. But be complete.
     \item Don't forget global variables.
     \item Don't forget the objects have states. Doing things to an
-      empty list is different to doing things to a non-empty list.
+      empty queue is different to doing things to a non-empty queue.
     \item Files, databases etc.
     \end{itemize}
   \end{itemize}
@@ -372,7 +378,7 @@ but it is often too complex.
     \item Characteristics:
       \begin{itemize}
        \item {\tt list} is null ($b_1$ = true, $b_2$ = false)
-       \item {\tt list} is empty ($b_1$ = true, $b_2$ = false)
+       \item {\tt list} is empty ($b'_1$ = true, $b'_2$ = false)
        \end{itemize}
     \end{itemize}
 \end{itemize}
@@ -439,7 +445,7 @@ but it is often too complex.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 
 \begin{frame}[fragile]{TriType example}
-As shown in the book.
+The full example is in the book.
   \begin{lstlisting}
   int Tritype(double i, double j, double k)
   \end{lstlisting}
@@ -511,7 +517,7 @@ b_3$, $(3,4,8) \in b_4$.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \pauseslide
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Choosing Combinations of Values}
+\begin{frame}{Choosing Combinations of Values from Blocks}
   
   \begin{itemize}
   \item We play the usual game.
@@ -533,7 +539,8 @@ b_3$, $(3,4,8) \in b_4$.
     \item {\em Each Choice (EC)}: Each value from each block, for each
       characteristic, must be used in at least one test case.
     \end{itemize}
-  \item Yields few tests and is cheap, but maybe does not provide such good coverage.
+  \item Yields few tests and is cheap, but maybe does not provide such
+    good coverage.
   \end{itemize}
 \end{frame}
 \begin{frame}{Pair-Wise}
